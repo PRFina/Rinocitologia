@@ -50,6 +50,8 @@ public class HomeController implements Initializable {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
         }
         HomeController controller = Loader.getController();
+        controller.setPatient(patient);
+
 
         //Inizio Carica View
         Parent p = Loader.getRoot();
@@ -125,12 +127,15 @@ public class HomeController implements Initializable {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnagraficaController controller = Loader.getController();
-        patient.setFirstName("Pinco");
         controller.setPatient(patient);
+
 
 
         //Inizio Carica View
         Parent p = Loader.getRoot();
+        if (patient.getFirstName() != "Anonimo"){
+            controller.setFields();
+        }
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(p));
         stage.show();

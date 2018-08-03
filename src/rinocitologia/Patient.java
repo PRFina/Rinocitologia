@@ -1,4 +1,6 @@
 package rinocitologia;
+import utility.CodiceFiscale;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,6 +22,7 @@ public class Patient {
 	private String surname; //??????
 	private Map<String, Cell> dictionary;
 	private String path;
+	private CodiceFiscale cf;
 
 	
 
@@ -86,6 +89,10 @@ public class Patient {
 
 	public String getPath() { return path;	}
 
+	public void setCf(CodiceFiscale cf) {this.cf = cf;}
+
+	public CodiceFiscale getCf() {return cf;}
+
 	/**
 	 * Put an element in the HashMap (dictionary).
 	 * Since there could be some missunderstanding in the format of the name, it will be lower cased and then capitalized just the first letter.
@@ -122,7 +129,7 @@ public class Patient {
 		for (Map.Entry<String, Cell> entry : dictionary.entrySet()) {
 			cells.append("Name: " + entry.getKey() + " - Count: " + entry.getValue().getcellCount() + " - Grade: " + entry.getValue().getgrade() + ";\n");
 		}
-		return name + cells.toString();
+		return name + cells.toString() + cf.toString();
 	}
 
 

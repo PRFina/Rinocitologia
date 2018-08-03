@@ -2,6 +2,7 @@ package views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,21 +13,69 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.Patient;
-import utility.Utility;
+import utility.*;
 
 public class AnagraficaController implements Initializable {
 
     private Patient patient;
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {}
+    public void initialize(URL url, ResourceBundle rb) {
+        cfTxt.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+        }));
+    }
+
+    public void setFields(){
+        if (patient.getFirstName() != "Anonimo"){
+            nameTxt.setText(patient.getFirstName());
+            surnameTxt.setText(patient.getSurname());
+            if(patient.getCf()!= null)
+                cfTxt.setText(patient.getCf().getCF());
+        }
+    }
 
     public void setPatient(Patient patient) {this.patient = patient;}
 
+    public Patient getPatient() {return patient;}
+
+    @FXML
+    TextField nameTxt, surnameTxt, cfTxt;
+
+
+    @FXML
+    private void insertData(ActionEvent event){
+        if(cfTxt.getText().equals("") && cfTxt.getText().length() != 16){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Codice Fiscale errato.");
+            alert.setContentText("Il codice fiscale è fondamentale qualora il paziente non voglia rimanere anonimo.\nAssicurati di averlo inserito o di averlo inserito correttamente. \nIl codice fiscale deve essere lungo 16 caratteri.");
+
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Conferma");
+            alert.setHeaderText("Conferma cambiamento dati paziente");
+            alert.setContentText("Vuoi procedere?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                System.out.println(nameTxt.getText() + " " + surnameTxt.getText() + " " + cfTxt.getText());
+                CodiceFiscale cf = new CodiceFiscale(cfTxt.getText());
+                patient.setCf(cf);
+                System.out.println(patient.toString());
+            }
+        }
+    }
 
     /*
      *
@@ -44,6 +93,8 @@ public class AnagraficaController implements Initializable {
             Logger.getLogger(AnagraficaController.class.getName()).log(Level.SEVERE,null, ex);
         }
         HomeController controller = Loader.getController();
+        controller.setPatient(patient);
+
 
         //Inizio Carica View
         Parent p = Loader.getRoot();
@@ -121,8 +172,12 @@ public class AnagraficaController implements Initializable {
         AnagraficaController controller = Loader.getController();
         controller.setPatient(patient);
 
+
         //Inizio Carica View
         Parent p = Loader.getRoot();
+        if (patient.getFirstName() != "Anonimo"){
+            controller.setFields();
+        }
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(p));
         stage.show();
