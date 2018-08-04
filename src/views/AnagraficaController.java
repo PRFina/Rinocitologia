@@ -75,6 +75,10 @@ public class AnagraficaController implements Initializable {
                 if (result.get() == ButtonType.OK) {
                     System.out.println(nameTxt.getText() + " " + surnameTxt.getText() + " " + cfTxt.getText());
                     CodiceFiscale cf = new CodiceFiscale(cfTxt.getText());
+                    if (nameTxt.getText() != null)
+                        patient.setFirstName(nameTxt.getText());
+                    if (surnameTxt.getText() != null)
+                        patient.setSurname(surnameTxt.getText());
                     patient.setCf(cf);
                     System.out.println(patient.toString());
                     patient.rename();
