@@ -1,6 +1,8 @@
 package views;
 import javafx.application.Platform;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,11 +14,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.Patient;
 import utility.Utility;
+
+import javax.swing.*;
 
 public class HomeController implements Initializable {
 
@@ -34,7 +41,65 @@ public class HomeController implements Initializable {
 
     public void print(){System.out.println(patient.toString());}
 
+    @FXML
+    private Label pathLbl;
+
+    private Desktop desktop = Desktop.getDesktop();
+
+    final FileChooser fileChooser = new FileChooser();
+
     /*
+
+    //FILE CHOOSER -> Selezioni solo file singoli
+    //https://docs.oracle.com/javafx/2/ui_controls/file-chooser.htm
+
+
+    @FXML
+    private void search(ActionEvent event){
+        Stage stage = new Stage();
+        configureFileChooser(fileChooser);
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            openFile(file);
+        }
+    }
+
+    private void openFile(File file) {
+        try {
+            desktop.open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(
+                    HomeController.class.getName()).log(
+                    Level.SEVERE, null, ex
+            );
+        }
+    }
+
+    private static void configureFileChooser(final FileChooser fileChooser) {
+        fileChooser.setTitle("View Pictures");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+    }
+
+    */
+
+    @FXML
+    private void search(ActionEvent event) {
+        Stage stage = new Stage();
+        stage.setTitle("Seleziona cartella");
+        final DirectoryChooser directoryChooser =
+                new DirectoryChooser();
+        final File selectedDirectory =
+                directoryChooser.showDialog(stage);
+        if (selectedDirectory != null) {
+            selectedDirectory.getAbsolutePath();
+            pathLbl.setText(selectedDirectory.getAbsolutePath());
+        }
+
+    }
+
+        /*
      *
      * START SIDEBAR COMMANDS
      *

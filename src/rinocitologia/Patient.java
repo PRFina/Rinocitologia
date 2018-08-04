@@ -22,20 +22,21 @@ public class Patient {
 	private String surname; //??????
 	private Map<String, Cell> dictionary;
 	private String path;
+	private String pathData = System.getProperty("user.home") + File.separator + "data";
 	private CodiceFiscale cf;
 
 	
 
 	public Patient() {
 		dictionary = new HashMap<String, Cell>();
-		final File folderData = new File(System.getProperty("user.home"), "data");
+		final File folderData = new File(pathData);
 		if(!folderData.exists() && !folderData.mkdir()) {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}
 
 
-		final File folder = new File(System.getProperty("user.home") + File.separator + "data" , "Pinco_Pallino");
+		final File folder = new File(pathData , "Pinco_Pallino");
 		if(!folder.exists() && !folder.mkdir()) {
 			   //failed to create the folder, probably exit
 			   throw new RuntimeException("Failed to create save directory.");
@@ -44,17 +45,18 @@ public class Patient {
 		System.out.print(path);
 
 	}
-	
+
+
 	public Patient(String name, String surname) {
 		dictionary = new HashMap<String, Cell>();
 		this.firstName = name;
 		this.surname = surname;
-		final File folderData = new File(System.getProperty("user.home"), "data");
+		final File folderData = new File(pathData);
 		if(!folderData.exists() && !folderData.mkdir()) {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}
-		final File folder = new File(System.getProperty("user.home") + File.separator + "data" , name + "_" + surname);
+		final File folder = new File(pathData , name + "_" + surname);
 		if(!folder.exists() && !folder.mkdir()) {
 			   //failed to create the folder, probably exit
 			   throw new RuntimeException("Failed to create save directory.");
@@ -89,9 +91,31 @@ public class Patient {
 
 	public String getPath() { return path;	}
 
+	public void setPath(String path) { this.path = path; }
+
+	public String getPathData() { return pathData; }
+
+	public void setPathData(String folderPath) { this.pathData = folderPath; }
+
 	public void setCf(CodiceFiscale cf) {this.cf = cf;}
 
 	public CodiceFiscale getCf() {return cf;}
+
+
+	/**
+	 * Rename patient folder and saves path to path variable
+	 */
+	public void rename(){
+		final File folder = new File(path);
+		if(!folder.exists() && !folder.mkdir()) {
+			//failed to create the folder, probably exit
+			throw new RuntimeException("Failed to create save directory.");
+		}
+		File newDir = new File(pathData, cf.getCF());
+		folder.renameTo(newDir);
+		this.path = newDir.getAbsolutePath();
+		System.out.print(path);
+	}
 
 	/**
 	 * Put an element in the HashMap (dictionary).

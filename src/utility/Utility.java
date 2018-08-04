@@ -62,7 +62,8 @@ public class Utility {
 			dict.setSurname("Pallino");
 		}
 		
-		String usrPATH = PATH + File.separator + "data" + File.separator + dict.getFirstName() + "_" + dict.getSurname();
+		//String usrPATH = PATH + File.separator + "data" + File.separator + dict.getFirstName() + "_" + dict.getSurname();
+		String usrPATH = dict.getPath();
 		String inputsPATH =  usrPATH + File.separator + "inputs";
 		final File folderReports = new File(usrPATH , "reports");
 		if(!folderReports.exists() && !folderReports.mkdir()) {
@@ -143,8 +144,8 @@ public class Utility {
 	 */
 	public void writeJson() {
 		String json = gson.toJson(dict);	
-		String directoryPath = PATH + File.separator + "data" + File.separator + dict.getFirstName() + "_" + dict.getSurname() + File.separator + "reports";
-		String fullPath = directoryPath + File.separator + dict.getFirstName() + "_" + dict.getSurname() + ".json";
+		String directoryPath = dict.getPath() + File.separator + "reports";
+		String fullPath = directoryPath + File.separator + "report.json";
 		 try {
 			   FileWriter writer = new FileWriter(fullPath);
 			   writer.write(json);
@@ -165,7 +166,7 @@ public class Utility {
 	 * @return dictionary instance of the class Patient populated with the informations obtained from JSON file.
 	 */
 	public Patient readJson(String firstName, String surname) {
-		String directoryPath = PATH + File.separator + "data" + File.separator + firstName + "_" + surname + File.separator + "reports";
+		String directoryPath = dict.getPath() + File.separator + firstName + "_" + surname + File.separator + "reports";
 		String fullPath = directoryPath + File.separator + firstName + "_" + surname + ".json";
 		Patient patient = null;
 		
@@ -196,7 +197,7 @@ public class Utility {
 	 * @return dictionary instance of the class Patient populated with the informations obtained from JSON file.
 	 */
 	public Patient readJson() {
-		String directoryPath = PATH + File.separator + "data" + File.separator + "Pinco_Pallino" + File.separator + "reports";
+		String directoryPath = dict.getPath() + File.separator + "Pinco_Pallino" + File.separator + "reports";
 		String fullPath = directoryPath + File.separator + "Pinco_Pallino" + ".json";
 		Patient patient = null;
 		
@@ -223,7 +224,7 @@ public class Utility {
 
 	public void writeLastSession(){
 		String json = gson.toJson(dict);
-		String fullPath = PATH + File.separator + "data" + File.separator + "lastsession.json";
+		String fullPath = dict.getPathData() + File.separator + "lastsession.json";
 		try {
 			FileWriter writer = new FileWriter(fullPath);
 			writer.write(json);
@@ -243,7 +244,7 @@ public class Utility {
 	 * @throws DocumentException
 	 */
 	public void writePdfReport() throws FileNotFoundException, DocumentException {
-		String directoryPath = PATH + File.separator + "data" + File.separator + dict.getFirstName() + "_" + dict.getSurname() + File.separator + "reports";
+		String directoryPath = dict.getPath() + File.separator + dict.getFirstName() + "_" + dict.getSurname() + File.separator + "reports";
 		String fullPath = directoryPath + File.separator + dict.getFirstName() + "_" + dict.getSurname() + ".pdf";
 		Document document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(fullPath));
