@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import rinocitologia.*;
 import utility.Sequence;
+import utility.Utility;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,6 +53,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
         patient = new Patient("Anonimo", Integer.toString(number));
+        Utility util = new Utility(patient);
         controller.setPatient(patient);
         System.out.println(patient.getFirstName());
 
