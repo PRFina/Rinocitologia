@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.QuestionsController">
+    <children>
+        <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" styleClass="head-background" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label layoutX="224.0" layoutY="47.0" text="Anamnesi" textFill="WHITE">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                </Label>
+                <Label layoutX="227.0" layoutY="100.0" text="Cell Explorer" textFill="WHITE">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <VBox layoutX="-1.0" layoutY="145.0" prefHeight="438.0" prefWidth="252.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="146.0">
+            <children>
+                <Label prefHeight="30.0" prefWidth="252.0" text="RINOCITOLOGIA" textFill="#171717">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                    <padding>
+                        <Insets left="40.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets top="60.0" />
+                    </VBox.margin>
+                </Label>
+                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#insertCells" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Inserimento Cellule" textFill="#5b5858">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/projects.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </JFXButton>
+                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#revisionCaller" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Revisione Cellule" textFill="#5b5858">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/reliabilty.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </JFXButton>
+                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#anamnesiCaller" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Anamnesi" textFill="#5b5858">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/question-sign.png" />
+                            </image>
+                            <viewport>
+                                <Rectangle2D />
+                            </viewport>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </JFXButton>
+                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#diagnosisCaller" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Diagnosi" textFill="#5b5858">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/icons8_Workflow_64px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </JFXButton>
+                <Label prefHeight="30.0" prefWidth="252.0" text="GESTIONE PAZIENTE" textFill="#171717">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                    <padding>
+                        <Insets left="40.0" />
+                    </padding>
+                </Label>
+                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#anagraficaCaller" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Anagrafica" textFill="#5b5858">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/agencies.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </JFXButton>
+            </children>
+        </VBox>
+        <Pane layoutX="71.0" layoutY="44.0" prefHeight="131.0" prefWidth="142.0" style="-fx-background-color: #fff;">
+            <children>
+                <ImageView fitHeight="120.0" fitWidth="139.0" layoutX="11.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/logo.png" />
+                    </image>
+                </ImageView>
+            </children>
+            <effect>
+                <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" width="10.0" />
+            </effect>
+        </Pane>
+        <ScrollPane layoutX="251.0" layoutY="182.0" prefHeight="406.0" prefWidth="810.0" style="-fx-background-color: #fff;" stylesheets="@style.css" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="182.0">
+         <content>
+            <Pane prefHeight="403.0" prefWidth="1015.0">
+             <children>
+                 <Label fx:id="title" layoutX="8.0" prefHeight="35.0" prefWidth="385.0" text="Anamnesi" textAlignment="CENTER">
+                     <font>
+                         <Font size="36.0" />
+                     </font>
+                 </Label>
+                 <Button fx:id="btnSalva" layoutX="687.0" layoutY="348.0" mnemonicParsing="false" onAction="#salva" text="Salva" />
+                 <ScrollPane layoutX="24.0" layoutY="53.0" prefHeight="295.0" prefWidth="567.0">
+                     <content>
+                         <Pane fx:id="GeneralPane" prefHeight="1267.0" prefWidth="428.0">
+                             <children>
+                                 <Label fx:id="SubTitleFam" layoutX="14.0" layoutY="2.0" prefHeight="25.0" prefWidth="412.0" text="Anamnesi familiare">
+                                     <font>
+                                         <Font size="15.0" />
+                                     </font>
+                                 </Label>
+                                 <Label fx:id="SubTitleFis" layoutX="12.0" layoutY="203.0" text="Anamnesi fisiologica">
+                                     <font>
+                                         <Font size="15.0" />
+                                     </font>
+                                 </Label>
+                                 <TextArea fx:id="textFam" layoutX="14.0" layoutY="31.0" prefHeight="150.0" prefWidth="399.0" />
+                                 <TextArea fx:id="textPross" layoutX="16.0" layoutY="1054.0" prefHeight="200.0" prefWidth="398.0" />
+                                 <Label fx:id="SubTitlePross" layoutX="16.0" layoutY="1030.0" text="Anamnesi patologica prossima">
+                                     <font>
+                                         <Font size="15.0" />
+                                     </font>
+                                 </Label>
+                                 <TextArea fx:id="textRem" layoutX="17.0" layoutY="806.0" prefHeight="200.0" prefWidth="398.0" />
+                                 <Separator layoutX="17.0" layoutY="1020.0" prefHeight="10.0" prefWidth="398.0" />
+                                 <Label fx:id="SubTitleRem" layoutX="17.0" layoutY="781.0" text="Anamnesi patologica remota">
+                                     <font>
+                                         <Font size="15.0" />
+                                     </font>
+                                 </Label>
+                                 <Separator layoutX="17.0" layoutY="773.0" prefHeight="8.0" prefWidth="398.0" />
+                                 <Separator layoutX="12.0" layoutY="193.0" prefHeight="10.0" prefWidth="401.0" />
+                                 <Label fx:id="lblTipo" layoutX="16.0" layoutY="232.0" prefHeight="17.0" prefWidth="267.0" text="Tipo di parto:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <Label layoutX="17.0" layoutY="268.0" prefHeight="19.0" prefWidth="183.0" text="Tipo di esecuzione del parto:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxTipoParto" layoutX="262.0" layoutY="224.0" prefHeight="25.0" prefWidth="150.0" />
+                                 <ComboBox fx:id="comboBoxEsecuzioneParto" layoutX="262.0" layoutY="261.0" prefWidth="150.0" />
+                                 <Label fx:id="lblSviluppo" layoutX="18.0" layoutY="307.0" prefHeight="19.0" prefWidth="267.0" text="Tipo di sviluppo vegetativo e  relazionale:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxSviluppo" layoutX="263.0" layoutY="300.0" prefWidth="150.0" />
+                                 <Label fx:id="lblScuola" layoutX="18.0" layoutY="345.0" prefHeight="19.0" prefWidth="191.0" text="Livello scolastico:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxScuola" layoutX="263.0" layoutY="338.0" prefWidth="150.0" />
+                                 <Label fx:id="lblEta" layoutX="18.0" layoutY="382.0" prefHeight="19.0" prefWidth="267.0" text="Età:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <Label fx:id="lblScuola1" layoutX="18.0" layoutY="423.0" prefHeight="19.0" prefWidth="191.0" text="Livello attività fisica:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxAttivita" layoutX="263.0" layoutY="416.0" prefWidth="150.0" />
+                                 <Label fx:id="lblScuola2" layoutX="19.0" layoutY="466.0" prefHeight="19.0" prefWidth="191.0" text="Abitudini alimentari:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxAlimentazione" layoutX="264.0" layoutY="459.0" prefWidth="150.0" />
+                                 <Label fx:id="lblScuola3" layoutX="19.0" layoutY="505.0" prefHeight="19.0" prefWidth="191.0" text="Ritmo sonno/sveglia:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxRiposo" layoutX="264.0" layoutY="498.0" prefWidth="150.0" />
+                                 <Label fx:id="lblScuola31" layoutX="19.0" layoutY="545.0" prefHeight="19.0" prefWidth="258.0" text="Stress fisico/psicologico accumulato:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxStress" layoutX="264.0" layoutY="538.0" prefWidth="150.0" />
+                                 <Label fx:id="lblScuola33" layoutX="20.0" layoutY="666.0" prefHeight="19.0" prefWidth="191.0" text="Uso di droghe:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxDroga" layoutX="265.0" layoutY="659.0" prefWidth="150.0" />
+                                 <Label fx:id="lblScuola34" layoutX="20.0" layoutY="585.0" prefHeight="19.0" prefWidth="191.0" text="Fumatore:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxFumatore" layoutX="265.0" layoutY="578.0" prefWidth="150.0" />
+                                 <Label fx:id="lblScuola35" layoutX="19.0" layoutY="626.0" prefHeight="19.0" prefWidth="191.0" text="Uso di alcolici:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxAlcolici" layoutX="266.0" layoutY="619.0" prefWidth="150.0" />
+                                 <Label fx:id="lblScuola32" layoutX="20.0" layoutY="709.0" prefHeight="19.0" prefWidth="191.0" text="Assunzione di caffeina:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <ComboBox fx:id="comboBoxCaffeina" layoutX="265.0" layoutY="702.0" prefWidth="150.0" />
+                                 <Label fx:id="lblScuola321" layoutX="20.0" layoutY="746.0" prefHeight="19.0" prefWidth="191.0" text="Allergia:">
+                                     <font>
+                                         <Font size="13.0" />
+                                     </font>
+                                 </Label>
+                                 <TextField fx:id="textFieldAllergia" layoutX="265.0" layoutY="739.0" />
+                                 <TextField fx:id="textFieldEta" layoutX="263.0" layoutY="375.0" />
+                             </children>
+                         </Pane>
+                     </content></ScrollPane>
+             </children>
+            </Pane>
+         </content></ScrollPane>
+    </children>
+</AnchorPane>
