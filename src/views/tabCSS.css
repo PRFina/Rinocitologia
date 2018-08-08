@@ -21,3 +21,21 @@
 -fx-border-color: #f49842;
 }﻿
 */
+
+
+.menu-item:disabled {
+    -fx-opacity: 1.0;
+}
+
+.menu-item:disabled .label {
+    -fx-opacity: 1.0;
+}
+
+.context-menu-title:disabled:hover {
+    -fx-background-color: white;
+}
+
+.context-menu-title:disabled:hover .label {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}

@@ -23,6 +23,7 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.scene.control.Tab?>
 
+<?import java.net.URL?>
 <AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.RevisioneController">
    <children>
       <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" styleClass="head-background" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -164,38 +165,63 @@
                <JFXTabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1020.0" stylesheets="@tabCSS.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
                   <tabs>
                      <Tab text="Epiteliali">
-                        <content>
-                           <AnchorPane fx:id="epitelialiPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
+                     <content>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                          <content>
+                             
+                          </content>
+                           <content>
+                              <TilePane fx:id="epitelialiTile" prefHeight="200.0" prefWidth="1017.0" />
+                           </content>
+                        </ScrollPane>
+                     </content>
                      </Tab>
                      <Tab text="Mucipare">
                         <content>
-                           <ScrollPane fx:id="muciparePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           <ScrollPane fx:id="muciparePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <content>
+                              <TilePane fx:id="mucipareTile" prefHeight="200.0" prefWidth="1017.0" />
+                           </content></ScrollPane>
                         </content>
                      </Tab>
                      <Tab text="Neutrofili">
                         <content>
-                           <ScrollPane fx:id="neutrofiliPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           <ScrollPane fx:id="neutrofiliPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <content>
+                              <TilePane fx:id="neutrofiliTile" prefHeight="200.0" prefWidth="1013.0" />
+                           </content></ScrollPane>
                         </content>
                      </Tab>
                      <Tab text="Eosinofili">
                         <content>
-                           <ScrollPane fx:id="eosinofiliPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           <ScrollPane fx:id="eosinofiliPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <content>
+                              <TilePane fx:id="eosinofiliTile" prefHeight="200.0" prefWidth="1009.0" />
+                           </content></ScrollPane>
                         </content>
                      </Tab>
                      <Tab text="Mastcellule">
                         <content>
-                           <ScrollPane fx:id="mastcellulePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           <ScrollPane fx:id="mastcellulePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <content>
+                              <TilePane fx:id="mastcelluleTile" prefHeight="200.0" prefWidth="1011.0" />
+                           </content></ScrollPane>
                         </content>
                      </Tab>
                      <Tab text="Linfociti">
                         <content>
-                           <ScrollPane fx:id="linfocitiPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           <ScrollPane fx:id="linfocitiPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <content>
+                              <TilePane fx:id="linfocitiTile" prefHeight="200.0" prefWidth="1013.0" />
+                           </content></ScrollPane>
                         </content>
                      </Tab>
                      <Tab text="Altro">
                         <content>
-                           <ScrollPane fx:id="altroPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           <ScrollPane fx:id="altroPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <content>
+                              <TilePane fx:id="altroTile" prefHeight="200.0" prefWidth="1016.0" />
+                           </content></ScrollPane>
                         </content>
                      </Tab>
                   </tabs>

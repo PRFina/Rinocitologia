@@ -100,12 +100,12 @@ public class Utility {
 		}else {
 			System.out.print("\nWriting mastcellule\n" + folderMastcellule.getAbsolutePath());
 		}
-		final File folderMetaplastiche = new File(inputsPATH , "metaplastiche");
+		final File folderMetaplastiche = new File(inputsPATH , "epiteliali");
 		if(!folderMetaplastiche.exists() && !folderMetaplastiche.mkdir()) {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}else {
-			System.out.print("\nWriting metaplastiche\n" + folderMetaplastiche.getAbsolutePath());
+			System.out.print("\nWriting epiteliali\n" + folderMetaplastiche.getAbsolutePath());
 		}
 		final File folderLinfociti = new File(inputsPATH , "linfociti");
 		if(!folderLinfociti.exists() && !folderLinfociti.mkdir()) {
@@ -114,6 +114,7 @@ public class Utility {
 		}else {
 			System.out.print("\nWriting linfociti\n" + folderLinfociti.getAbsolutePath());
 		}
+		/*
 		final File folderCiliate = new File(inputsPATH , "ciliate");
 		if(!folderCiliate.exists() && !folderCiliate.mkdir()) {
 			//failed to create the folder, probably exit
@@ -121,6 +122,7 @@ public class Utility {
 		}else {
 			System.out.print("\nWriting ciliate\n" + folderCiliate.getAbsolutePath());
 		}
+		*/
 		final File folderMucipare = new File(inputsPATH , "mucipare");
 		if(!folderMucipare.exists() && !folderMucipare.mkdir()) {
 			//failed to create the folder, probably exit

@@ -53,6 +53,7 @@ public class Main extends Application {
         }
         patient = new Patient("Anonimo", Integer.toString(number));
         controller.setPatient(patient);
+        System.out.println(patient.getFirstName());
 
         //Inizio Carica View
         /*Parent parent = FXMLLoader.load(getClass().getResource("Home.fxml"));

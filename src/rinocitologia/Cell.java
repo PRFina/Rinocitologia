@@ -30,6 +30,7 @@ public class Cell {
 			case "CILIATE":
 			case "MUCIPARE":
 			case "METAPLASTICHE":
+			case "EPITELIALI":
 				this.grade = count300(cellCount);
 				break;
 			case "NEUTROFILI":

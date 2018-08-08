@@ -145,7 +145,7 @@ public class Patient {
 	 * It is filled with missing cells with a count of 0.
 	 */
 	public void completeDictionary() {
-		List<String> cellsList = Arrays.asList("Ciliate", "Mucipare", "Metaplastiche", "Neutrofili", "Eosinofili", "Mastociti", "Linfociti", "Batteri", "Spore", "Macchia");
+		List<String> cellsList = Arrays.asList("Ciliate", "Mucipare", "Metaplastiche", "Neutrofili", "Eosinofili", "Mastociti", "Linfociti", "Batteri", "Spore", "Macchia", "Epiteliali");
 		String cellName;
 		Iterator<String> i = cellsList.iterator();
 		while(i.hasNext()) {

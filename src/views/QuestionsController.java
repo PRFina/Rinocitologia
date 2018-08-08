@@ -136,6 +136,7 @@ public class QuestionsController  implements Initializable {
         }
         RevisioneController controller = Loader.getController();
         controller.setPatient(patient);
+        controller.setTiles();
 
         //Inizio Carica View
         Parent p = Loader.getRoot();
@@ -188,7 +189,7 @@ public class QuestionsController  implements Initializable {
 
     public void shutdown() {
         // cleanup code here...
-        System.out.println("SAVING SESSION");
+        System.out.println("\nSAVING SESSION");
         Utility util = new Utility(patient);
         util.writeLastSession();
     }

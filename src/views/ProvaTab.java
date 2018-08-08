@@ -29,23 +29,6 @@ public class ProvaTab extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 
-        /*
-        Parent parent = FXMLLoader.load(getClass().getResource("Revisione.fxml"));
-        Scene scene = new Scene(parent);
-
-        stage.setOnHidden(e -> {
-            //controller.shutdown();
-            Platform.exit();
-        });
-        patient = new Patient();
-        ImageDisplay imageView = new ImageDisplay();
-        ListView listviewPane = new ListView(patient.getPath() + File.separator + "inputs" + File.separator + "Ciliate", imageView);
-
-
-        stage.setTitle("Cell Explorer");
-        stage.setScene(scene);
-        stage.show();
-        */
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("Revisione.fxml"));
         try {
@@ -57,9 +40,7 @@ public class ProvaTab extends Application {
         controller = Loader.<RevisioneController>getController();
         patient = new Patient();
         controller.setPatient(patient);
-        ImageDisplay imageView = new ImageDisplay();
-        ListView listviewPane = new ListView(patient.getPath() + File.separator + "inputs" + File.separator + "Ciliate", imageView);
-        controller.setEpitelialiPane(listviewPane);
+        controller.setTiles();
 
 
         Parent p = Loader.getRoot();
