@@ -24,8 +24,19 @@ public class Patient {
 	private String path;
 	private String pathData = System.getProperty("user.home") + File.separator + "data";
 	private CodiceFiscale cf;
+	//private Anamnesi anamnesi;
 
-	
+	//public setAnamnesi(Anamnesi anamnesi) {this.anamnesi = anamnesi;}
+	//public getAnamnesi() {return anamnesi;}
+
+	/*
+	//In ogni Controller in anamnesiCaller devi
+	if(patient.getAnamnesi == null){
+		// Anamnesi anam = new Anamnesi()
+		patient.setAnamnesi(anam)
+	}
+	controller.setPatient(patient)
+	*/
 
 	public Patient() {
 		dictionary = new HashMap<String, Cell>();

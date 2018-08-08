@@ -180,13 +180,33 @@ public class AnamnesiController implements Initializable {
 
     @FXML
     void addAnam(ActionEvent event) throws IOException {
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Questions.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        QuestionsController controller = Loader.getController();
+        controller.setPatient(patient);
+        QuestionsController.setInfo();
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(p));
+        stage.show();
+        /*
         //Main.showQuestions("Anamnesi familiare");
-        Parent quest = FXMLLoader.load(getClass().getResource("../views/Questions.fxml"));
+        Parent quest = FXMLLoader.load(getClass().getResource("Questions.fxml"));
         Scene quest_page = new Scene(quest);
         Stage quest_stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
         quest_stage.setScene(quest_page);
         QuestionsController.setInfo();
         quest_stage.show();
+        */
     }
 
     public void getInfo(String tipoParto, String alcool, String alimentazione, String attivita, String caffeina, String esecuzioneParto, String fumatore, String riposo, String scuola, String sviluppo, String droga, String stress, String eta, String allergia, String anamFamiliare, String anamProssima, String anamRemota){

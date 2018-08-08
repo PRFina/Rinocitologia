@@ -6,12 +6,15 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import filemngr.ListView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,11 +24,22 @@ import utility.Utility;
 public class RevisioneController implements Initializable {
 
     private Patient patient;
+
+    @FXML
+    ScrollPane muciparePane, neutrofiliPane, eosinofiliPane, mastcellulePane, linfocitiPane, altroPane;
+
+    @FXML
+    AnchorPane epitelialiPane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
 
     public void setPatient(Patient patient) {this.patient = patient;}
+
+    public void setEpitelialiPane(ListView listView) {
+        //listView.setPrefWidth();
+
+    }
 
 
     /*
