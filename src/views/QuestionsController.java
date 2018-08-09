@@ -23,7 +23,58 @@ import java.util.logging.Logger;
 public class QuestionsController  implements Initializable {
 
     @FXML
-    private Label lblError;
+    private CheckBox cupressacee;
+
+    @FXML
+    private CheckBox nocciolo;
+
+    @FXML
+    private CheckBox ontano;
+
+    @FXML
+    private CheckBox pioppo;
+
+    @FXML
+    private CheckBox frassino;
+
+    @FXML
+    private CheckBox betulla;
+
+    @FXML
+    private CheckBox salice;
+
+    @FXML
+    private CheckBox carpino;
+
+    @FXML
+    private CheckBox platano;
+
+    @FXML
+    private CheckBox quercia;
+
+    @FXML
+    private CheckBox orniello;
+
+    @FXML
+    private CheckBox pinacee;
+
+    @FXML
+    private CheckBox urticacee;
+
+    @FXML
+    private CheckBox graminacee;
+
+    @FXML
+    private CheckBox poligonacee;
+
+    @FXML
+    private CheckBox castagno;
+
+    @FXML
+    private CheckBox assenzio;
+
+    @FXML
+    private CheckBox piantaggine;
 
     @FXML
     private TextArea textFam;
@@ -102,6 +153,7 @@ public class QuestionsController  implements Initializable {
             patient.setAnamnesi(anam);
         }
         controller.setPatient(patient);
+        controller.getInfo();
 
         //Inizio Carica View
         Parent p = Loader.getRoot();
@@ -228,6 +280,9 @@ public class QuestionsController  implements Initializable {
         comboBoxStress.setItems(FXCollections.observableArrayList("poco", "molto"));
         comboBoxStress.setValue(patient.getAnamnesi().getStress());
         textFieldEta.setText(patient.getAnamnesi().getEta());
+        textFam.setText(patient.getAnamnesi().getAnamRemota());
+        textRem.setText(patient.getAnamnesi().getAnamFamiliare());
+        textPross.setText(patient.getAnamnesi().getAnamProssima());
         //Inserire checkbox per le allergie del paziente corrente
     }
 

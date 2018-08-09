@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
@@ -163,9 +164,9 @@
                      </font>
                  </Label>
                  <Button fx:id="btnSalva" layoutX="687.0" layoutY="348.0" mnemonicParsing="false" onAction="#salva" text="Salva" />
-                 <ScrollPane layoutX="24.0" layoutY="53.0" prefHeight="295.0" prefWidth="567.0">
+                 <ScrollPane layoutX="24.0" layoutY="54.0" prefHeight="295.0" prefWidth="567.0">
                      <content>
-                         <Pane fx:id="GeneralPane" prefHeight="1267.0" prefWidth="428.0">
+                         <Pane fx:id="GeneralPane" prefHeight="1410.0" prefWidth="428.0">
                              <children>
                                  <Label fx:id="SubTitleFam" layoutX="14.0" layoutY="2.0" prefHeight="25.0" prefWidth="412.0" text="Anamnesi familiare">
                                      <font>
@@ -178,20 +179,20 @@
                                      </font>
                                  </Label>
                                  <TextArea fx:id="textFam" layoutX="14.0" layoutY="31.0" prefHeight="150.0" prefWidth="399.0" />
-                                 <TextArea fx:id="textPross" layoutX="16.0" layoutY="1054.0" prefHeight="200.0" prefWidth="398.0" />
-                                 <Label fx:id="SubTitlePross" layoutX="16.0" layoutY="1030.0" text="Anamnesi patologica prossima">
+                                 <TextArea fx:id="textPross" layoutX="14.0" layoutY="1198.0" prefHeight="200.0" prefWidth="398.0" />
+                                 <Label fx:id="SubTitlePross" layoutX="14.0" layoutY="1174.0" text="Anamnesi patologica prossima">
                                      <font>
                                          <Font size="15.0" />
                                      </font>
                                  </Label>
-                                 <TextArea fx:id="textRem" layoutX="17.0" layoutY="806.0" prefHeight="200.0" prefWidth="398.0" />
-                                 <Separator layoutX="17.0" layoutY="1020.0" prefHeight="10.0" prefWidth="398.0" />
-                                 <Label fx:id="SubTitleRem" layoutX="17.0" layoutY="781.0" text="Anamnesi patologica remota">
+                                 <TextArea fx:id="textRem" layoutX="15.0" layoutY="950.0" prefHeight="200.0" prefWidth="398.0" />
+                                 <Separator layoutX="15.0" layoutY="1164.0" prefHeight="10.0" prefWidth="398.0" />
+                                 <Label fx:id="SubTitleRem" layoutX="15.0" layoutY="925.0" text="Anamnesi patologica remota">
                                      <font>
                                          <Font size="15.0" />
                                      </font>
                                  </Label>
-                                 <Separator layoutX="17.0" layoutY="773.0" prefHeight="8.0" prefWidth="398.0" />
+                                 <Separator layoutX="15.0" layoutY="917.0" prefHeight="8.0" prefWidth="398.0" />
                                  <Separator layoutX="12.0" layoutY="193.0" prefHeight="10.0" prefWidth="401.0" />
                                  <Label fx:id="lblTipo" layoutX="16.0" layoutY="232.0" prefHeight="17.0" prefWidth="267.0" text="Tipo di parto:">
                                      <font>
@@ -211,7 +212,7 @@
                                      </font>
                                  </Label>
                                  <ComboBox fx:id="comboBoxSviluppo" layoutX="263.0" layoutY="300.0" prefWidth="150.0" />
-                                 <Label fx:id="lblScuola" layoutX="18.0" layoutY="345.0" prefHeight="19.0" prefWidth="191.0" text="Livello scolastico:">
+                                   <Label fx:id="lblScuola" layoutX="18.0" layoutY="345.0" prefHeight="19.0" prefWidth="191.0" text="Livello scolastico:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
@@ -275,8 +276,25 @@
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <TextField fx:id="textFieldAllergia" layoutX="265.0" layoutY="739.0" />
                                  <TextField fx:id="textFieldEta" layoutX="263.0" layoutY="375.0" />
+                              <JFXCheckBox fx:id="cupressacee" layoutX="72.0" layoutY="753.0" mnemonicParsing="false" text="Cupressacee/Taxacee" />
+                              <JFXCheckBox fx:id="nocciolo" layoutX="228.0" layoutY="751.0" mnemonicParsing="false" text="Nocciolo" />
+                              <JFXCheckBox fx:id="ontano" layoutX="349.0" layoutY="751.0" mnemonicParsing="false" text="Ontano" />
+                              <JFXCheckBox fx:id="pioppo" layoutX="72.0" layoutY="781.0" mnemonicParsing="false" text="Pioppo" />
+                              <JFXCheckBox fx:id="frassino" layoutX="228.0" layoutY="779.0" mnemonicParsing="false" text="Frassino comune" />
+                              <JFXCheckBox fx:id="betulla" layoutX="349.0" layoutY="779.0" mnemonicParsing="false" text="Betulla" />
+                              <JFXCheckBox fx:id="salice" layoutX="72.0" layoutY="807.0" mnemonicParsing="false" text="Salice" />
+                              <JFXCheckBox fx:id="carpino" layoutX="228.0" layoutY="805.0" mnemonicParsing="false" text="Carpino nero" />
+                              <JFXCheckBox fx:id="platano" layoutX="349.0" layoutY="805.0" mnemonicParsing="false" text="Platano" />
+                              <JFXCheckBox fx:id="quercia" layoutX="72.0" layoutY="834.0" mnemonicParsing="false" text="Quercia" />
+                              <JFXCheckBox fx:id="orniello" layoutX="228.0" layoutY="832.0" mnemonicParsing="false" text="Orniello" />
+                              <JFXCheckBox fx:id="pinacee" layoutX="349.0" layoutY="832.0" mnemonicParsing="false" text="Pinacee" />
+                              <JFXCheckBox fx:id="piantaggine" layoutX="349.0" layoutY="859.0" mnemonicParsing="false" text="Piantaggine" />
+                              <JFXCheckBox fx:id="urticacee" layoutX="228.0" layoutY="859.0" mnemonicParsing="false" text="Urticacee" />
+                              <JFXCheckBox fx:id="graminacee" layoutX="72.0" layoutY="861.0" mnemonicParsing="false" text="Graminacee" />
+                              <JFXCheckBox fx:id="poligonacee" layoutX="72.0" layoutY="893.0" mnemonicParsing="false" text="Poligonacee" />
+                              <JFXCheckBox fx:id="castagno" layoutX="228.0" layoutY="887.0" mnemonicParsing="false" text="Castagno" />
+                              <JFXCheckBox fx:id="assenzio" layoutX="349.0" layoutY="887.0" mnemonicParsing="false" text="Assenzio" />
                              </children>
                          </Pane>
                      </content></ScrollPane>
