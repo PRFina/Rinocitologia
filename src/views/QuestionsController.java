@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
 import utility.Utility;
 
@@ -20,6 +21,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class QuestionsController  implements Initializable {
+
+    @FXML
+    private Label lblError;
 
     @FXML
     private TextArea textFam;
@@ -72,8 +76,6 @@ public class QuestionsController  implements Initializable {
     @FXML
     private TextField textFieldEta;
 
-    private AnamnesiController anamnesiController;
-
     private Patient patient;
 
     public void setPatient(Patient patient) {this.patient = patient;}
@@ -95,6 +97,10 @@ public class QuestionsController  implements Initializable {
             Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnamnesiController controller = Loader.getController();
+        if(patient.getAnamnesi() == null){
+            Anamnesi anam = new Anamnesi();
+            patient.setAnamnesi(anam);
+        }
         controller.setPatient(patient);
 
         //Inizio Carica View
@@ -198,36 +204,40 @@ public class QuestionsController  implements Initializable {
 
     }
 
-    public void setAnamnesiController(AnamnesiController anam){
-        this.anamnesiController = anam;
-    }
-
     @FXML
     void salva(ActionEvent event) {
-        if(textFieldEta.getText().isEmpty())
-            textFieldEta.setText("");
-        anamnesiController.getInfo(comboBoxTipoParto.getSelectionModel().getSelectedItem(),
-                comboBoxAlcolici.getSelectionModel().getSelectedItem(),
-                comboBoxAlimentazione.getSelectionModel().getSelectedItem(),
-                comboBoxAttivita.getSelectionModel().getSelectedItem(),
-                comboBoxCaffeina.getSelectionModel().getSelectedItem(),
-                comboBoxEsecuzioneParto.getSelectionModel().getSelectedItem(),
-                comboBoxFumatore.getSelectionModel().getSelectedItem(),
-                comboBoxRiposo.getSelectionModel().getSelectedItem(),
-                comboBoxScuola.getSelectionModel().getSelectedItem(),
-                comboBoxSviluppo.getSelectionModel().getSelectedItem(),
-                comboBoxDroga.getSelectionModel().getSelectedItem(),
-                comboBoxStress.getSelectionModel().getSelectedItem(),
-                textFieldEta.getText(),
-                textFieldAllergia.getText(),
-                textFam.getText(),
-                textPross.getText(),
-                textRem.getText()
-                );
+        if((textFieldEta.getText().matches("[0-9]+")) && (textFieldEta.getText().length() > 0)) {
+            patient.getAnamnesi().setInfo(comboBoxTipoParto.getSelectionModel().getSelectedItem(),
+                    comboBoxAlcolici.getSelectionModel().getSelectedItem(),
+                    comboBoxAlimentazione.getSelectionModel().getSelectedItem(),
+                    comboBoxAttivita.getSelectionModel().getSelectedItem(),
+                    comboBoxCaffeina.getSelectionModel().getSelectedItem(),
+                    comboBoxEsecuzioneParto.getSelectionModel().getSelectedItem(),
+                    comboBoxFumatore.getSelectionModel().getSelectedItem(),
+                    comboBoxRiposo.getSelectionModel().getSelectedItem(),
+                    comboBoxScuola.getSelectionModel().getSelectedItem(),
+                    comboBoxSviluppo.getSelectionModel().getSelectedItem(),
+                    comboBoxDroga.getSelectionModel().getSelectedItem(),
+                    comboBoxStress.getSelectionModel().getSelectedItem(),
+                    textFieldEta.getText(),
+                    textFieldAllergia.getText(),
+                    textFam.getText(),
+                    textPross.getText(),
+                    textRem.getText()
+            );
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Errore nell'inserimento dell'eta'");
+            alert.setContentText("Il campo inerente all'eta' deve essere riempito con un numero maggiore di 0.");
+
+            alert.showAndWait();
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        lblError.setVisible(false);
         comboBoxTipoParto.setItems(FXCollections.observableArrayList("pretermine", "termine", "post-termine"));
         comboBoxAlcolici.setItems(FXCollections.observableArrayList("nessuno", "irrilevante", "uso eccessivo"));
         comboBoxAlimentazione.setItems(FXCollections.observableArrayList("sana", "errata"));

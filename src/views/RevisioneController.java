@@ -38,6 +38,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
 import utility.FileHelper;
 import utility.Utility;
@@ -952,6 +953,10 @@ public class RevisioneController implements Initializable {
             Logger.getLogger(DiagnosiController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnamnesiController controller = Loader.getController();
+        if(patient.getAnamnesi() == null){
+            Anamnesi anam = new Anamnesi();
+            patient.setAnamnesi(anam);
+        }
         controller.setPatient(patient);
 //        anamnesi.print();
         //Inizio Carica View

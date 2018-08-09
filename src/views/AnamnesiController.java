@@ -28,38 +28,17 @@ public class AnamnesiController implements Initializable {
     @FXML // fx:id="textAnamFis"
     private TextArea textAnamFis; // Value injected by FXMLLoader
 
-    @FXML // fx:id="aggiungiAnam"
-    private Button aggiungiAnam; // Value injected by FXMLLoader
-
     @FXML // fx:id="textAnamPatRemota"
     private TextArea textAnamPatRemota; // Value injected by FXMLLoader
 
     @FXML // fx:id="textAnamPatProssima"
     private TextArea textAnamPatProssima; // Value injected by FXMLLoader
-
-    //Variabili per tenere traccia delle informazioni delle varie anamnesi
-    private String tipoParto="";
-    private String alcool="";
-    private String alimentazione="";
-    private String attivita="";
-    private String caffeina="";
-    private String esecuzioneParto="";
-    private String fumatore="";
-    private String riposo="";
-    private String scuola="";
-    private String sviluppo="";
-    private String droga="";
-    private String stress="";
-    private String eta="";
-    private String allergia="";
-    private String anamFamiliare="";
-    private String anamProssima="";
-    private String anamRemota="";
-
     private Patient patient;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {}
+    public void initialize(URL url, ResourceBundle rb) {
+        this.getInfo(patient.getAnamnesi());
+    }
 
     public void setPatient(Patient patient) {this.patient = patient;}
 
@@ -80,6 +59,10 @@ public class AnamnesiController implements Initializable {
             Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnamnesiController controller = Loader.getController();
+        if(patient.getAnamnesi() == null){
+            Anamnesi anam = new Anamnesi();
+            patient.setAnamnesi(anam);
+        }
         controller.setPatient(patient);
 
         //Inizio Carica View
@@ -210,26 +193,26 @@ public class AnamnesiController implements Initializable {
         */
     }
 
-    public void getInfo(String tipoParto, String alcool, String alimentazione, String attivita, String caffeina, String esecuzioneParto, String fumatore, String riposo, String scuola, String sviluppo, String droga, String stress, String eta, String allergia, String anamFamiliare, String anamProssima, String anamRemota){
-        this.tipoParto=tipoParto;
-        this.alcool=alcool;
-        this.alimentazione=alimentazione;
-        this.attivita=attivita;
-        this.caffeina=caffeina;
-        this.esecuzioneParto=esecuzioneParto;
-        this.fumatore=fumatore;
-        this.riposo=riposo;
-        this.scuola=scuola;
-        this.sviluppo=sviluppo;
-        this.droga=droga;
-        this.stress=stress;
-        this.eta=eta;
-        this.allergia=allergia;
-        this.anamFamiliare=anamFamiliare;
-        this.anamProssima=anamProssima;
-        this.anamRemota=anamRemota;
-        System.out.println(this.tipoParto);
-        System.out.println(this.anamFamiliare);
+    public void getInfo(Anamnesi anamnesi){
+        String anamFis = "";
+        anamFis = "Tipo di parto: "+anamnesi.getTipoParto()+
+                "\nTipo di esecuzione del parto: "+anamnesi.getEsecuzioneParto()+
+                "\nTipo di sviluppo vegetativo e relazionale: "+anamnesi.getSviluppo()+
+                "\nLivello scolastico: "+anamnesi.getScuola()+
+                "\nEta': "+anamnesi.getEta()+
+                "\nLivello attività fisica: "+anamnesi.getAttivita()+
+                "\nAbitudini alimentari: "+anamnesi.getAlimentazione()+
+                "\nRitmo sonno/sveglia: "+anamnesi.getRiposo()+
+                "\nStress fisico/psicologico accumulato: "+anamnesi.getStress()+
+                "\nFumatore: "+anamnesi.getFumatore()+
+                "\nUso di alcolici: "+anamnesi.getAlcool()+
+                "\nUso di droghe: "+anamnesi.getDroga()+
+                "\nAssunzione di caffeina: "+anamnesi.getCaffeina()+
+                "\nAllergia: "+anamnesi.getAllergia();
+        textAnamFam.setText(anamnesi.getAnamFamiliare());
+        textAnamFis.setText(anamFis);
+        textAnamPatProssima.setText(anamnesi.getAnamProssima());
+        textAnamPatRemota.setText(anamnesi.getAnamRemota());
     }
 }
 

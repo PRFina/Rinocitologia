@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
 import utility.*;
 
@@ -159,6 +160,10 @@ public class AnagraficaController implements Initializable {
             Logger.getLogger(AnagraficaController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnamnesiController controller = Loader.getController();
+        if(patient.getAnamnesi() == null){
+            Anamnesi anam = new Anamnesi();
+            patient.setAnamnesi(anam);
+        }
         controller.setPatient(patient);
         //Inizio Carica View
         Parent p = Loader.getRoot();

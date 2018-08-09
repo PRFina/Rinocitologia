@@ -280,6 +280,7 @@
                              </children>
                          </Pane>
                      </content></ScrollPane>
+                  <Label fx:id="lblError" layoutX="604.0" layoutY="53.0" text="Valore non corretto. Il campo ETA' deve essere riempito con un numero." textFill="RED" />
              </children>
             </Pane>
          </content></ScrollPane>

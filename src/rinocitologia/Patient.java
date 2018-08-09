@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 /**
  * Contains informations meaningful for the diagnosis such as an HashMap in the format:
  * <br>
@@ -24,18 +23,15 @@ public class Patient {
 	private String path;
 	private String pathData = System.getProperty("user.home") + File.separator + "data";
 	private CodiceFiscale cf;
-	//private Anamnesi anamnesi;
 
-	//public setAnamnesi(Anamnesi anamnesi) {this.anamnesi = anamnesi;}
-	//public getAnamnesi() {return anamnesi;}
-
+	private Anamnesi anamnesi;
 	/*
 	//In ogni Controller in anamnesiCaller devi
 	if(patient.getAnamnesi == null){
-		// Anamnesi anam = new Anamnesi()
-		patient.setAnamnesi(anam)
+		Anamnesi anam = new Anamnesi()
+		patient.setAnamnesi(anam);
 	}
-	controller.setPatient(patient)
+	controller.setPatient(patient);
 	*/
 
 	public Patient() {
@@ -75,7 +71,10 @@ public class Patient {
 		this.path = folder.getAbsolutePath();
 
 	}
-	
+
+	public void setAnamnesi(Anamnesi anamnesi) { this.anamnesi = anamnesi; }
+	public Anamnesi getAnamnesi() {return anamnesi;}
+
 	public String getFirstName() {
 		return firstName;
 	}
