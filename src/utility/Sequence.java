@@ -8,7 +8,17 @@ public class Sequence {
 
     public String getPATH() {return PATH;}
 
+    public Sequence(){
+        final File folderData = new File(System.getProperty("user.home") + File.separator + "data");
+        if(!folderData.exists() && !folderData.mkdir()) {
+            //failed to create the folder, probably exit
+            throw new RuntimeException("Failed to create save directory.");
+        }
+    }
+
     public void writeSeq(int number) throws IOException {
+        File yourFile = new File(PATH);
+        yourFile.createNewFile(); // if file already exists will do nothing
         BufferedWriter writer = new BufferedWriter(new FileWriter(PATH));
         writer.write(Integer.toString(number));
         //System.out.println(PATH);

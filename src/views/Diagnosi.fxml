@@ -22,7 +22,7 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label layoutX="227.0" layoutY="100.0" text="Cell Explorer" textFill="WHITE">
+            <Label fx:id="patientTxt" layoutX="227.0" layoutY="100.0" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
@@ -134,6 +134,21 @@
                   <Insets left="50.0" />
                </padding>
             </JFXButton>
+            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#loadCaller" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Carica Paziente" textFill="#5b5858">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Load.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </JFXButton>
          </children>
       </VBox>
       <Pane layoutX="71.0" layoutY="44.0" prefHeight="131.0" prefWidth="142.0" style="-fx-background-color: #fff;">
@@ -148,6 +163,6 @@
             <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Pane>
-      <ScrollPane layoutX="251.0" layoutY="182.0" prefHeight="406.0" prefWidth="810.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="182.0" stylesheets="@style.css" />
+      <ScrollPane layoutX="251.0" layoutY="182.0" prefHeight="406.0" prefWidth="810.0" style="-fx-background-color: #fff;" stylesheets="@style.css" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="182.0" />
    </children>
 </AnchorPane>

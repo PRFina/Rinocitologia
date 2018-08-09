@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -193,20 +194,69 @@ public class Utility {
 		return patient;
 	}
 	
-	
+	public static Patient readJson(String cf){
+		String PATH = System.getProperty("user.home") + File.separator + "data" + File.separator + cf + File.separator + "reports" + File.separator + "report.json";
+		Patient patient = null;
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+		try {
+
+			System.out.println("Reading JSON from a file");
+			System.out.println(PATH);
+			System.out.println("----------------------------");
+
+			BufferedReader br = new BufferedReader(
+					new FileReader(PATH));
+
+			//convert the json string back to object
+			patient = gson.fromJson(br, Patient.class);
+
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return patient;
+	}
+
+	public static Patient readJson(File path){
+		Patient patient = null;
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+		try {
+
+			System.out.println("Reading JSON from a file");
+			System.out.println(path);
+			System.out.println("----------------------------");
+
+			BufferedReader br = new BufferedReader(
+					new FileReader(path));
+
+			//convert the json string back to object
+			patient = gson.fromJson(br, Patient.class);
+
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return patient;
+	}
+
+
 	/**
 	 * Reads informations contained in a JSON format file (retrieved by firstName = Pinco and surname = Pallino) and populates an instance of Patient.
 	 * @return dictionary instance of the class Patient populated with the informations obtained from JSON file.
 	 */
-	public Patient readJson() {
-		String directoryPath = dict.getPath() + File.separator + "Pinco_Pallino" + File.separator + "reports";
-		String fullPath = directoryPath + File.separator + "Pinco_Pallino" + ".json";
+	public static Patient readJson(Patient dict) {
+		String directoryPath = dict.getPath() + File.separator +  "reports";
+		String fullPath = directoryPath + File.separator + "report.json";
 		Patient patient = null;
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		try {
 			  
 			   System.out.println("Reading JSON from a file");
-			   System.out.println(PATH);
 			   System.out.println(fullPath);
 			   System.out.println("----------------------------");
 			   

@@ -45,7 +45,14 @@ public class AnagraficaController implements Initializable {
         }
     }
 
-    public void setPatient(Patient patient) {this.patient = patient;}
+    @FXML
+    Label patientTxt;
+
+    @FXML
+    public void setPatient(Patient patient) {this.patient = patient;
+        String label = "Paziente: " + patient.getFirstName() + " " + patient.getSurname();
+        patientTxt.setText(label);
+    }
 
     public Patient getPatient() {return patient;}
 
@@ -58,12 +65,7 @@ public class AnagraficaController implements Initializable {
     @FXML
     private void insertData(ActionEvent event){
         if(cfTxt.getText().equals("")&&(cfTxt.getText().length() <16 || cfTxt.getText().length()>16)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Codice Fiscale errato.");
-            alert.setContentText("Il codice fiscale è fondamentale qualora il paziente non voglia rimanere anonimo.\nAssicurati di averlo inserito o di averlo inserito correttamente. \nIl codice fiscale deve essere lungo 16 caratteri.");
-
-            alert.showAndWait();
+            DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Codice Fiscale errato.", "Il codice fiscale è fondamentale qualora il paziente non voglia rimanere anonimo.\nAssicurati di averlo inserito o di averlo inserito correttamente. \nIl codice fiscale deve essere lungo 16 caratteri.");
         } else {
             if(cfTxt.getText().length() == 16) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -75,14 +77,18 @@ public class AnagraficaController implements Initializable {
                 if (result.get() == ButtonType.OK) {
                     System.out.println(nameTxt.getText() + " " + surnameTxt.getText() + " " + cfTxt.getText());
                     CodiceFiscale cf = new CodiceFiscale(cfTxt.getText());
-                    if (nameTxt.getText() != null)
+                    if (!nameTxt.getText().trim().isEmpty())
                         patient.setFirstName(nameTxt.getText());
-                    if (surnameTxt.getText() != null)
+                    if (!surnameTxt.getText().trim().isEmpty())
                         patient.setSurname(surnameTxt.getText());
                     patient.setCf(cf);
                     System.out.println(patient.toString());
                     patient.rename();
                     success.setVisible(true);
+                    patientTxt.setText("Paziente: " + patient.getFirstName() + " " + patient.getSurname());
+                    patient.setNewPath();
+                    Utility util = new Utility(patient);
+                    util.writeJson();
                 }
             }
         }
@@ -110,6 +116,10 @@ public class AnagraficaController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -130,6 +140,10 @@ public class AnagraficaController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -149,6 +163,10 @@ public class AnagraficaController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -168,6 +186,10 @@ public class AnagraficaController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -191,13 +213,44 @@ public class AnagraficaController implements Initializable {
             controller.setFields();
         }
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
 
+    @FXML
+    private void loadCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Load.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(AnagraficaController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        LoadController controller = Loader.getController();
+        controller.setPatient(patient);
+
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+
     public void shutdown() {
         System.out.println("\nSAVING SESSION");
-        Utility util = new Utility(patient);
+        Utility util = new Utility(this.patient);
         util.writeLastSession();
+        util.writeJson();
     }
 }

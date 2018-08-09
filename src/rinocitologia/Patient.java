@@ -104,6 +104,8 @@ public class Patient {
 
 	public void setPath(String path) { this.path = path; }
 
+	public void setNewPath(){this.path = pathData + File.separator + cf.getCF();}
+
 	public String getPathData() { return pathData; }
 
 	public void setPathData(String folderPath) { this.pathData = folderPath; }
@@ -164,7 +166,10 @@ public class Patient {
 		for (Map.Entry<String, Cell> entry : dictionary.entrySet()) {
 			cells.append("Name: " + entry.getKey() + " - Count: " + entry.getValue().getcellCount() + " - Grade: " + entry.getValue().getgrade() + ";\n");
 		}
-		return name + cells.toString() + cf.toString();
+		if(cf != null)
+			return name + cells.toString() + cf.toString();
+		else
+			return name + cells.toString();
 	}
 
 

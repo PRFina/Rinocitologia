@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -54,7 +55,14 @@ public class RevisioneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
 
-    public void setPatient(Patient patient) {this.patient = patient;}
+    @FXML
+    Label patientTxt;
+
+    @FXML
+    public void setPatient(Patient patient) {this.patient = patient;
+        String label = "Paziente: " + patient.getFirstName() + " " + patient.getSurname();
+        patientTxt.setText(label);
+    }
 
     public void setTiles(){
         setEpitelialiTile(epitelialiTile);
@@ -949,6 +957,10 @@ public class RevisioneController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -969,6 +981,10 @@ public class RevisioneController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -989,6 +1005,10 @@ public class RevisioneController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -1010,6 +1030,10 @@ public class RevisioneController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -1032,15 +1056,47 @@ public class RevisioneController implements Initializable {
             controller.setFields();
         }
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
 
+    @FXML
+    private void loadCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Load.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(RevisioneController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        LoadController controller = Loader.getController();
+        controller.setPatient(patient);
+
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+
     public void shutdown() {
         // cleanup code here...
         System.out.println("SAVING SESSION");
-        Utility util = new Utility(patient);
+        Utility util = new Utility(this.patient);
         util.writeLastSession();
+        util.writeJson();
+
     }
 
 }

@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -17,8 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import com.jfoenix.controls.JFXTextArea?>
-<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AnamnesiController">
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AnamnesiController">
    <children>
       <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" styleClass="head-background" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -27,7 +25,7 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label layoutX="227.0" layoutY="100.0" text="Cell Explorer" textFill="WHITE">
+            <Label fx:id="patientTxt" layoutX="227.0" layoutY="100.0" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
@@ -210,7 +208,7 @@
                            <ColorAdjust />
                        </effect>
                    </Label>
-                   <TextArea id="testoFamiliare" fx:id="textAnamPatProssima"  cache="true" cacheHint="SPEED" depthTest="DISABLE" layoutX="470.0" layoutY="247.0" prefHeight="147.0" prefWidth="311.0" promptText="Aggiungere informazioni..." wrapText="true">
+                   <TextArea id="testoFamiliare" fx:id="textAnamPatProssima" cache="true" cacheHint="SPEED" depthTest="DISABLE" layoutX="470.0" layoutY="247.0" prefHeight="147.0" prefWidth="311.0" promptText="Aggiungere informazioni..." wrapText="true">
                        <cursor>
                            <Cursor fx:constant="DISAPPEAR" />
                        </cursor>

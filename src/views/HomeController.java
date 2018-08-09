@@ -35,18 +35,25 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
 
-    public void setPatient(Patient patient) {this.patient = patient;}
+
 
     public Patient getPatient(){return patient;}
 
-    public void print(){System.out.println(patient.toString());}
 
     @FXML
-    private Label pathLbl;
+    private Label pathLbl, patientTxt;
 
-    private Desktop desktop = Desktop.getDesktop();
+    @FXML
+    public void setPatient(Patient patient) {this.patient = patient;
+        String label = "Paziente: " + patient.getFirstName() + " " + patient.getSurname();
+        patientTxt.setText(label);
+    }
 
-    final FileChooser fileChooser = new FileChooser();
+
+    //private Desktop desktop = Desktop.getDesktop();
+
+    //final FileChooser fileChooser = new FileChooser();
+
 
     /*
 
@@ -99,6 +106,8 @@ public class HomeController implements Initializable {
 
     }
 
+
+
         /*
      *
      * START SIDEBAR COMMANDS
@@ -121,6 +130,10 @@ public class HomeController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -141,6 +154,10 @@ public class HomeController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -160,6 +177,10 @@ public class HomeController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -179,6 +200,10 @@ public class HomeController implements Initializable {
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -203,13 +228,45 @@ public class HomeController implements Initializable {
             controller.setFields();
         }
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+
+    @FXML
+    private void loadCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Load.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        LoadController controller = Loader.getController();
+        controller.setPatient(patient);
+
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(p));
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
         stage.show();
     }
 
     public void shutdown() {
         System.out.println("\nSAVING SESSION");
-        Utility util = new Utility(patient);
+        Utility util = new Utility(this.patient);
         util.writeLastSession();
+        util.writeJson();
+
     }
 }
