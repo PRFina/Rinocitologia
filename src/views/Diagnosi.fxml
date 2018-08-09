@@ -52,7 +52,7 @@
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/projects.png" />
+                        <Image url="@../images/Inserimento.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -70,7 +70,7 @@
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/reliabilty.png" />
+                        <Image url="@../images/Revisione.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -85,7 +85,7 @@
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/question-sign.png" />
+                        <Image url="@../images/Anamnesi.png" />
                      </image>
                      <viewport>
                         <Rectangle2D />
@@ -103,7 +103,7 @@
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_Workflow_64px.png" />
+                        <Image url="@../images/Diagnosi.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -126,7 +126,7 @@
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/agencies.png" />
+                        <Image url="@../images/Anagrafica.png" />
                      </image>
                   </ImageView>
                </graphic>

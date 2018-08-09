@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import rinocitologia.*;
@@ -53,23 +54,16 @@ public class Main extends Application {
             e.printStackTrace();
         }
         patient = new Patient("Anonimo", Integer.toString(number));
+        //patient = new Patient();
         Utility util = new Utility(patient);
         controller.setPatient(patient);
         System.out.println(patient.getFirstName());
 
-        //Inizio Carica View
-        /*Parent parent = FXMLLoader.load(getClass().getResource("Home.fxml"));
-        Scene scene = new Scene(parent);
 
-        stage.setOnHidden(e -> {
-            controller.shutdown();
-            Platform.exit();
-        });
-        stage.setTitle("Cell Explorer");
-        stage.setScene(scene);
-        stage.show();*/
 
         Parent p = Loader.getRoot();
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("safari.png")));
+        stage.setTitle("Cell Explorer");
         stage.setScene(new Scene(p));
         stage.setOnHidden(e -> {
             controller.shutdown();

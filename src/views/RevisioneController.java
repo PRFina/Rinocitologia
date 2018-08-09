@@ -13,8 +13,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import filemngr.DialogHelper;
-import filemngr.ListView;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,13 +38,15 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.Patient;
+import utility.FileHelper;
 import utility.Utility;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import utility.DialogHelper;
 
 public class RevisioneController implements Initializable {
 
     private Patient patient;
+
+    private FileHelper fileHelper = new FileHelper();
 
     @FXML
     TilePane epitelialiTile, mucipareTile, neutrofiliTile, eosinofiliTile, mastcelluleTile, linfocitiTile, altroTile;
@@ -90,7 +91,9 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item1.getText());
-                    //imageView.setVisible(false);
+                    setMucipareTile(mucipareTile);
+                    imageView.setVisible(false);
+                    copyTo(file, item1.getText());
                 }
             });
             MenuItem item2 = new MenuItem("Neutrofili");
@@ -99,7 +102,12 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item2.getText());
+                    copyTo(file, item2.getText());
+                    imageView.setVisible(false);
+                    setNeutrofiliTile(neutrofiliTile);
+
                 }
+
             });
 
             MenuItem item3 = new MenuItem("Eosinofili");
@@ -108,6 +116,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item3.getText());
+                    copyTo(file, item3.getText());
+                    imageView.setVisible(false);
+                    setEosinofiliTile(eosinofiliTile);
+
                 }
             });
 
@@ -117,6 +129,9 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item4.getText());
+                    copyTo(file, item4.getText());
+                    imageView.setVisible(false);
+                    setMastcelluleTile(mastcelluleTile);
                 }
             });
 
@@ -126,6 +141,9 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item5.getText());
+                    copyTo(file, item5.getText());
+                    imageView.setVisible(false);
+                    setLinfocitiTile(linfocitiTile);
                 }
             });
 
@@ -135,6 +153,9 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item6.getText());
+                    copyTo(file, item6.getText());
+                    imageView.setVisible(false);
+                    setAltroTile(altroTile);
                 }
             });
 
@@ -178,6 +199,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item2.getText());
+                    copyTo(file, item2.getText());
+                    imageView.setVisible(false);
+                    setMucipareTile(mucipareTile);
+
                 }
             });
             MenuItem item1 = new MenuItem("Epiteliali");
@@ -186,6 +211,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item1.getText());
+                    copyTo(file, item1.getText());
+                    imageView.setVisible(false);
+                    setEpitelialiTile(epitelialiTile);
+
                 }
             });
 
@@ -195,6 +224,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item3.getText());
+                    copyTo(file, item3.getText());
+                    imageView.setVisible(false);
+                    setEosinofiliTile(eosinofiliTile);
+
                 }
             });
 
@@ -204,6 +237,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item4.getText());
+                    copyTo(file, item4.getText());
+                    imageView.setVisible(false);
+                    setMastcelluleTile(mastcelluleTile);
+
                 }
             });
 
@@ -213,6 +250,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item5.getText());
+                    copyTo(file, item5.getText());
+                    imageView.setVisible(false);
+                    setLinfocitiTile(linfocitiTile);
+
                 }
             });
 
@@ -222,6 +263,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item6.getText());
+                    copyTo(file, item6.getText());
+                    imageView.setVisible(false);
+                    setAltroTile(altroTile);
+
                 }
             });
 
@@ -263,6 +308,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item1.getText());
+                    copyTo(file, item1.getText());
+                    imageView.setVisible(false);
+                    setEpitelialiTile(epitelialiTile);
+
                 }
             });
             MenuItem item2 = new MenuItem("Neutrofili");
@@ -271,6 +320,9 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item2.getText());
+                    copyTo(file, item2.getText());
+                    imageView.setVisible(false);
+                    setNeutrofiliTile(neutrofiliTile);
                 }
             });
 
@@ -280,6 +332,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item3.getText());
+                    copyTo(file, item3.getText());
+                    imageView.setVisible(false);
+                    setEosinofiliTile(eosinofiliTile);
+
                 }
             });
 
@@ -289,6 +345,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item4.getText());
+                    copyTo(file, item4.getText());
+                    imageView.setVisible(false);
+                    setMastcelluleTile(mastcelluleTile);
+
                 }
             });
 
@@ -298,6 +358,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item5.getText());
+                    copyTo(file, item5.getText());
+                    imageView.setVisible(false);
+                    setLinfocitiTile(linfocitiTile);
+
                 }
             });
 
@@ -307,6 +371,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item6.getText());
+                    copyTo(file, item6.getText());
+                    imageView.setVisible(false);
+                    setAltroTile(altroTile);
+
                 }
             });
 
@@ -349,6 +417,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item1.getText());
+                    copyTo(file, item1.getText());
+                    imageView.setVisible(false);
+                    setEpitelialiTile(epitelialiTile);
+
                 }
             });
             MenuItem item2 = new MenuItem("Mucipare");
@@ -357,6 +429,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item2.getText());
+                    copyTo(file, item2.getText());
+                    imageView.setVisible(false);
+                    setMucipareTile(mucipareTile);
+
                 }
             });
 
@@ -366,6 +442,9 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item3.getText());
+                    copyTo(file, item3.getText());
+                    imageView.setVisible(false);
+                    setNeutrofiliTile(neutrofiliTile);
                 }
             });
 
@@ -375,6 +454,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item4.getText());
+                    copyTo(file, item4.getText());
+                    imageView.setVisible(false);
+                    setMastcelluleTile(mastcelluleTile);
+
                 }
             });
 
@@ -384,6 +467,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item5.getText());
+                    copyTo(file, item5.getText());
+                    imageView.setVisible(false);
+                    setLinfocitiTile(linfocitiTile);
+
                 }
             });
 
@@ -393,6 +480,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item6.getText());
+                    copyTo(file, item6.getText());
+                    imageView.setVisible(false);
+                    setAltroTile(altroTile);
+
                 }
             });
 
@@ -435,6 +526,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item1.getText());
+                    copyTo(file, item1.getText());
+                    imageView.setVisible(false);
+                    setEpitelialiTile(epitelialiTile);
+
                 }
             });
             MenuItem item2 = new MenuItem("Mucipare");
@@ -443,6 +538,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item2.getText());
+                    copyTo(file, item2.getText());
+                    imageView.setVisible(false);
+                    setMucipareTile(mucipareTile);
+
                 }
             });
 
@@ -452,6 +551,9 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item3.getText());
+                    copyTo(file, item3.getText());
+                    imageView.setVisible(false);
+                    setNeutrofiliTile(neutrofiliTile);
                 }
             });
 
@@ -461,6 +563,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item4.getText());
+                    copyTo(file, item4.getText());
+                    imageView.setVisible(false);
+                    setEosinofiliTile(eosinofiliTile);
+
                 }
             });
 
@@ -470,6 +576,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item5.getText());
+                    copyTo(file, item5.getText());
+                    imageView.setVisible(false);
+                    setLinfocitiTile(linfocitiTile);
+
                 }
             });
 
@@ -479,6 +589,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item6.getText());
+                    copyTo(file, item6.getText());
+                    imageView.setVisible(false);
+                    setAltroTile(altroTile);
+
                 }
             });
 
@@ -522,6 +636,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item1.getText());
+                    copyTo(file, item1.getText());
+                    imageView.setVisible(false);
+                    setEpitelialiTile(epitelialiTile);
+
                 }
             });
             MenuItem item2 = new MenuItem("Mucipare");
@@ -530,6 +648,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item2.getText());
+                    copyTo(file, item2.getText());
+                    imageView.setVisible(false);
+                    setMucipareTile(mucipareTile);
+
                 }
             });
 
@@ -539,6 +661,9 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item3.getText());
+                    copyTo(file, item3.getText());
+                    imageView.setVisible(false);
+                    setNeutrofiliTile(neutrofiliTile);
                 }
             });
 
@@ -548,6 +673,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item4.getText());
+                    copyTo(file, item4.getText());
+                    imageView.setVisible(false);
+                    setEosinofiliTile(eosinofiliTile);
+
                 }
             });
 
@@ -557,6 +686,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item5.getText());
+                    copyTo(file, item5.getText());
+                    imageView.setVisible(false);
+                    setMastcelluleTile(mastcelluleTile);
+
                 }
             });
 
@@ -566,6 +699,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item6.getText());
+                    copyTo(file, item6.getText());
+                    imageView.setVisible(false);
+                    setAltroTile(altroTile);
+
                 }
             });
 
@@ -607,6 +744,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item1.getText());
+                    copyTo(file, item1.getText());
+                    imageView.setVisible(false);
+                    setEpitelialiTile(epitelialiTile);
+
                 }
             });
             MenuItem item2 = new MenuItem("Mucipare");
@@ -615,6 +756,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item2.getText());
+                    copyTo(file, item2.getText());
+                    imageView.setVisible(false);
+                    setMucipareTile(mucipareTile);
+
                 }
             });
 
@@ -624,6 +769,9 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item3.getText());
+                    copyTo(file, item3.getText());
+                    imageView.setVisible(false);
+                    setNeutrofiliTile(neutrofiliTile);
                 }
             });
 
@@ -633,6 +781,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item4.getText());
+                    copyTo(file, item4.getText());
+                    imageView.setVisible(false);
+                    setEosinofiliTile(eosinofiliTile);
+
                 }
             });
 
@@ -642,6 +794,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item5.getText());
+                    copyTo(file, item5.getText());
+                    imageView.setVisible(false);
+                    setMastcelluleTile(mastcelluleTile);
+
                 }
             });
 
@@ -651,6 +807,10 @@ public class RevisioneController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     System.out.println(item6.getText());
+                    copyTo(file, item6.getText());
+                    imageView.setVisible(false);
+                    setLinfocitiTile(linfocitiTile);
+
                 }
             });
 
@@ -671,29 +831,41 @@ public class RevisioneController implements Initializable {
     }
 
     private void copyTo(final File imageFile, String destination){
-        FileInputStream file = null;
-        try {
-            file = new FileInputStream(imageFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Path path = imageFile.toPath();
         if(destination == "Epiteliali") {
-            Path path = Paths.get(patient.getPath() + File.separator + "epiteliali");
-            try {
-                Files.copy(file, path, REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator + "epiteliali");
+            Path target = Paths.get(patient.getPath() + File.separator + "inputs" + File.separator + "epiteliali");
+            fileHelper.copy(path, target);
+            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator + "inputs" + File.separator + "epiteliali");
         }
         if(destination == "Mucipare") {
-            Path path = Paths.get(patient.getPath() + File.separator + "Mucipare");
-            try {
-                Files.copy(file, path, REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator + "Mucipare");
+            Path target = Paths.get(patient.getPath() + File.separator + "inputs" + File.separator + "Mucipare");
+            fileHelper.copy(path, target);
+            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator +"inputs" + File.separator + "mucipare");
+        }
+        if(destination == "Neutrofili") {
+            Path target = Paths.get(patient.getPath() + File.separator + "inputs" + File.separator +"inputs" + File.separator + "Neutrofili");
+            fileHelper.copy(path, target);
+            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator +"inputs" + File.separator + "neutrofili");
+        }
+        if(destination == "Eosinofili") {
+            Path target = Paths.get(patient.getPath() + File.separator + "inputs" + File.separator + "Eosinofili");
+            fileHelper.copy(path, target);
+            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator +"inputs" + File.separator + "eosinofili");
+        }
+        if(destination == "Mastcellule") {
+            Path target = Paths.get(patient.getPath() + File.separator + "inputs" + File.separator + "Mastcellule");
+            fileHelper.copy(path, target);
+            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator +"inputs" + File.separator + "mastcellule");
+        }
+        if(destination == "Linfociti") {
+            Path target = Paths.get(patient.getPath() + File.separator + "inputs" + File.separator + "Linfociti");
+            fileHelper.copy(path, target);
+            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator +"inputs" + File.separator + "linfociti");
+        }
+        if(destination == "Altro") {
+            Path target = Paths.get(patient.getPath() + File.separator + "inputs" + File.separator + "Others");
+            fileHelper.copy(path, target);
+            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator +"inputs" + File.separator + "others");
         }
     }
 
