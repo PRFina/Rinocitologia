@@ -85,6 +85,7 @@ public class Utility {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		} else {
+			//System.out.print("\nWriting neutrofili\n" + folderNeutrofili.getAbsolutePath());
 			System.out.print("\nWriting neutrofili\n" + folderNeutrofili.getAbsolutePath());
 		}
 		final File folderEosinofili = new File(inputsPATH , "eosinofili");
@@ -92,28 +93,28 @@ public class Utility {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}else {
-			System.out.print("\nWriting eosinofili\n" + folderEosinofili.getAbsolutePath());
+			//System.out.print("\nWriting eosinofili\n" + folderEosinofili.getAbsolutePath());
 		}
 		final File folderMastcellule = new File(inputsPATH , "mastcellule");
 		if(!folderMastcellule.exists() && !folderMastcellule.mkdir()) {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}else {
-			System.out.print("\nWriting mastcellule\n" + folderMastcellule.getAbsolutePath());
+			//System.out.print("\nWriting mastcellule\n" + folderMastcellule.getAbsolutePath());
 		}
 		final File folderMetaplastiche = new File(inputsPATH , "epiteliali");
 		if(!folderMetaplastiche.exists() && !folderMetaplastiche.mkdir()) {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}else {
-			System.out.print("\nWriting epiteliali\n" + folderMetaplastiche.getAbsolutePath());
+			//System.out.print("\nWriting epiteliali\n" + folderMetaplastiche.getAbsolutePath());
 		}
 		final File folderLinfociti = new File(inputsPATH , "linfociti");
 		if(!folderLinfociti.exists() && !folderLinfociti.mkdir()) {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}else {
-			System.out.print("\nWriting linfociti\n" + folderLinfociti.getAbsolutePath());
+			//System.out.print("\nWriting linfociti\n" + folderLinfociti.getAbsolutePath());
 		}
 		/*
 		final File folderCiliate = new File(inputsPATH , "ciliate");
@@ -129,14 +130,14 @@ public class Utility {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}else {
-			System.out.print("\nWriting mucipare\n" + folderMucipare.getAbsolutePath());
+			//System.out.print("\nWriting mucipare\n" + folderMucipare.getAbsolutePath());
 		}
 		final File folderOthers = new File(inputsPATH , "others");
 		if(!folderOthers.exists() && !folderOthers.mkdir()) {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}else {
-			System.out.print("\nWriting others\n" + folderOthers.getAbsolutePath());
+			//System.out.print("\nWriting others\n" + folderOthers.getAbsolutePath());
 		}
 	}
 	

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
@@ -19,7 +27,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.QuestionsController">
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.QuestionsController">
     <children>
         <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" styleClass="head-background" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -28,7 +36,7 @@
                         <Font size="36.0" />
                     </font>
                 </Label>
-                <Label layoutX="227.0" layoutY="100.0" text="Cell Explorer" textFill="WHITE">
+                <Label fx:id="patientTxt" layoutX="227.0" layoutY="100.0" textFill="WHITE">
                     <font>
                         <Font size="13.0" />
                     </font>
@@ -58,7 +66,7 @@
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/projects.png" />
+                                <Image url="@../images/Inserimento.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -76,7 +84,7 @@
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/reliabilty.png" />
+                                <Image url="@../images/Revisione.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -91,7 +99,7 @@
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/question-sign.png" />
+                                <Image url="@../images/Anamnesi.png" />
                             </image>
                             <viewport>
                                 <Rectangle2D />
@@ -109,7 +117,7 @@
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/icons8_Workflow_64px.png" />
+                                <Image url="@../images/Diagnosi.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -132,7 +140,7 @@
                     <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/agencies.png" />
+                                <Image url="@../images/Anagrafica.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -140,6 +148,21 @@
                         <Insets left="50.0" />
                     </padding>
                 </JFXButton>
+            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#loadCaller" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Carica Paziente" textFill="#5b5858">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Load.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </JFXButton>
             </children>
         </VBox>
         <Pane layoutX="71.0" layoutY="44.0" prefHeight="131.0" prefWidth="142.0" style="-fx-background-color: #fff;">
@@ -163,10 +186,10 @@
                          <Font size="36.0" />
                      </font>
                  </Label>
-                 <Button fx:id="btnSalva" layoutX="687.0" layoutY="348.0" mnemonicParsing="false" onAction="#salva" text="Salva" />
-                 <ScrollPane layoutX="24.0" layoutY="54.0" prefHeight="295.0" prefWidth="567.0">
+                 <JFXButton fx:id="btnSalva" buttonType="RAISED" layoutX="884.0" layoutY="420.0" mnemonicParsing="false" onAction="#salva" ripplerFill="#ee7918" text="Salva" />
+                 <ScrollPane layoutX="24.0" layoutY="54.0" prefHeight="295.0" prefWidth="847.0">
                      <content>
-                         <Pane fx:id="GeneralPane" prefHeight="1410.0" prefWidth="428.0">
+                         <Pane fx:id="GeneralPane" prefHeight="1396.0" prefWidth="824.0">
                              <children>
                                  <Label fx:id="SubTitleFam" layoutX="14.0" layoutY="2.0" prefHeight="25.0" prefWidth="412.0" text="Anamnesi familiare">
                                      <font>
@@ -204,20 +227,20 @@
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxTipoParto" layoutX="262.0" layoutY="224.0" prefHeight="25.0" prefWidth="150.0" />
-                                 <ComboBox fx:id="comboBoxEsecuzioneParto" layoutX="262.0" layoutY="261.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxTipoParto" focusColor="#ee7918" layoutX="314.0" layoutY="223.0" prefHeight="25.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxEsecuzioneParto" focusColor="#ee7918" layoutX="314.0" layoutY="260.0" prefWidth="150.0" />
                                  <Label fx:id="lblSviluppo" layoutX="18.0" layoutY="307.0" prefHeight="19.0" prefWidth="267.0" text="Tipo di sviluppo vegetativo e  relazionale:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxSviluppo" layoutX="263.0" layoutY="300.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxSviluppo" focusColor="#ee7918" layoutX="315.0" layoutY="299.0" prefWidth="150.0" />
                                    <Label fx:id="lblScuola" layoutX="18.0" layoutY="345.0" prefHeight="19.0" prefWidth="191.0" text="Livello scolastico:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxScuola" layoutX="263.0" layoutY="338.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxScuola" focusColor="#ee7918" layoutX="315.0" layoutY="337.0" prefWidth="150.0" />
                                  <Label fx:id="lblEta" layoutX="18.0" layoutY="382.0" prefHeight="19.0" prefWidth="267.0" text="Età:">
                                      <font>
                                          <Font size="13.0" />
@@ -228,73 +251,73 @@
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxAttivita" layoutX="263.0" layoutY="416.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxAttivita" focusColor="#ee7918" layoutX="315.0" layoutY="415.0" prefWidth="150.0" />
                                  <Label fx:id="lblScuola2" layoutX="19.0" layoutY="466.0" prefHeight="19.0" prefWidth="191.0" text="Abitudini alimentari:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxAlimentazione" layoutX="264.0" layoutY="459.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxAlimentazione" focusColor="#ee7918" layoutX="316.0" layoutY="458.0" prefWidth="150.0" />
                                  <Label fx:id="lblScuola3" layoutX="19.0" layoutY="505.0" prefHeight="19.0" prefWidth="191.0" text="Ritmo sonno/sveglia:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxRiposo" layoutX="264.0" layoutY="498.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxRiposo" focusColor="#ee7918" layoutX="316.0" layoutY="497.0" prefWidth="150.0" />
                                  <Label fx:id="lblScuola31" layoutX="19.0" layoutY="545.0" prefHeight="19.0" prefWidth="258.0" text="Stress fisico/psicologico accumulato:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxStress" layoutX="264.0" layoutY="538.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxStress" focusColor="#ee7918" layoutX="316.0" layoutY="537.0" prefWidth="150.0" />
                                  <Label fx:id="lblScuola33" layoutX="20.0" layoutY="666.0" prefHeight="19.0" prefWidth="191.0" text="Uso di droghe:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxDroga" layoutX="265.0" layoutY="659.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxDroga" focusColor="#ee7918" layoutX="317.0" layoutY="658.0" prefWidth="150.0" />
                                  <Label fx:id="lblScuola34" layoutX="20.0" layoutY="585.0" prefHeight="19.0" prefWidth="191.0" text="Fumatore:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxFumatore" layoutX="265.0" layoutY="578.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxFumatore" focusColor="#ee7918" layoutX="317.0" layoutY="577.0" prefWidth="150.0" />
                                  <Label fx:id="lblScuola35" layoutX="19.0" layoutY="626.0" prefHeight="19.0" prefWidth="191.0" text="Uso di alcolici:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxAlcolici" layoutX="266.0" layoutY="619.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxAlcolici" focusColor="#ee7918" layoutX="318.0" layoutY="618.0" prefWidth="150.0" />
                                  <Label fx:id="lblScuola32" layoutX="20.0" layoutY="709.0" prefHeight="19.0" prefWidth="191.0" text="Assunzione di caffeina:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <ComboBox fx:id="comboBoxCaffeina" layoutX="265.0" layoutY="702.0" prefWidth="150.0" />
+                                 <JFXComboBox fx:id="comboBoxCaffeina" focusColor="#ee7918" layoutX="317.0" layoutY="701.0" prefWidth="150.0" />
                                  <Label fx:id="lblScuola321" layoutX="20.0" layoutY="746.0" prefHeight="19.0" prefWidth="191.0" text="Allergia:">
                                      <font>
                                          <Font size="13.0" />
                                      </font>
                                  </Label>
-                                 <TextField fx:id="textFieldEta" layoutX="263.0" layoutY="375.0" />
-                              <JFXCheckBox fx:id="cupressacee" layoutX="72.0" layoutY="753.0" mnemonicParsing="false" text="Cupressacee/Taxacee" />
-                              <JFXCheckBox fx:id="nocciolo" layoutX="228.0" layoutY="751.0" mnemonicParsing="false" text="Nocciolo" />
-                              <JFXCheckBox fx:id="ontano" layoutX="349.0" layoutY="751.0" mnemonicParsing="false" text="Ontano" />
-                              <JFXCheckBox fx:id="pioppo" layoutX="72.0" layoutY="781.0" mnemonicParsing="false" text="Pioppo" />
-                              <JFXCheckBox fx:id="frassino" layoutX="228.0" layoutY="779.0" mnemonicParsing="false" text="Frassino comune" />
-                              <JFXCheckBox fx:id="betulla" layoutX="349.0" layoutY="779.0" mnemonicParsing="false" text="Betulla" />
-                              <JFXCheckBox fx:id="salice" layoutX="72.0" layoutY="807.0" mnemonicParsing="false" text="Salice" />
-                              <JFXCheckBox fx:id="carpino" layoutX="228.0" layoutY="805.0" mnemonicParsing="false" text="Carpino nero" />
-                              <JFXCheckBox fx:id="platano" layoutX="349.0" layoutY="805.0" mnemonicParsing="false" text="Platano" />
-                              <JFXCheckBox fx:id="quercia" layoutX="72.0" layoutY="834.0" mnemonicParsing="false" text="Quercia" />
-                              <JFXCheckBox fx:id="orniello" layoutX="228.0" layoutY="832.0" mnemonicParsing="false" text="Orniello" />
-                              <JFXCheckBox fx:id="pinacee" layoutX="349.0" layoutY="832.0" mnemonicParsing="false" text="Pinacee" />
-                              <JFXCheckBox fx:id="piantaggine" layoutX="349.0" layoutY="859.0" mnemonicParsing="false" text="Piantaggine" />
-                              <JFXCheckBox fx:id="urticacee" layoutX="228.0" layoutY="859.0" mnemonicParsing="false" text="Urticacee" />
-                              <JFXCheckBox fx:id="graminacee" layoutX="72.0" layoutY="861.0" mnemonicParsing="false" text="Graminacee" />
-                              <JFXCheckBox fx:id="poligonacee" layoutX="72.0" layoutY="893.0" mnemonicParsing="false" text="Poligonacee" />
-                              <JFXCheckBox fx:id="castagno" layoutX="228.0" layoutY="887.0" mnemonicParsing="false" text="Castagno" />
-                              <JFXCheckBox fx:id="assenzio" layoutX="349.0" layoutY="887.0" mnemonicParsing="false" text="Assenzio" />
+                                 <JFXTextField fx:id="textFieldEta" focusColor="#ee7918" layoutX="315.0" layoutY="374.0" />
+                              <JFXCheckBox fx:id="cupressacee" checkedColor="#e4830d" layoutX="72.0" layoutY="753.0" mnemonicParsing="false" text="Cupressacee/Taxacee" />
+                              <JFXCheckBox fx:id="nocciolo" checkedColor="#e4830d" layoutX="260.0" layoutY="751.0" mnemonicParsing="false" text="Nocciolo" />
+                              <JFXCheckBox fx:id="ontano" checkedColor="#e4830d" layoutX="420.0" layoutY="751.0" mnemonicParsing="false" text="Ontano" />
+                              <JFXCheckBox fx:id="pioppo" checkedColor="#e4830d" layoutX="72.0" layoutY="781.0" mnemonicParsing="false" text="Pioppo" />
+                              <JFXCheckBox fx:id="frassino" checkedColor="#e4830d" layoutX="260.0" layoutY="779.0" mnemonicParsing="false" text="Frassino comune" />
+                              <JFXCheckBox fx:id="betulla" checkedColor="#e4830d" layoutX="420.0" layoutY="779.0" mnemonicParsing="false" text="Betulla" />
+                              <JFXCheckBox fx:id="salice" checkedColor="#e4830d" layoutX="72.0" layoutY="807.0" mnemonicParsing="false" text="Salice" />
+                              <JFXCheckBox fx:id="carpino" checkedColor="#e4830d" layoutX="260.0" layoutY="805.0" mnemonicParsing="false" text="Carpino nero" />
+                              <JFXCheckBox fx:id="platano" checkedColor="#e4830d" layoutX="420.0" layoutY="805.0" mnemonicParsing="false" text="Platano" />
+                              <JFXCheckBox fx:id="quercia" checkedColor="#e4830d" layoutX="72.0" layoutY="834.0" mnemonicParsing="false" text="Quercia" />
+                              <JFXCheckBox fx:id="orniello" checkedColor="#e4830d" layoutX="260.0" layoutY="832.0" mnemonicParsing="false" text="Orniello" />
+                              <JFXCheckBox fx:id="pinacee" checkedColor="#e4830d" layoutX="420.0" layoutY="832.0" mnemonicParsing="false" text="Pinacee" />
+                              <JFXCheckBox fx:id="piantaggine" checkedColor="#e4830d" layoutX="420.0" layoutY="859.0" mnemonicParsing="false" text="Piantaggine" />
+                              <JFXCheckBox fx:id="urticacee" checkedColor="#e4830d" layoutX="260.0" layoutY="859.0" mnemonicParsing="false" text="Urticacee" />
+                              <JFXCheckBox fx:id="graminacee" checkedColor="#e4830d" layoutX="72.0" layoutY="861.0" mnemonicParsing="false" text="Graminacee" />
+                              <JFXCheckBox fx:id="poligonacee" checkedColor="#e4830d" layoutX="72.0" layoutY="893.0" mnemonicParsing="false" text="Poligonacee" />
+                              <JFXCheckBox fx:id="castagno" checkedColor="#e4830d" layoutX="260.0" layoutY="887.0" mnemonicParsing="false" text="Castagno" />
+                              <JFXCheckBox fx:id="assenzio" checkedColor="#e4830d" layoutX="420.0" layoutY="887.0" mnemonicParsing="false" text="Assenzio" />
                              </children>
                          </Pane>
                      </content></ScrollPane>

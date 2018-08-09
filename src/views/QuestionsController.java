@@ -1,5 +1,6 @@
 package views;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,10 +13,12 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
+import utility.DialogHelper;
 import utility.Utility;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,103 +26,22 @@ import java.util.logging.Logger;
 public class QuestionsController  implements Initializable {
 
     @FXML
-    private CheckBox cupressacee;
+    private CheckBox cupressacee, nocciolo, ontano,  pioppo,  frassino, betulla, salice,  carpino, platano,  quercia,  orniello;
 
     @FXML
-    private CheckBox nocciolo;
+    private CheckBox pinacee,  urticacee, graminacee,  poligonacee,  castagno, assenzio, piantaggine;
 
     @FXML
-    private CheckBox ontano;
+    private TextArea textFam, textPross, textRem;
 
     @FXML
-    private CheckBox pioppo;
+    private ComboBox<String> comboBoxTipoParto, comboBoxEsecuzioneParto, comboBoxSviluppo, comboBoxScuola, comboBoxAttivita;
 
     @FXML
-    private CheckBox frassino;
+    private ComboBox<String> comboBoxAlimentazione, comboBoxRiposo, comboBoxStress, comboBoxDroga, comboBoxFumatore;
 
     @FXML
-    private CheckBox betulla;
-
-    @FXML
-    private CheckBox salice;
-
-    @FXML
-    private CheckBox carpino;
-
-    @FXML
-    private CheckBox platano;
-
-    @FXML
-    private CheckBox quercia;
-
-    @FXML
-    private CheckBox orniello;
-
-    @FXML
-    private CheckBox pinacee;
-
-    @FXML
-    private CheckBox urticacee;
-
-    @FXML
-    private CheckBox graminacee;
-
-    @FXML
-    private CheckBox poligonacee;
-
-    @FXML
-    private CheckBox castagno;
-
-    @FXML
-    private CheckBox assenzio;
-
-    @FXML
-    private CheckBox piantaggine;
-
-    @FXML
-    private TextArea textFam;
-
-    @FXML
-    private TextArea textPross;
-
-    @FXML
-    private TextArea textRem;
-
-    @FXML
-    private ComboBox<String> comboBoxTipoParto;
-
-    @FXML
-    private ComboBox<String> comboBoxEsecuzioneParto;
-
-    @FXML
-    private ComboBox<String> comboBoxSviluppo;
-
-    @FXML
-    private ComboBox<String> comboBoxScuola;
-
-    @FXML
-    private ComboBox<String> comboBoxAttivita;
-
-    @FXML
-    private ComboBox<String> comboBoxAlimentazione;
-
-    @FXML
-    private ComboBox<String> comboBoxRiposo;
-
-    @FXML
-    private ComboBox<String> comboBoxStress;
-
-    @FXML
-    private ComboBox<String> comboBoxDroga;
-
-    @FXML
-    private ComboBox<String> comboBoxFumatore;
-
-    @FXML
-    private ComboBox<String> comboBoxAlcolici;
-
-    @FXML
-    private ComboBox<String> comboBoxCaffeina;
+    private ComboBox<String> comboBoxAlcolici, comboBoxCaffeina;
 
     @FXML
     private TextField textFieldAllergia;
@@ -129,129 +51,18 @@ public class QuestionsController  implements Initializable {
 
     private Patient patient;
 
-    public void setPatient(Patient patient) {this.patient = patient;}
-
-
-    /*
-     *
-     * START SIDEBAR COMMANDS
-     *
-     */
+    @FXML
+    private Label patientTxt;
 
     @FXML
-    private void anamnesiCaller(ActionEvent event)  throws IOException {
-        FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("Anamnesi.fxml"));
-        try {
-            Loader.load();
-        } catch (IOException ex){
-            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
-        }
-        AnamnesiController controller = Loader.getController();
-        if(patient.getAnamnesi() == null){
-            Anamnesi anam = new Anamnesi();
-            patient.setAnamnesi(anam);
-        }
-        controller.setPatient(patient);
-        controller.getInfo();
-
-        //Inizio Carica View
-        Parent p = Loader.getRoot();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(p));
-        stage.show();
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+        String label = "Paziente: " + patient.getFirstName() + " " + patient.getSurname();
+        patientTxt.setText(label);
     }
 
-    @FXML
-    private void insertCells(ActionEvent event)  throws IOException{
-        FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("Home.fxml"));
-        try {
-            Loader.load();
-        } catch (IOException ex){
-            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
-        }
-        HomeController controller = Loader.getController();
-        controller.setPatient(patient);
-
-
-        //Inizio Carica View
-        Parent p = Loader.getRoot();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(p));
-        stage.show();
-    }
-
-
-    @FXML
-    private void revisionCaller(ActionEvent event)  throws IOException{
-        FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("Revisione.fxml"));
-        try {
-            Loader.load();
-        } catch (IOException ex){
-            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
-        }
-        RevisioneController controller = Loader.getController();
-        controller.setPatient(patient);
-        controller.setTiles();
-
-        //Inizio Carica View
-        Parent p = Loader.getRoot();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(p));
-        stage.show();
-    }
-
-
-    @FXML
-    private void diagnosisCaller(ActionEvent event)  throws IOException{
-        FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("Diagnosi.fxml"));
-        try {
-            Loader.load();
-        } catch (IOException ex){
-            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
-        }
-        DiagnosiController controller = Loader.getController();
-        controller.setPatient(patient);
-
-        //Inizio Carica View
-        Parent p = Loader.getRoot();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(p));
-        stage.show();
-    }
-
-    @FXML
-    private void anagraficaCaller(ActionEvent event)  throws IOException{
-        FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("Anagrafica.fxml"));
-        try {
-            Loader.load();
-        } catch (IOException ex){
-            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
-        }
-        AnagraficaController controller = Loader.getController();
-        controller.setPatient(patient);
-
-        //Inizio Carica View
-        Parent p = Loader.getRoot();
-        if (patient.getFirstName() != "Anonimo"){
-            controller.setFields();
-        }
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(p));
-        stage.show();
-    }
-
-    public void shutdown() {
-        // cleanup code here...
-        System.out.println("\nSAVING SESSION");
-        Utility util = new Utility(patient);
-        util.writeLastSession();
-    }
-
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {}
 
 
     public void setInfo(){
@@ -302,11 +113,14 @@ public class QuestionsController  implements Initializable {
                     comboBoxDroga.getSelectionModel().getSelectedItem(),
                     comboBoxStress.getSelectionModel().getSelectedItem(),
                     textFieldEta.getText(),
-                    textFieldAllergia.getText(),
+                    chekboxes(),
                     textFam.getText(),
                     textPross.getText(),
                     textRem.getText()
             );
+            Utility utility = new Utility(patient);
+            utility.writeJson();
+
             FXMLLoader Loader = new FXMLLoader();
             Loader.setLocation(getClass().getResource("Anamnesi.fxml"));
             try {
@@ -322,18 +136,250 @@ public class QuestionsController  implements Initializable {
             Parent p = Loader.getRoot();
 
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setOnHidden(e -> {
+                controller.shutdown();
+                Platform.exit();
+            });
             stage.setScene(new Scene(p));
             stage.show();
         }else{
+            DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Errore nell'inserimento dell'età", "Il campo inerente all'eta' deve essere riempito con un numero maggiore di 0.");
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Errore nell'inserimento dell'eta'");
-            alert.setContentText("Il campo inerente all'eta' deve essere riempito con un numero maggiore di 0.");
-
-            alert.showAndWait();
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {}
+    public ArrayList<String> chekboxes(){
+        ArrayList<String> checkbox = new ArrayList<String>();
+        if(graminacee.isSelected()){
+            checkbox.add(graminacee.getText());
+        }
+        if(cupressacee.isSelected()){
+            checkbox.add(cupressacee.getText());
+        }
+        if(nocciolo.isSelected()){
+            checkbox.add(nocciolo.getText());
+        }
+        if(ontano.isSelected()){
+            checkbox.add(ontano.getText());
+        }
+        if(pioppo.isSelected()){
+            checkbox.add(pioppo.getText());
+        }
+        if(frassino.isSelected()){
+            checkbox.add(frassino.getText());
+        }
+        if(betulla.isSelected()){
+            checkbox.add(betulla.getText());
+        }
+        if(salice.isSelected()){
+            checkbox.add(salice.getText());
+        }
+        if(carpino.isSelected()){
+            checkbox.add(carpino.getText());
+        }
+        if(platano.isSelected()){
+            checkbox.add(platano.getText());
+        }
+        if(quercia.isSelected()){
+            checkbox.add(quercia.getText());
+        }
+        if(orniello.isSelected()){
+            checkbox.add(orniello.getText());
+        }
+        if(pinacee.isSelected()){
+            checkbox.add(pinacee.getText());
+        }
+        if(urticacee.isSelected()){
+            checkbox.add(urticacee.getText());
+        }
+        if(graminacee.isSelected()){
+            checkbox.add(graminacee.getText());
+        }
+        if(poligonacee.isSelected()){
+            checkbox.add(poligonacee.getText());
+        }
+        if(castagno.isSelected()){
+            checkbox.add(castagno.getText());
+        }
+        if(assenzio.isSelected()){
+            checkbox.add(assenzio.getText());
+        }
+        if(piantaggine.isSelected()){
+            checkbox.add(piantaggine.getText());
+        }
+
+        for(String el:checkbox){
+            System.out.println(el);
+        }
+
+        return checkbox;
+    }
+
+    /*
+     *
+     * START SIDEBAR COMMANDS
+     *
+     */
+
+    @FXML
+    private void anamnesiCaller(ActionEvent event)  throws IOException {
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Anamnesi.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        AnamnesiController controller = Loader.getController();
+        if(patient.getAnamnesi() == null){
+            Anamnesi anam = new Anamnesi();
+            patient.setAnamnesi(anam);
+        }
+        controller.setPatient(patient);
+        controller.getInfo();
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+    @FXML
+    private void insertCells(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Home.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        HomeController controller = Loader.getController();
+        controller.setPatient(patient);
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+
+    @FXML
+    private void revisionCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Revisione.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        RevisioneController controller = Loader.getController();
+        controller.setPatient(patient);
+        controller.setTiles();
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+
+    @FXML
+    private void diagnosisCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Diagnosi.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        DiagnosiController controller = Loader.getController();
+        controller.setPatient(patient);
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+    @FXML
+    private void anagraficaCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Anagrafica.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        AnagraficaController controller = Loader.getController();
+        controller.setPatient(patient);
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        if (patient.getFirstName() != "Anonimo"){
+            controller.setFields();
+        }
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+    @FXML
+    private void loadCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Load.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        LoadController controller = Loader.getController();
+        controller.setPatient(patient);
+
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(p));
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.show();
+    }
+
+    public void shutdown() {
+        // cleanup code here...
+        System.out.println("\nSAVING SESSION");
+        Utility util = new Utility(patient);
+        util.writeLastSession();
+    }
+
+
+
 }

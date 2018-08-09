@@ -1,5 +1,7 @@
 package rinocitologia;
 
+import java.util.ArrayList;
+
 public class Anamnesi {
     //Variabili per tenere traccia delle informazioni delle varie anamnesi
     private String tipoParto="";
@@ -15,11 +17,13 @@ public class Anamnesi {
     private String droga="";
     private String stress="";
     private String eta="";
+    private ArrayList<String> allergie;
     private String allergia="";
     private String anamFamiliare="";
     private String anamProssima="";
     private String anamRemota="";
 
+    /*
     public void setInfo(String tipoParto, String alcool, String alimentazione, String attivita, String caffeina, String esecuzioneParto, String fumatore, String riposo, String scuola, String sviluppo, String droga, String stress, String eta, String allergia, String anamFamiliare, String anamProssima, String anamRemota){
         this.setTipoParto(tipoParto);
         this.setAlcool(alcool);
@@ -41,7 +45,30 @@ public class Anamnesi {
         System.out.println(this.tipoParto);
         System.out.println(this.anamFamiliare);
     }
+*/
 
+    public void setInfo(String tipoParto, String alcool, String alimentazione, String attivita, String caffeina, String esecuzioneParto, String fumatore, String riposo, String scuola, String sviluppo, String droga, String stress, String eta, ArrayList<String> allergia, String anamFamiliare, String anamProssima, String anamRemota){
+        this.setTipoParto(tipoParto);
+        this.setAlcool(alcool);
+        this.setAlimentazione(alimentazione);
+        this.setAttivita(attivita);
+        this.setCaffeina(caffeina);
+        this.setEsecuzioneParto(esecuzioneParto);
+        this.setFumatore(fumatore);
+        this.setRiposo(riposo);
+        this.setScuola(scuola);
+        this.setSviluppo(sviluppo);
+        this.setDroga(droga);
+        this.setStress(stress);
+        this.setEta(eta);
+        this.setAllergie(allergia);
+        this.setAllergia();
+        this.setAnamFamiliare(anamFamiliare);
+        this.setAnamProssima(anamProssima);
+        this.setAnamRemota(anamRemota);
+        System.out.println(this.tipoParto);
+        System.out.println(this.anamFamiliare);
+    }
 
     public String getTipoParto() {
         return tipoParto;
@@ -151,9 +178,33 @@ public class Anamnesi {
         return allergia;
     }
 
+    public ArrayList<String> getAllergie() {
+        return allergie;
+    }
+
+    /*
     public void setAllergia(String allergia) {
         this.allergia = allergia;
     }
+    */
+    public void setAllergia() {
+        String allergia = "";
+        for(String el:allergie){
+            allergia = allergia + ", " + el;
+        }
+        if(allergia.length()>0){
+            allergia = allergia.substring(1);
+            this.allergia = allergia;
+        } else {
+            this.allergia = "Non presenti.";
+        }
+
+    }
+
+    public void setAllergie(ArrayList<String> allergie) {
+        this.allergie = allergie;
+    }
+
 
     public String getAnamFamiliare() {
         return anamFamiliare;

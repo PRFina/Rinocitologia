@@ -26,6 +26,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
 import utility.CodiceFiscale;
 import utility.Utility;
@@ -112,8 +113,6 @@ public class LoadController implements Initializable {
             Path path = Paths.get(target);
             if(cfTxt.getText().length() == 16 && Files.exists(path)) {
                 DialogHelper.showAlert(Alert.AlertType.INFORMATION, "Successo", "Successo.", "Paziente caricato con successo.");
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.showAndWait();
                 patient = Utility.readJson(cfTxt.getText());
                 setPatient(patient);
                 System.out.println(patient.toString());
@@ -208,6 +207,10 @@ public class LoadController implements Initializable {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnamnesiController controller = Loader.getController();
+        if(patient.getAnamnesi() == null){
+            Anamnesi anam = new Anamnesi();
+            patient.setAnamnesi(anam);
+        }
         controller.setPatient(patient);
         controller.getInfo();
         //Inizio Carica View
