@@ -200,8 +200,35 @@ public class QuestionsController  implements Initializable {
         util.writeLastSession();
     }
 
-    public static void setInfo(){
 
+
+    public void setInfo(){
+        comboBoxTipoParto.setItems(FXCollections.observableArrayList("pretermine", "termine", "post-termine"));
+        comboBoxTipoParto.setValue(patient.getAnamnesi().getTipoParto());
+        comboBoxAlcolici.setItems(FXCollections.observableArrayList("nessuno", "irrilevante", "uso eccessivo"));
+        comboBoxAlcolici.setValue(patient.getAnamnesi().getAlcool());
+        comboBoxAlimentazione.setItems(FXCollections.observableArrayList("sana", "errata"));
+        comboBoxAlimentazione.setValue(patient.getAnamnesi().getAlimentazione());
+        comboBoxAttivita.setItems(FXCollections.observableArrayList("assente", "poca attività", "molta attività"));
+        comboBoxAttivita.setValue(patient.getAnamnesi().getAttivita());
+        comboBoxCaffeina.setItems(FXCollections.observableArrayList("nessuno", "irrilevante", "uso eccessivo"));
+        comboBoxCaffeina.setValue(patient.getAnamnesi().getCaffeina());
+        comboBoxEsecuzioneParto.setItems(FXCollections.observableArrayList("naturale eutocico", "naturale distocito", "operatorio cesareo"));
+        comboBoxEsecuzioneParto.setValue(patient.getAnamnesi().getEsecuzioneParto());
+        comboBoxFumatore.setItems(FXCollections.observableArrayList("si", "no"));
+        comboBoxFumatore.setValue(patient.getAnamnesi().getFumatore());
+        comboBoxRiposo.setItems(FXCollections.observableArrayList("ideale", "non ideale"));
+        comboBoxRiposo.setValue(patient.getAnamnesi().getRiposo());
+        comboBoxScuola.setItems(FXCollections.observableArrayList("analfabeta", "elementare", "medie-inferiori", "diploma", "laurea"));
+        comboBoxScuola.setValue(patient.getAnamnesi().getScuola());
+        comboBoxSviluppo.setItems(FXCollections.observableArrayList("normale", "patologico"));
+        comboBoxSviluppo.setValue(patient.getAnamnesi().getSviluppo());
+        comboBoxDroga.setItems(FXCollections.observableArrayList("si", "no"));
+        comboBoxDroga.setValue(patient.getAnamnesi().getDroga());
+        comboBoxStress.setItems(FXCollections.observableArrayList("poco", "molto"));
+        comboBoxStress.setValue(patient.getAnamnesi().getStress());
+        textFieldEta.setText(patient.getAnamnesi().getEta());
+        //Inserire checkbox per le allergie del paziente corrente
     }
 
     @FXML
@@ -225,6 +252,23 @@ public class QuestionsController  implements Initializable {
                     textPross.getText(),
                     textRem.getText()
             );
+            FXMLLoader Loader = new FXMLLoader();
+            Loader.setLocation(getClass().getResource("Anamnesi.fxml"));
+            try {
+                Loader.load();
+            } catch (IOException ex){
+                Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
+            }
+            AnamnesiController controller = Loader.getController();
+            controller.setPatient(patient);
+            controller.getInfo();
+
+            //Inizio Carica View
+            Parent p = Loader.getRoot();
+
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(p));
+            stage.show();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
@@ -236,20 +280,5 @@ public class QuestionsController  implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        lblError.setVisible(false);
-        comboBoxTipoParto.setItems(FXCollections.observableArrayList("pretermine", "termine", "post-termine"));
-        comboBoxAlcolici.setItems(FXCollections.observableArrayList("nessuno", "irrilevante", "uso eccessivo"));
-        comboBoxAlimentazione.setItems(FXCollections.observableArrayList("sana", "errata"));
-        comboBoxAttivita.setItems(FXCollections.observableArrayList("assente", "poca attività", "molta attività"));
-        comboBoxCaffeina.setItems(FXCollections.observableArrayList("nessuno", "irrilevante", "uso eccessivo"));
-        comboBoxEsecuzioneParto.setItems(FXCollections.observableArrayList("naturale eutocico", "naturale distocito", "operatorio cesareo"));
-        comboBoxFumatore.setItems(FXCollections.observableArrayList("si", "no"));
-        comboBoxRiposo.setItems(FXCollections.observableArrayList("ideale", "non ideale"));
-        comboBoxScuola.setItems(FXCollections.observableArrayList("analfabeta", "elementare", "medie-inferiori", "diploma", "laurea"));
-        comboBoxSviluppo.setItems(FXCollections.observableArrayList("normale", "patologico"));
-        comboBoxDroga.setItems(FXCollections.observableArrayList("si", "no"));
-        comboBoxStress.setItems(FXCollections.observableArrayList("poco", "molto"));
-        setInfo();
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 }

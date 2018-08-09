@@ -209,6 +209,7 @@ public class LoadController implements Initializable {
         }
         AnamnesiController controller = Loader.getController();
         controller.setPatient(patient);
+        controller.getInfo();
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

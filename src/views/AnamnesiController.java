@@ -36,9 +36,7 @@ public class AnamnesiController implements Initializable {
     private Patient patient;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        this.getInfo(patient.getAnamnesi());
-    }
+    public void initialize(URL url, ResourceBundle rb) {}
 
     public void setPatient(Patient patient) {this.patient = patient;}
 
@@ -173,7 +171,7 @@ public class AnamnesiController implements Initializable {
         }
         QuestionsController controller = Loader.getController();
         controller.setPatient(patient);
-        QuestionsController.setInfo();
+        controller.setInfo();
 
 
         //Inizio Carica View
@@ -193,26 +191,26 @@ public class AnamnesiController implements Initializable {
         */
     }
 
-    public void getInfo(Anamnesi anamnesi){
+    public void getInfo(){
         String anamFis = "";
-        anamFis = "Tipo di parto: "+anamnesi.getTipoParto()+
-                "\nTipo di esecuzione del parto: "+anamnesi.getEsecuzioneParto()+
-                "\nTipo di sviluppo vegetativo e relazionale: "+anamnesi.getSviluppo()+
-                "\nLivello scolastico: "+anamnesi.getScuola()+
-                "\nEta': "+anamnesi.getEta()+
-                "\nLivello attività fisica: "+anamnesi.getAttivita()+
-                "\nAbitudini alimentari: "+anamnesi.getAlimentazione()+
-                "\nRitmo sonno/sveglia: "+anamnesi.getRiposo()+
-                "\nStress fisico/psicologico accumulato: "+anamnesi.getStress()+
-                "\nFumatore: "+anamnesi.getFumatore()+
-                "\nUso di alcolici: "+anamnesi.getAlcool()+
-                "\nUso di droghe: "+anamnesi.getDroga()+
-                "\nAssunzione di caffeina: "+anamnesi.getCaffeina()+
-                "\nAllergia: "+anamnesi.getAllergia();
-        textAnamFam.setText(anamnesi.getAnamFamiliare());
+        anamFis = "Tipo di parto: "+patient.getAnamnesi().getTipoParto()+
+                "\nTipo di esecuzione del parto: "+patient.getAnamnesi().getEsecuzioneParto()+
+                "\nTipo di sviluppo vegetativo e relazionale: "+patient.getAnamnesi().getSviluppo()+
+                "\nLivello scolastico: "+patient.getAnamnesi().getScuola()+
+                "\nEta': "+patient.getAnamnesi().getEta()+
+                "\nLivello attività fisica: "+patient.getAnamnesi().getAttivita()+
+                "\nAbitudini alimentari: "+patient.getAnamnesi().getAlimentazione()+
+                "\nRitmo sonno/sveglia: "+patient.getAnamnesi().getRiposo()+
+                "\nStress fisico/psicologico accumulato: "+patient.getAnamnesi().getStress()+
+                "\nFumatore: "+patient.getAnamnesi().getFumatore()+
+                "\nUso di alcolici: "+patient.getAnamnesi().getAlcool()+
+                "\nUso di droghe: "+patient.getAnamnesi().getDroga()+
+                "\nAssunzione di caffeina: "+patient.getAnamnesi().getCaffeina()+
+                "\nAllergia: "+patient.getAnamnesi().getAllergia();
+        textAnamFam.setText(patient.getAnamnesi().getAnamFamiliare());
         textAnamFis.setText(anamFis);
-        textAnamPatProssima.setText(anamnesi.getAnamProssima());
-        textAnamPatRemota.setText(anamnesi.getAnamRemota());
+        textAnamPatProssima.setText(patient.getAnamnesi().getAnamProssima());
+        textAnamPatRemota.setText(patient.getAnamnesi().getAnamRemota());
     }
 }
 

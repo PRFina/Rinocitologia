@@ -179,6 +179,7 @@ public class HomeController implements Initializable {
             patient.setAnamnesi(anam);
         }
         controller.setPatient(patient);
+        controller.getInfo();
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

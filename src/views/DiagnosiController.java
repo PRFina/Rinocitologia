@@ -106,6 +106,7 @@ public class DiagnosiController implements Initializable {
             patient.setAnamnesi(anam);
         }
         controller.setPatient(patient);
+        controller.getInfo();
         //controller.print();
         //Inizio Carica View
         Parent p = Loader.getRoot();
