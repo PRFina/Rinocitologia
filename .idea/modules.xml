@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/src/InterfacciaCell.iml" filepath="$PROJECT_DIR$/src/InterfacciaCell.iml" />
-      <module fileurl="file://$PROJECT_DIR$/InterfacciaCell1.iml" filepath="$PROJECT_DIR$/InterfacciaCell1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InterfacciaCell.iml" filepath="$PROJECT_DIR$/InterfacciaCell.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/InterfacciaCell1.iml" filepath="$PROJECT_DIR$/src/InterfacciaCell1.iml" />
     </modules>
   </component>
 </project>

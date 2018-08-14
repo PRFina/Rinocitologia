@@ -1,192 +1,305 @@
 package rinocitologia;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Anamnesi {
-    //Variabili per tenere traccia delle informazioni delle varie anamnesi
-    private String tipoParto="";
-    private String alcool="";
-    private String alimentazione="";
-    private String attivita="";
-    private String caffeina="";
-    private String esecuzioneParto="";
-    private String fumatore="";
-    private String riposo="";
-    private String scuola="";
-    private String sviluppo="";
-    private String droga="";
-    private String stress="";
-    private String eta="";
+    private String allergiaGen, tipoAllergiaGen, allergiaFra, tipoAllergiaFra, poliposiGen, asmaFra, asmaGen, poliposiFra = "";
+
+    private String appuntiFam = "";
+
+    private String ostruzione, rinorrea, espansioneRinorrea, pruritoNasale, starnuto, olfatto, ovattamento, ipoacusia, acufeni, vertigini = "";
+
+    private Boolean lacrimazione = false;
+    private Boolean fotofobia = false;
+    private Boolean prurito = false;
+    private Boolean bruciore = false;
+
+    private String appuntiPat = "";
+
+    private String pirNasale, valNasale, setto, turbinati, polSx, polDx, essudato, ipertrofia = "";
+
+    private String appuntiAlterazioniLIO, appuntiEsameOtoscopico, appuntiEsameRinom = "";
+
     private ArrayList<String> allergie;
+
     private String allergia="";
-    private String anamFamiliare="";
-    private String anamProssima="";
-    private String anamRemota="";
 
-    /*
-    public void setInfo(String tipoParto, String alcool, String alimentazione, String attivita, String caffeina, String esecuzioneParto, String fumatore, String riposo, String scuola, String sviluppo, String droga, String stress, String eta, String allergia, String anamFamiliare, String anamProssima, String anamRemota){
-        this.setTipoParto(tipoParto);
-        this.setAlcool(alcool);
-        this.setAlimentazione(alimentazione);
-        this.setAttivita(attivita);
-        this.setCaffeina(caffeina);
-        this.setEsecuzioneParto(esecuzioneParto);
-        this.setFumatore(fumatore);
-        this.setRiposo(riposo);
-        this.setScuola(scuola);
-        this.setSviluppo(sviluppo);
-        this.setDroga(droga);
-        this.setStress(stress);
-        this.setEta(eta);
-        this.setAllergia(allergia);
-        this.setAnamFamiliare(anamFamiliare);
-        this.setAnamProssima(anamProssima);
-        this.setAnamRemota(anamRemota);
-        System.out.println(this.tipoParto);
-        System.out.println(this.anamFamiliare);
-    }
-*/
+    private String baseSx, baseDx, baseSxDx, decongSx, decongDx, decongSxDx = "";
 
-    public void setInfo(String tipoParto, String alcool, String alimentazione, String attivita, String caffeina, String esecuzioneParto, String fumatore, String riposo, String scuola, String sviluppo, String droga, String stress, String eta, ArrayList<String> allergia, String anamFamiliare, String anamProssima, String anamRemota){
-        this.setTipoParto(tipoParto);
-        this.setAlcool(alcool);
-        this.setAlimentazione(alimentazione);
-        this.setAttivita(attivita);
-        this.setCaffeina(caffeina);
-        this.setEsecuzioneParto(esecuzioneParto);
-        this.setFumatore(fumatore);
-        this.setRiposo(riposo);
-        this.setScuola(scuola);
-        this.setSviluppo(sviluppo);
-        this.setDroga(droga);
-        this.setStress(stress);
-        this.setEta(eta);
-        this.setAllergie(allergia);
-        this.setAllergia();
-        this.setAnamFamiliare(anamFamiliare);
-        this.setAnamProssima(anamProssima);
-        this.setAnamRemota(anamRemota);
-        System.out.println(this.tipoParto);
-        System.out.println(this.anamFamiliare);
+    private String time;
+
+    public String getAllergiaGen() {
+        return allergiaGen;
     }
 
-    public String getTipoParto() {
-        return tipoParto;
+    public void setAllergiaGen(String allergiaGen) {
+        this.allergiaGen = allergiaGen;
     }
 
-    public void setTipoParto(String tipoParto) {
-        this.tipoParto = tipoParto;
+    public String getTipoAllergiaGen() {
+        return tipoAllergiaGen;
     }
 
-    public String getAlcool() {
-        return alcool;
+    public void setTipoAllergiaGen(String tipoAllergiaGen) {
+        this.tipoAllergiaGen = tipoAllergiaGen;
     }
 
-    public void setAlcool(String alcool) {
-        this.alcool = alcool;
+    public String getAllergiaFra() {
+        return allergiaFra;
     }
 
-    public String getAlimentazione() {
-        return alimentazione;
+    public void setAllergiaFra(String allergiaFra) {
+        this.allergiaFra = allergiaFra;
     }
 
-    public void setAlimentazione(String alimentazione) {
-        this.alimentazione = alimentazione;
+    public String getTipoAllergiaFra() {
+        return tipoAllergiaFra;
     }
 
-    public String getAttivita() {
-        return attivita;
+    public void setTipoAllergiaFra(String tipoAllergiaFra) {
+        this.tipoAllergiaFra = tipoAllergiaFra;
     }
 
-    public void setAttivita(String attivita) {
-        this.attivita = attivita;
+    public String getPoliposiGen() {
+        return poliposiGen;
     }
 
-    public String getCaffeina() {
-        return caffeina;
+    public void setPoliposiGen(String poliposiGen) {
+        this.poliposiGen = poliposiGen;
     }
 
-    public void setCaffeina(String caffeina) {
-        this.caffeina = caffeina;
+    public String getAsmaFra() {
+        return asmaFra;
     }
 
-    public String getEsecuzioneParto() {
-        return esecuzioneParto;
+    public void setAsmaFra(String asmaFra) {
+        this.asmaFra = asmaFra;
     }
 
-    public void setEsecuzioneParto(String esecuzioneParto) {
-        this.esecuzioneParto = esecuzioneParto;
+    public String getAsmaGen() {
+        return asmaGen;
     }
 
-    public String getFumatore() {
-        return fumatore;
+    public void setAsmaGen(String asmaGen) {
+        this.asmaGen = asmaGen;
     }
 
-    public void setFumatore(String fumatore) {
-        this.fumatore = fumatore;
+    public String getPoliposiFra() {
+        return poliposiFra;
     }
 
-    public String getRiposo() {
-        return riposo;
+    public void setPoliposiFra(String poliposiFra) {
+        this.poliposiFra = poliposiFra;
     }
 
-    public void setRiposo(String riposo) {
-        this.riposo = riposo;
+    public String getAppuntiFam() {
+        return appuntiFam;
     }
 
-    public String getScuola() {
-        return scuola;
+    public void setAppuntiFam(String appuntiFam) {
+        this.appuntiFam = appuntiFam;
     }
 
-    public void setScuola(String scuola) {
-        this.scuola = scuola;
+    public String getOstruzione() {
+        return ostruzione;
     }
 
-    public String getSviluppo() {
-        return sviluppo;
+    public void setOstruzione(String ostruzione) {
+        this.ostruzione = ostruzione;
     }
 
-    public void setSviluppo(String sviluppo) {
-        this.sviluppo = sviluppo;
+    public String getRinorrea() {
+        return rinorrea;
     }
 
-    public String getDroga() {
-        return droga;
+    public void setRinorrea(String rinorrea) {
+        this.rinorrea = rinorrea;
     }
 
-    public void setDroga(String droga) {
-        this.droga = droga;
+    public String getPruritoNasale() {
+        return pruritoNasale;
     }
 
-    public String getStress() {
-        return stress;
+    public void setPruritoNasale(String pruritoNasale) {
+        this.pruritoNasale = pruritoNasale;
     }
 
-    public void setStress(String stress) {
-        this.stress = stress;
+    public String getStarnuto() {
+        return starnuto;
     }
 
-    public String getEta() {
-        return eta;
+    public void setStarnuto(String starnuto) {
+        this.starnuto = starnuto;
     }
 
-    public void setEta(String eta) {
-        this.eta = eta;
+
+    public String getOlfatto() {
+        return olfatto;
     }
 
-    public String getAllergia() {
-        return allergia;
+    public void setOlfatto(String olfatto) {
+        this.olfatto = olfatto;
     }
 
-    public ArrayList<String> getAllergie() {
-        return allergie;
+    public String getOvattamento() {
+        return ovattamento;
     }
 
-    /*
-    public void setAllergia(String allergia) {
-        this.allergia = allergia;
+    public void setOvattamento(String ovattamento) {
+        this.ovattamento = ovattamento;
     }
-    */
+
+    public String getIpoacusia() {
+        return ipoacusia;
+    }
+
+    public void setIpoacusia(String ipoacusia) {
+        this.ipoacusia = ipoacusia;
+    }
+
+    public String getAcufeni() {
+        return acufeni;
+    }
+
+    public void setAcufeni(String acufeni) {
+        this.acufeni = acufeni;
+    }
+
+    public String getVertigini() {
+        return vertigini;
+    }
+
+    public void setVertigini(String vertigini) {
+        this.vertigini = vertigini;
+    }
+
+    public Boolean getLacrimazione() {
+        return lacrimazione;
+    }
+
+    public void setLacrimazione(Boolean lacrimazione) {
+        this.lacrimazione = lacrimazione;
+    }
+
+    public Boolean getFotofobia() {
+        return fotofobia;
+    }
+
+    public void setFotofobia(Boolean fotofobia) {
+        this.fotofobia = fotofobia;
+    }
+
+    public Boolean getPrurito() {
+        return prurito;
+    }
+
+    public void setPrurito(Boolean prurito) {
+        this.prurito = prurito;
+    }
+
+    public Boolean getBruciore() {
+        return bruciore;
+    }
+
+    public void setBruciore(Boolean bruciore) {
+        this.bruciore = bruciore;
+    }
+
+    public String getAppuntiPat() {
+        return appuntiPat;
+    }
+
+    public void setAppuntiPat(String appuntiPat) {
+        this.appuntiPat = appuntiPat;
+    }
+
+    public String getPirNasale() {
+        return pirNasale;
+    }
+
+    public void setPirNasale(String pirNasale) {
+        this.pirNasale = pirNasale;
+    }
+
+    public String getValNasale() {
+        return valNasale;
+    }
+
+    public void setValNasale(String valNasale) {
+        this.valNasale = valNasale;
+    }
+
+    public String getSetto() {
+        return setto;
+    }
+
+    public void setSetto(String setto) {
+        this.setto = setto;
+    }
+
+    public String getTurbinati() {
+        return turbinati;
+    }
+
+    public void setTurbinati(String turbinati) {
+        this.turbinati = turbinati;
+    }
+
+    public String getEssudato() {
+        return essudato;
+    }
+
+    public void setEssudato(String essudato) {
+        this.essudato = essudato;
+    }
+
+    public String getIpertrofia() {
+        return ipertrofia;
+    }
+
+    public void setIpertrofia(String ipertrofia) {
+        this.ipertrofia = ipertrofia;
+    }
+
+    public String getAppuntiAlterazioniLIO() {
+        return appuntiAlterazioniLIO;
+    }
+
+    public void setAppuntiAlterazioniLIO(String appuntiAlterazioniLIO) { this.appuntiAlterazioniLIO = appuntiAlterazioniLIO; }
+
+    public String getAppuntiEsameOtoscopico() {
+        return appuntiEsameOtoscopico;
+    }
+
+    public void setAppuntiEsameOtoscopico(String appuntiEsameOtoscopico) { this.appuntiEsameOtoscopico = appuntiEsameOtoscopico; }
+
+    public String getAppuntiEsameRinom() {
+        return appuntiEsameRinom;
+    }
+
+    public void setAppuntiEsameRinom(String appuntiEsameRinom) {
+        this.appuntiEsameRinom = appuntiEsameRinom;
+    }
+
+
+    public String getEspansioneRinorrea() { return espansioneRinorrea; }
+
+    public void setEspansioneRinorrea(String espansione) { this.espansioneRinorrea = espansione; }
+
+
+    public String getPolSx() { return polSx; }
+
+    public void setPolSx(String polSx) { this.polSx = polSx; }
+
+    public String getPolDx() { return polDx; }
+
+    public void setPolDx(String polDx) { this.polDx = polDx; }
+
+    public String getAllergia() { return allergia; }
+
     public void setAllergia() {
         String allergia = "";
         for(String el:allergie){
@@ -198,35 +311,97 @@ public class Anamnesi {
         } else {
             this.allergia = "Non presenti.";
         }
-
     }
 
-    public void setAllergie(ArrayList<String> allergie) {
-        this.allergie = allergie;
+    public ArrayList<String> getAllergie() { return allergie; }
+
+    public String getBaseSx() { return baseSx; }
+
+    public void setBaseSx(String baseSx) { this.baseSx = baseSx; }
+
+    public String getBaseDx() { return baseDx; }
+
+    public void setBaseDx(String baseDx) { this.baseDx = baseDx; }
+
+    public String getBaseSxDx() { return baseSxDx; }
+
+    public void setBaseSxDx(String baseSxDx) { this.baseSxDx = baseSxDx; }
+
+    public String getDecongSx() { return decongSx; }
+
+    public void setDecongSx(String decongSx) { this.decongSx = decongSx; }
+
+    public String getDecongDx() { return decongDx; }
+
+    public void setDecongDx(String decongDx) { this.decongDx = decongDx; }
+
+    public String getDecongSxDx() { return decongSxDx; }
+
+    public void setDecongSxDx(String decongSxDx) { this.decongSxDx = decongSxDx; }
+
+    public void setAllergie(ArrayList<String> allergie) { this.allergie = allergie; }
+
+    public void setInfo(String allergiaGenitori, String tipoAllergiaGen,String allergiaFratelli, String tipoAllergiaFratelli,String poliposiGenitori,
+                        String asmaFratelli,String asmaGenitori, String poliposiFratelli, String appuntiFamiglia, String ostruzione, String rinorrea,
+                        String espansione, String pruritoNasale, String starnutazione, String olfatto, String ovattamento, String ipoacusia, String acufeni,
+                        String vertigini, boolean lacrimazione, boolean fotofobia, boolean prurito, boolean bruciore, String appuntiPat, String pirNasale,
+                        String valNasale, String setto, String turbinati, String polSx, String polDx, String essudato, String ipertrofia, String alterazioniLIO,
+                        String esameOtoscopico, String esameRinom, ArrayList<String> allergie) {
+        this.setAllergiaGen(allergiaGenitori);
+        this.setTipoAllergiaGen(tipoAllergiaGen);
+        this.setAllergiaFra(allergiaFratelli);
+        this.setTipoAllergiaFra(tipoAllergiaFratelli);
+        this.setPoliposiGen(poliposiGenitori);
+        this.setPoliposiFra(poliposiFratelli);
+        this.setAsmaGen(asmaGenitori);
+        this.setAsmaFra(asmaFratelli);
+        this.setAppuntiFam(appuntiFamiglia);
+        this.setOstruzione(ostruzione);
+        this.setRinorrea(rinorrea);
+        this.setEspansioneRinorrea(espansione);
+        this.setPruritoNasale(pruritoNasale);
+        this.setStarnuto(starnutazione);
+        this.setOlfatto(olfatto);
+        this.setOvattamento(ovattamento);
+        this.setIpoacusia(ipoacusia);
+        this.setAcufeni(acufeni);
+        this.setVertigini(vertigini);
+        this.setLacrimazione(lacrimazione);
+        this.setFotofobia(fotofobia);
+        this.setPrurito(prurito);
+        this.setBruciore(bruciore);
+        this.setAppuntiPat(appuntiPat);
+        this.setPirNasale(pirNasale);
+        this.setValNasale(valNasale);
+        this.setSetto(setto);
+        this.setTurbinati(turbinati);
+        this.setPolSx(polSx);
+        this.setPolDx(polDx);
+        this.setEssudato(essudato);
+        this.setIpertrofia(ipertrofia);
+        this.setAppuntiAlterazioniLIO(alterazioniLIO);
+        this.setAppuntiEsameOtoscopico(esameOtoscopico);
+        this.setAppuntiEsameRinom(esameRinom);
+        this.setAllergie(allergie);
+        this.setAllergia();
+
+        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        Date dateobj = new Date();
+        this.time = df.format(dateobj);
+
+        System.out.println(df.format(dateobj));
     }
 
 
-    public String getAnamFamiliare() {
-        return anamFamiliare;
+    public String getTime() {
+        return time;
     }
 
-    public void setAnamFamiliare(String anamFamiliare) {
-        this.anamFamiliare = anamFamiliare;
-    }
+    public void setTime() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        Date dateobj = new Date();
+        this.time = df.format(dateobj);
 
-    public String getAnamProssima() {
-        return anamProssima;
-    }
-
-    public void setAnamProssima(String anamProssima) {
-        this.anamProssima = anamProssima;
-    }
-
-    public String getAnamRemota() {
-        return anamRemota;
-    }
-
-    public void setAnamRemota(String anamRemota) {
-        this.anamRemota = anamRemota;
+        System.out.println(df.format(dateobj));
     }
 }

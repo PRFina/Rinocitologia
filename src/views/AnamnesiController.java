@@ -43,6 +43,7 @@ public class AnamnesiController implements Initializable {
     }
 
     public void getInfo(){
+        /*
         String anamFis = "";
         if (patient.getAnamnesi().getTipoParto() != "")
             anamFis = anamFis + "Tipo di parto: "+patient.getAnamnesi().getTipoParto();
@@ -77,7 +78,10 @@ public class AnamnesiController implements Initializable {
         textAnamFis.setText(anamFis);
         textAnamPatProssima.setText(patient.getAnamnesi().getAnamProssima());
         textAnamPatRemota.setText(patient.getAnamnesi().getAnamRemota());
+        */
     }
+
+
     /*
     public void getInfo(){
         String anamFis = "";
