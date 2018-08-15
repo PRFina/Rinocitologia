@@ -53,7 +53,6 @@ public class AnamnesiController implements Initializable {
         anamnesiListView.setOnMouseClicked(event -> {
             String selectedItem = anamnesiListView.getSelectionModel().getSelectedItem().toString();
             currentAnamnesi = patient.getAnamnesi(selectedItem);
-            //DialogHelper.showAlert(Alert.AlertType.ERROR, "Contenuto", selectedItem, Boolean.toString(currentAnamnesi.getLacrimazione()));
 
             FXMLLoader Loader = new FXMLLoader();
             Loader.setLocation(getClass().getResource("Questions.fxml"));

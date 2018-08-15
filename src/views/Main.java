@@ -54,7 +54,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
         patient = new Patient("Anonimo", Integer.toString(number));
-
+/*
         //DA COMMENTARE
         Anamnesi anamnesi1 = new Anamnesi();
         anamnesi1.setTime();
@@ -69,7 +69,7 @@ public class Main extends Application {
         anamnesi3.setLacrimazione(false);
         patient.addAnamnesi(anamnesi3);
         //FINE COMMENTO
-
+*/
         //patient = new Patient();
         Utility util = new Utility(patient);
         controller.setPatient(patient);

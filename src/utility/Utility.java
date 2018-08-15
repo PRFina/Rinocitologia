@@ -17,6 +17,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import rinocitologia.Anamnesi;
 import rinocitologia.Cell;
 import rinocitologia.Patient;
 
@@ -297,10 +298,10 @@ public class Utility {
 	 * @throws DocumentException
 	 */
 	public void writePdfReport() throws FileNotFoundException, DocumentException {
-		String directoryPath = dict.getPath() + File.separator + dict.getFirstName() + "_" + dict.getSurname() + File.separator + "reports";
-		String fullPath = directoryPath + File.separator + dict.getFirstName() + "_" + dict.getSurname() + ".pdf";
+
+		String path = dict.getPath() + File.separator + "reports" + File.separator + "report.pdf";
 		Document document = new Document();
-		PdfWriter.getInstance(document, new FileOutputStream(fullPath));
+		PdfWriter.getInstance(document, new FileOutputStream(path));
 		 
 		document.open();
 		Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA, 16, BaseColor.BLACK);
@@ -308,9 +309,12 @@ public class Utility {
 		
 		
 		Font fontInformativa = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
-		
-		Paragraph info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\nNato/a a: " + null + "\nIl: " + null, fontInformativa);
-
+		Paragraph info;
+		if(dict.getCf() != null) {
+			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\nNato il: " + dict.getCf().getDay() + "/" + dict.getCf().getMonth() + "/" + dict.getCf().getYear(), fontInformativa);
+		} else {
+			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\n", fontInformativa);
+		}
 		Paragraph informativa = new Paragraph("Questo è un report generato automaticamente dal sistema di supporto medico per la Rinocitologia Nasale. Per maggiori informazioni rivolgersi a un dottore specializzato in Rinocitologia.", fontInformativa);
 		informativa.setIndentationLeft(20);
 		PdfPTable table = new PdfPTable(3); //3 is the number of columns for the table: Name, Cell Count and Grade
@@ -331,9 +335,59 @@ public class Utility {
 		document.add(informativa);
 		document.close();
 		
-		System.out.println("Writing PDF into file:\n" + fullPath + "\n----------------------------");
+		System.out.println("Writing PDF into file:\n" + path + "\n----------------------------");
 	}
-	
+
+	public void writePdfReport(Anamnesi anamnesi) throws FileNotFoundException, DocumentException {
+
+		String path = dict.getPath() + File.separator + "reports" + File.separator + "report" + anamnesi.getTime().split(" ")[0].replace("/", "_") + ".pdf";
+		Document document = new Document();
+		PdfWriter.getInstance(document, new FileOutputStream(path));
+
+		document.open();
+		Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA, 16, BaseColor.BLACK);
+		Chunk chunk = new Chunk("Report clinico per il paziente: " + dict.getSurname() + " " + dict.getFirstName() + ".\n", fontHeader);
+
+
+		Font fontInformativa = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
+		Paragraph info;
+		if(dict.getCf() != null) {
+			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\nNato il: " + dict.getCf().getDay() + "/" + dict.getCf().getMonth() + "/" + dict.getCf().getYear(), fontInformativa);
+		} else {
+			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\n", fontInformativa);
+		}
+		Paragraph informativa = new Paragraph("Questo è un report generato automaticamente dal sistema di supporto medico per la Rinocitologia Nasale. Per maggiori informazioni rivolgersi a un dottore specializzato in Rinocitologia.", fontInformativa);
+		informativa.setIndentationLeft(20);
+		PdfPTable table = new PdfPTable(3); //3 is the number of columns for the table: Name, Cell Count and Grade
+		table.setSpacingBefore(12);
+		table.setSpacingAfter(12);
+
+		addTableHeader(table);
+		for (Map.Entry<String, Cell> entry : dict.getDictionary().entrySet()) {
+			addRows(table, entry.getKey(), Integer.toString(entry.getValue().getcellCount()), Integer.toString(entry.getValue().getgrade()));
+		}
+
+		Paragraph anamnesiParagraph = new Paragraph(anamnesi.toString(), fontInformativa);
+
+
+		document.add(chunk);
+		document.add( Chunk.NEWLINE );
+		document.add(info);
+
+		document.add(table);
+		document.add( Chunk.NEWLINE );
+		document.add(anamnesiParagraph);
+		document.add( Chunk.NEWLINE );
+
+		document.add(informativa);
+
+
+		document.close();
+
+		System.out.println("Writing PDF into file:\n" + path + "\n----------------------------");
+	}
+
+
 	private void addTableHeader(PdfPTable table) {
 	    Stream.of("Nome", "Conta cellule", "Grado")
 	      .forEach(columnTitle -> {

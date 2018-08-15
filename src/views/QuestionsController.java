@@ -1,5 +1,6 @@
 package views;
 
+import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
 import utility.Utility;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -169,7 +171,7 @@ public class QuestionsController  implements Initializable {
 
     @FXML
     void espansioneRinorrea(ActionEvent event) {
-        if(comboBoxRinorrea.getSelectionModel().getSelectedItem() == "nessuna"){
+        if(comboBoxRinorrea.getSelectionModel().getSelectedItem() == "nessuna" || comboBoxRinorrea.getSelectionModel().getSelectedItem() == ""){
             comboBoxEspansioneRinorrea.setValue("");
             comboBoxEspansioneRinorrea.setDisable(true);
         }
@@ -312,6 +314,14 @@ public class QuestionsController  implements Initializable {
 
         Utility utility = new Utility(patient);
         utility.writeJson();
+        System.out.println(anamnesi.toString());
+        try {
+            utility.writePdfReport(anamnesi);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
 
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("Anamnesi.fxml"));
@@ -424,6 +434,7 @@ public class QuestionsController  implements Initializable {
             patient.addAnamnesi(anam);
         }
         controller.setPatient(patient);
+        controller.setAnamesiListView();
         //controller.getInfo();
 
         //Inizio Carica View

@@ -404,4 +404,108 @@ public class Anamnesi {
 
         System.out.println(df.format(dateobj));
     }
+
+    public String booleanToString(boolean b) {
+        return b ? "yes" : "no";
+    }
+
+    @Override
+    public String toString() {
+        String anamnesi = "Anamnesi:\n";
+        anamnesi += "\nAnamnesi familiare\n";
+        if(allergiaGen != null)
+            anamnesi += "Allergia Genitori: " + allergiaGen + "\n";
+        if(tipoAllergiaGen != null)
+            anamnesi += "Tipo Allergia Genitori: " + tipoAllergiaGen + "\n";
+        if(allergiaFra != null)
+            anamnesi += "Allergia Fratelli: " + allergiaFra + "\n";
+        if(tipoAllergiaFra != null)
+            anamnesi += "Tipo Allergia Fratelli: " + tipoAllergiaFra + "\n";
+        if(poliposiGen != null)
+            anamnesi += "Poliposi Genitori: " + poliposiGen + "\n";
+        if(poliposiFra != null && poliposiFra != "")
+            anamnesi += "Poliposi Fratelli: " + poliposiFra + "\n";
+        if(asmaFra != null)
+            anamnesi += "Asma Fratelli: " + asmaFra + "\n";
+        if(asmaGen != null)
+            anamnesi += "Asma Genitori: " + asmaGen + "\n";
+        if(appuntiFam != null && appuntiFam != "")
+            anamnesi += "Appunti Anamnesi Familiare: " + appuntiFam + "\n";
+
+        anamnesi += "\nPatologica prossima - Sintomi\n";
+
+        if(ostruzione != null)
+            anamnesi += "Ostruzione: " + ostruzione + "\n";
+        if(rinorrea != null)
+            anamnesi += "Rinorrea: " + rinorrea + "\n";
+        if(espansioneRinorrea != null)
+            anamnesi += "Espansione Rinorrea: " + espansioneRinorrea + "\n";
+        if(pruritoNasale != null)
+            anamnesi += "Prurito Nasale: " + pruritoNasale + "\n";
+        if(starnuto != null)
+            anamnesi += "Starnuto: " + starnuto + "\n";
+        if(olfatto != null)
+            anamnesi += "Olfatto: " + olfatto + "\n";
+        if(ovattamento != null)
+            anamnesi += "Ovattamento: " + ovattamento + "\n";
+        if(ipoacusia != null)
+            anamnesi += "Ipoacusia: " + ipoacusia + "\n";
+        if(acufeni != null)
+            anamnesi += "Acufeni: " + acufeni + "\n";
+        if(vertigini != null && vertigini != "")
+            anamnesi += "Vertigini: " + vertigini + "\n";
+
+        anamnesi += "Lacrimazione: " + booleanToString(lacrimazione) + "\n";
+        anamnesi += "Fotofobia: " + booleanToString(fotofobia) + "\n";
+        anamnesi += "Prurito : " + booleanToString(prurito) + "\n";
+        anamnesi += "Bruciore: " + booleanToString(bruciore) + "\n";
+
+        if(appuntiPat != null && appuntiPat != "")
+            anamnesi += "Appunti Anamnesi Patologica Prossima: " + appuntiPat + "\n";
+
+        anamnesi += "\nEsame obbiettivo strumentale del naso\n";
+
+        if(pirNasale != null)
+            anamnesi += "Piramide Nasale: " + pirNasale + "\n";
+        if(valNasale != null)
+            anamnesi += "Valvola Nasale: " + valNasale + "\n";
+
+        anamnesi += "\nEndoscopia nasale, Esame Rinomanometrico, Esame Otoscopico e Allergologico\n\n";
+
+        if(setto != null)
+            anamnesi += "Setto Nasale: " + setto + "\n";
+        if(turbinati != null)
+            anamnesi += "Turbinati: " + turbinati + "\n";
+        if(polSx != null)
+            anamnesi += "Pol Sx: " + polSx + "\n";
+        if(polDx != null)
+            anamnesi += "Pol Dx: " + polDx + "\n";
+        if(essudato != null)
+            anamnesi += "Essudato: " + essudato + "\n";
+        if(ipertrofia != null && ipertrofia != "")
+            anamnesi += "Ipertrofia: " + ipertrofia + "\n";
+        if(appuntiAlterazioniLIO != null)
+            anamnesi += "Appunti Alterazioni LIO: " + appuntiAlterazioniLIO + "\n";
+        if(appuntiEsameOtoscopico != null)
+            anamnesi += "Appunti Esame Otoscopico: " + appuntiEsameOtoscopico + "\n";
+        if(appuntiEsameRinom != null && appuntiEsameRinom != "")
+            anamnesi += "Appunti Esame Rinomanometrico: " + appuntiEsameRinom + "\n";
+        anamnesi += "Allergia/e: " + allergia + "\n";
+        if(baseSx != null)
+            anamnesi += "Base Sx: " + baseSx + "\n";
+        if(baseDx != null)
+            anamnesi += "Base Dx: " + baseDx + "\n";
+        if(baseSxDx != null)
+            anamnesi += "Base Sx e Dx: " + baseSxDx + "\n";
+        if(decongSx != null)
+            anamnesi += "Decongestione Sx: " + decongSx + "\n";
+        if(decongDx != null)
+            anamnesi += "Decongestione Dx: " + decongDx + "\n";
+        if(decongSxDx != null && decongSxDx != "")
+            anamnesi += "Decongestione Sx e Dx: " + decongSxDx + "\n";
+
+
+        return anamnesi;
+
+    }
 }
