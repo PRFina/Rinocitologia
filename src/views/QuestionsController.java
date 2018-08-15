@@ -61,6 +61,10 @@ public class QuestionsController  implements Initializable {
 
     private Patient patient;
 
+    private Anamnesi currentAnamnesi;
+
+    public void setCurrentAnamnesi(Anamnesi currentAnamnesi){this.currentAnamnesi = currentAnamnesi;}
+
     @FXML
     public void setPatient(Patient patient) {
         this.patient = patient;
@@ -74,71 +78,72 @@ public class QuestionsController  implements Initializable {
 
     public void setInfo(){
         comboBoxAllergiaGen.setItems(FXCollections.observableArrayList("si", "no"));
-        comboBoxAllergiaGen.setValue(patient.getAnamnesi().getAllergiaGen());
+        comboBoxAllergiaGen.setValue(currentAnamnesi.getAllergiaGen());
         comboBoxTipoAllergiaGen.setItems(FXCollections.observableArrayList("alimenti", "inalanti"));
-        comboBoxTipoAllergiaGen.setValue(patient.getAnamnesi().getTipoAllergiaGen());
+        comboBoxTipoAllergiaGen.setValue(currentAnamnesi.getTipoAllergiaGen());
         comboBoxAllergiaFra.setItems(FXCollections.observableArrayList("si", "no"));
-        comboBoxAllergiaFra.setValue(patient.getAnamnesi().getAllergiaFra());
+        comboBoxAllergiaFra.setValue(currentAnamnesi.getAllergiaFra());
         comboBoxTipoAllergiaFra.setItems(FXCollections.observableArrayList("alimenti", "inalanti"));
-        comboBoxTipoAllergiaFra.setValue(patient.getAnamnesi().getTipoAllergiaFra());
+        comboBoxTipoAllergiaFra.setValue(currentAnamnesi.getTipoAllergiaFra());
         comboBoxPoliposiGen.setItems(FXCollections.observableArrayList("si", "no"));
-        comboBoxPoliposiGen.setValue(patient.getAnamnesi().getPoliposiGen());
+        comboBoxPoliposiGen.setValue(currentAnamnesi.getPoliposiGen());
         comboBoxAsmaFra.setItems(FXCollections.observableArrayList("si", "no"));
-        comboBoxPoliposiFra.setValue(patient.getAnamnesi().getPoliposiFra());
+        comboBoxPoliposiFra.setValue(currentAnamnesi.getPoliposiFra());
         comboBoxAsmaGen.setItems(FXCollections.observableArrayList("si", "no"));
-        comboBoxAsmaGen.setValue(patient.getAnamnesi().getAsmaGen());
+        comboBoxAsmaGen.setValue(currentAnamnesi.getAsmaGen());
         comboBoxPoliposiFra.setItems(FXCollections.observableArrayList("si", "no"));
-        comboBoxAsmaFra.setValue(patient.getAnamnesi().getAsmaFra());
-        textAreaAppuntiFam.setText(patient.getAnamnesi().getAppuntiFam());
+        comboBoxAsmaFra.setValue(currentAnamnesi.getAsmaFra());
+        textAreaAppuntiFam.setText(currentAnamnesi.getAppuntiFam());
 
         comboBoxOstruzione.setItems(FXCollections.observableArrayList("nessuna", "sinistra", "destra", "bilaterale"));
-        comboBoxOstruzione.setValue(patient.getAnamnesi().getOstruzione());
+        comboBoxOstruzione.setValue(currentAnamnesi.getOstruzione());
         comboBoxRinorrea.setItems(FXCollections.observableArrayList("nessuna", "sierosa", "mucosa", "purulenta", "ematica"));
-        comboBoxRinorrea.setValue(patient.getAnamnesi().getRinorrea());
+        comboBoxRinorrea.setValue(currentAnamnesi.getRinorrea());
         comboBoxEspansioneRinorrea.setItems(FXCollections.observableArrayList("sinistra", "destra", "bilaterale"));
-        comboBoxEspansioneRinorrea.setValue(patient.getAnamnesi().getEspansioneRinorrea());
+        comboBoxEspansioneRinorrea.setValue(currentAnamnesi.getEspansioneRinorrea());
         comboBoxPruritoNasale.setItems(FXCollections.observableArrayList("si", "no"));
-        comboBoxPruritoNasale.setValue(patient.getAnamnesi().getPruritoNasale());
+        comboBoxPruritoNasale.setValue(currentAnamnesi.getPruritoNasale());
         comboBoxStarnuto.setItems(FXCollections.observableArrayList("nessuna", "sporadica", "a salve"));
-        comboBoxStarnuto.setValue(patient.getAnamnesi().getStarnuto());
+        comboBoxStarnuto.setValue(currentAnamnesi.getStarnuto());
         comboBoxOlfatto.setItems(FXCollections.observableArrayList("nessuno", "iposmia", "anosmia", "cacosmia"));
-        comboBoxOlfatto.setValue(patient.getAnamnesi().getOlfatto());
+        comboBoxOlfatto.setValue(currentAnamnesi.getOlfatto());
         comboBoxOvattamento.setItems(FXCollections.observableArrayList("nessuno", "sinistro", "destro", "bilaterale"));
-        comboBoxOvattamento.setValue(patient.getAnamnesi().getOvattamento());
+        comboBoxOvattamento.setValue(currentAnamnesi.getOvattamento());
         comboBoxIpoacusia.setItems(FXCollections.observableArrayList("nessuno", "sinistro", "destro", "bilaterale"));
-        comboBoxIpoacusia.setValue(patient.getAnamnesi().getIpoacusia());
+        comboBoxIpoacusia.setValue(currentAnamnesi.getIpoacusia());
         comboBoxAcufeni.setItems(FXCollections.observableArrayList("nessuno", "sinistro", "destro", "bilaterale"));
-        comboBoxAcufeni.setValue(patient.getAnamnesi().getAcufeni());
+        comboBoxAcufeni.setValue(currentAnamnesi.getAcufeni());
         comboBoxVertigini.setItems(FXCollections.observableArrayList("nessuna", "soggettiva", "oggettiva"));
-        comboBoxVertigini.setValue(patient.getAnamnesi().getVertigini());
+        comboBoxVertigini.setValue(currentAnamnesi.getVertigini());
 
-        checkBoxLacrimazione.setSelected(patient.getAnamnesi().getLacrimazione());
-        checkBoxFotofobia.setSelected(patient.getAnamnesi().getFotofobia());
-        checkBoxPrurito.setSelected(patient.getAnamnesi().getPrurito());
-        checkBoxBruciore.setSelected(patient.getAnamnesi().getBruciore());
+        checkBoxLacrimazione.setSelected(currentAnamnesi.getLacrimazione());
+        checkBoxFotofobia.setSelected(currentAnamnesi.getFotofobia());
+        checkBoxPrurito.setSelected(currentAnamnesi.getPrurito());
+        checkBoxBruciore.setSelected(currentAnamnesi.getBruciore());
 
-        textAreaAppuntiPat.setText(patient.getAnamnesi().getAppuntiPat());
+        textAreaAppuntiPat.setText(currentAnamnesi.getAppuntiPat());
 
         comboBoxPirNasale.setItems(FXCollections.observableArrayList("normoformata", "gibbo", "scoiosi", "deformazioni varie"));
-        comboBoxPirNasale.setValue(patient.getAnamnesi().getPirNasale());
+        comboBoxPirNasale.setValue(currentAnamnesi.getPirNasale());
         comboBoxValNasale.setItems(FXCollections.observableArrayList("normofunzionante", "insufficienza sinistra", "insufficienza destra", "insufficienza bilaterale"));
-        comboBoxValNasale.setValue(patient.getAnamnesi().getValNasale());
+        comboBoxValNasale.setValue(currentAnamnesi.getValNasale());
         comboBoxSetto.setItems(FXCollections.observableArrayList("in asse", "deviato a sinistra", "deviato a destra", "esse italica"));
-        comboBoxSetto.setValue(patient.getAnamnesi().getSetto());
+        comboBoxSetto.setValue(currentAnamnesi.getSetto());
         comboBoxTurbinati.setItems(FXCollections.observableArrayList("normotrofici", "ipertrofici", "iperemici", "ematosi"));
-        comboBoxTurbinati.setValue(patient.getAnamnesi().getTurbinati());
+        comboBoxTurbinati.setValue(currentAnamnesi.getTurbinati());
         comboBoxPolSx.setItems(FXCollections.observableArrayList("assente", "1", "2", "3", "4"));
-        comboBoxPolSx.setValue(patient.getAnamnesi().getPolSx());
+        comboBoxPolSx.setValue(currentAnamnesi.getPolSx());
         comboBoxPolDx.setItems(FXCollections.observableArrayList("assente", "1", "2", "3", "4"));
-        comboBoxPolDx.setValue(patient.getAnamnesi().getPolDx());
+        comboBoxPolDx.setValue(currentAnamnesi.getPolDx());
         comboBoxEssudato.setItems(FXCollections.observableArrayList("assente", "sieroso", "mucoso", "purulento", "ematico"));
-        comboBoxEssudato.setValue(patient.getAnamnesi().getEssudato());
+        comboBoxEssudato.setValue(currentAnamnesi.getEssudato());
         comboBoxIpertrofia.setItems(FXCollections.observableArrayList("assente", "1", "2", "3", "4"));
-        comboBoxIpertrofia.setValue(patient.getAnamnesi().getIpertrofia());
+        comboBoxIpertrofia.setValue(currentAnamnesi.getIpertrofia());
 
-        textAreaAppuntiAlterazioniLIO.setText(patient.getAnamnesi().getAppuntiAlterazioniLIO());
-        textAreaAppuntiEsameOtoscopico.setText(patient.getAnamnesi().getAppuntiEsameOtoscopico());
-        textAreaAppuntiEsameRinom.setText(patient.getAnamnesi().getAppuntiEsameRinom());
+        textAreaAppuntiAlterazioniLIO.setText(currentAnamnesi.getAppuntiAlterazioniLIO());
+        textAreaAppuntiEsameOtoscopico.setText(currentAnamnesi.getAppuntiEsameOtoscopico());
+        textAreaAppuntiEsameRinom.setText(currentAnamnesi.getAppuntiEsameRinom());
+
 
     }
 
@@ -265,7 +270,8 @@ public class QuestionsController  implements Initializable {
 
     @FXML
     void salva(ActionEvent event) {
-        patient.getAnamnesi().setInfo(comboBoxAllergiaGen.getSelectionModel().getSelectedItem(),
+        Anamnesi anamnesi = new Anamnesi();
+        anamnesi.setInfo(comboBoxAllergiaGen.getSelectionModel().getSelectedItem(),
                 comboBoxTipoAllergiaGen.getSelectionModel().getSelectedItem(),
                 comboBoxAllergiaFra.getSelectionModel().getSelectedItem(),
                 comboBoxTipoAllergiaFra.getSelectionModel().getSelectedItem(),
@@ -302,30 +308,33 @@ public class QuestionsController  implements Initializable {
                 textAreaAppuntiEsameRinom.getText(),
                 checkboxes()
         );
-            Utility utility = new Utility(patient);
-            utility.writeJson();
+        patient.addAnamnesi(anamnesi);
 
-            FXMLLoader Loader = new FXMLLoader();
-            Loader.setLocation(getClass().getResource("Anamnesi.fxml"));
-            try {
-                Loader.load();
-            } catch (IOException ex){
-                Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
-            }
-            AnamnesiController controller = Loader.getController();
-            controller.setPatient(patient);
-            controller.getInfo();
+        Utility utility = new Utility(patient);
+        utility.writeJson();
 
-            //Inizio Carica View
-            Parent p = Loader.getRoot();
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Anamnesi.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        AnamnesiController controller = Loader.getController();
+        controller.setPatient(patient);
+        controller.setAnamesiListView();
+        //controller.getInfo();
 
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            stage.setOnHidden(e -> {
-                controller.shutdown();
-                Platform.exit();
-            });
-            stage.setScene(new Scene(p));
-            stage.show();
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.setScene(new Scene(p));
+        stage.show();
     }
 
     public ArrayList<String> checkboxes(){
@@ -410,12 +419,12 @@ public class QuestionsController  implements Initializable {
             Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnamnesiController controller = Loader.getController();
-        if(patient.getAnamnesi() == null){
+        if(patient.getAnamnesiList() == null){
             Anamnesi anam = new Anamnesi();
-            patient.setAnamnesi(anam);
+            patient.addAnamnesi(anam);
         }
         controller.setPatient(patient);
-        controller.getInfo();
+        //controller.getInfo();
 
         //Inizio Carica View
         Parent p = Loader.getRoot();

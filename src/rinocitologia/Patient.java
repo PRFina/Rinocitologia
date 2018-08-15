@@ -2,11 +2,8 @@ package rinocitologia;
 import utility.CodiceFiscale;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 /**
  * Contains informations meaningful for the diagnosis such as an HashMap in the format:
  * <br>
@@ -24,7 +21,9 @@ public class Patient {
 	private String pathData = System.getProperty("user.home") + File.separator + "data";
 	private CodiceFiscale cf;
 
-	private Anamnesi anamnesi;
+	//private Anamnesi anamnesi;
+	private ArrayList<Anamnesi> anamnesiList = new ArrayList<>();
+
 	/*
 	//In ogni Controller in anamnesiCaller devi
 	if(patient.getAnamnesi == null){
@@ -72,8 +71,13 @@ public class Patient {
 
 	}
 
-	public void setAnamnesi(Anamnesi anamnesi) { this.anamnesi = anamnesi; }
-	public Anamnesi getAnamnesi() {return anamnesi;}
+	//public void setAnamnesi(Anamnesi anamnesi) { this.anamnesi = anamnesi; }
+
+	//public Anamnesi getAnamnesi() {return anamnesi;}
+
+	public void addAnamnesi(Anamnesi anamnesi) { this.anamnesiList.add(anamnesi); }
+
+	public ArrayList<Anamnesi> getAnamnesiList() {return anamnesiList;}
 
 	public String getFirstName() {
 		return firstName;
@@ -156,6 +160,15 @@ public class Patient {
 				dictionary.put(cellName, new Cell(0,0));
 			}
 		}
+	}
+
+	public Anamnesi getAnamnesi(String time){
+		Anamnesi anam = new Anamnesi();
+		for(Anamnesi anamnesi: anamnesiList){
+			if (anamnesi.getTime() == time)
+				anam = anamnesi;
+		}
+		return anam;
 	}
 	
 	@Override

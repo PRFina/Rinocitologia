@@ -1,6 +1,13 @@
 package utility;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import filemngr.Main;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
@@ -8,16 +15,22 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Optional;
+import java.util.Stack;
 
 import static javafx.scene.control.Alert.AlertType;
 
+
+
 public class DialogHelper {
+
 
     public static void showAlert(AlertType alertType, String title, String header, String content) {
         Alert alert = new Alert(alertType);
@@ -30,6 +43,7 @@ public class DialogHelper {
 
         alert.showAndWait();
     }
+
 
     public static void showExpandableAlert(AlertType alertType, String title, String header, String content,
                                            String expandableContent) {

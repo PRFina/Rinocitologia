@@ -150,7 +150,7 @@ public class LoadController implements Initializable {
 
     }
 
-        /*
+    /*
      *
      * START SIDEBAR COMMANDS
      *
@@ -207,12 +207,16 @@ public class LoadController implements Initializable {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnamnesiController controller = Loader.getController();
+        /*
         if(patient.getAnamnesi() == null){
             Anamnesi anam = new Anamnesi();
             patient.setAnamnesi(anam);
         }
+        */
         controller.setPatient(patient);
-        controller.getInfo();
+        controller.setAnamesiListView();
+
+        //controller.getInfo();
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

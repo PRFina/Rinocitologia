@@ -953,11 +953,15 @@ public class RevisioneController implements Initializable {
             Logger.getLogger(DiagnosiController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnamnesiController controller = Loader.getController();
+        /*
         if(patient.getAnamnesi() == null){
             Anamnesi anam = new Anamnesi();
             patient.setAnamnesi(anam);
         }
+        */
         controller.setPatient(patient);
+        controller.setAnamesiListView();
+
 //        anamnesi.print();
         //Inizio Carica View
         Parent p = Loader.getRoot();

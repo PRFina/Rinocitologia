@@ -3,20 +3,17 @@
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -179,64 +176,13 @@
          <content>
             <Pane prefHeight="402.0" prefWidth="1015.0">
                <children>
-                  <Label layoutX="14.0" prefHeight="64.0" prefWidth="510.0" text="Anamnesi">
+                  <Label layoutX="14.0" prefHeight="64.0" prefWidth="662.0" text="Storico anamnesi">
                      <font>
                         <Font size="36.0" />
                      </font>
                   </Label>
-                   <Label fx:id="lblAnamFam" layoutX="21.0" layoutY="69.0" prefHeight="21.0" prefWidth="311.0" text="Anamnesi familiare">
-                       <font>
-                           <Font size="15.0" />
-                       </font>
-                       <effect>
-                           <ColorAdjust />
-                       </effect>
-                   </Label>
-                   <TextArea id="testoFamiliare" fx:id="textAnamFam" cache="true" cacheHint="SPEED" depthTest="DISABLE" layoutX="14.0" layoutY="90.0" prefHeight="120.0" prefWidth="346.0" promptText="Aggiungere informazioni..." wrapText="true">
-                       <cursor>
-                           <Cursor fx:constant="DISAPPEAR" />
-                       </cursor>
-                   </TextArea>
-                   <Label fx:id="lblAnamFis" layoutX="470.0" layoutY="69.0" prefHeight="21.0" prefWidth="311.0" text="Anamnesi fisiologica">
-                       <font>
-                           <Font size="15.0" />
-                       </font>
-                       <effect>
-                           <ColorAdjust />
-                       </effect>
-                   </Label>
-                   <TextArea id="testoFamiliare" fx:id="textAnamFis" cache="true" cacheHint="SPEED" depthTest="DISABLE" layoutX="470.0" layoutY="90.0" prefHeight="147.0" prefWidth="311.0" promptText="Aggiungere informazioni..." wrapText="true">
-                       <cursor>
-                           <Cursor fx:constant="DISAPPEAR" />
-                       </cursor>
-                   </TextArea>
-                   <JFXButton id="AggiungiAnamFam" fx:id="aggiungiAnam" layoutX="861.0" layoutY="363.0" mnemonicParsing="false" onAction="#addAnam" text="Aggiungi" />
-                   <Label fx:id="lblAnamPatRemota" layoutX="21.0" layoutY="226.0" prefHeight="21.0" prefWidth="311.0" text="Anamnesi patologica remota">
-                       <font>
-                           <Font size="15.0" />
-                       </font>
-                       <effect>
-                           <ColorAdjust />
-                       </effect>
-                   </Label>
-                   <TextArea id="testoFamiliare" fx:id="textAnamPatRemota" cache="true" cacheHint="SPEED" depthTest="DISABLE" layoutX="14.0" layoutY="247.0" prefHeight="120.0" prefWidth="347.0" promptText="Aggiungere informazioni..." wrapText="true">
-                       <cursor>
-                           <Cursor fx:constant="DISAPPEAR" />
-                       </cursor>
-                   </TextArea>
-                   <Label fx:id="lblAnamPatProssima" layoutX="471.0" layoutY="226.0" prefHeight="21.0" prefWidth="311.0" text="Anamnesi patologica prossima">
-                       <font>
-                           <Font size="15.0" />
-                       </font>
-                       <effect>
-                           <ColorAdjust />
-                       </effect>
-                   </Label>
-                   <TextArea id="testoFamiliare" fx:id="textAnamPatProssima" cache="true" cacheHint="SPEED" depthTest="DISABLE" layoutX="470.0" layoutY="247.0" prefHeight="147.0" prefWidth="311.0" promptText="Aggiungere informazioni..." wrapText="true">
-                       <cursor>
-                           <Cursor fx:constant="DISAPPEAR" />
-                       </cursor>
-                   </TextArea>
+                  <JFXListView fx:id="anamnesiListView" layoutX="14.0" layoutY="64.0" prefHeight="170.0" prefWidth="294.0" />
+                  <JFXButton layoutX="14.0" layoutY="260.0" onAction="#addAnam" text="Aggiungi Anamnesi" />
                </children>
             </Pane>
          </content></ScrollPane>

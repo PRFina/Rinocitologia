@@ -101,13 +101,16 @@ public class DiagnosiController implements Initializable {
             Logger.getLogger(DiagnosiController.class.getName()).log(Level.SEVERE,null, ex);
         }
         AnamnesiController controller = Loader.getController();
-        if(patient.getAnamnesi() == null){
+        /*
+        if(patient.getAnamnesiList() == null){
             Anamnesi anam = new Anamnesi();
             patient.setAnamnesi(anam);
         }
+        */
         controller.setPatient(patient);
-        controller.getInfo();
-        //controller.print();
+        controller.setAnamesiListView();
+
+        //controller.getInfo();
         //Inizio Carica View
         Parent p = Loader.getRoot();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
