@@ -415,9 +415,9 @@ public class Anamnesi {
         anamnesi += "\nAnamnesi familiare\n";
         if(allergiaGen != null)
             anamnesi += "Allergia Genitori: " + allergiaGen + "\n";
-        if(tipoAllergiaGen != null)
+        if((tipoAllergiaGen != null)&&(tipoAllergiaGen !=""))
             anamnesi += "Tipo Allergia Genitori: " + tipoAllergiaGen + "\n";
-        if(allergiaFra != null)
+        if((allergiaFra != null)&&(tipoAllergiaFra !=""))
             anamnesi += "Allergia Fratelli: " + allergiaFra + "\n";
         if(tipoAllergiaFra != null)
             anamnesi += "Tipo Allergia Fratelli: " + tipoAllergiaFra + "\n";
@@ -438,7 +438,7 @@ public class Anamnesi {
             anamnesi += "Ostruzione: " + ostruzione + "\n";
         if(rinorrea != null)
             anamnesi += "Rinorrea: " + rinorrea + "\n";
-        if(espansioneRinorrea != null)
+        if((espansioneRinorrea != null)&&(espansioneRinorrea !=""))
             anamnesi += "Espansione Rinorrea: " + espansioneRinorrea + "\n";
         if(pruritoNasale != null)
             anamnesi += "Prurito Nasale: " + pruritoNasale + "\n";
@@ -477,9 +477,9 @@ public class Anamnesi {
         if(turbinati != null)
             anamnesi += "Turbinati: " + turbinati + "\n";
         if(polSx != null)
-            anamnesi += "Pol Sx: " + polSx + "\n";
+            anamnesi += "Poliposi lato sinistro del naso: " + polSx + "\n";
         if(polDx != null)
-            anamnesi += "Pol Dx: " + polDx + "\n";
+            anamnesi += "Poliposi lato destro del naso: " + polDx + "\n";
         if(essudato != null)
             anamnesi += "Essudato: " + essudato + "\n";
         if(ipertrofia != null && ipertrofia != "")
