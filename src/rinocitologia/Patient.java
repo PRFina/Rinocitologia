@@ -19,6 +19,7 @@ public class Patient {
 	private Map<String, Cell> dictionary;
 	private String path;
 	private String pathData = System.getProperty("user.home") + File.separator + "data";
+	private String pathInput = path + File.separator + "inputs";
 	private CodiceFiscale cf;
 
 	//private Anamnesi anamnesi;
@@ -117,6 +118,7 @@ public class Patient {
 
 	public CodiceFiscale getCf() {return cf;}
 
+	public String getPathInput() { return pathInput; }
 
 	/**
 	 * Rename patient folder and saves path to path variable
@@ -130,7 +132,9 @@ public class Patient {
 		File newDir = new File(pathData, cf.getCF());
 		folder.renameTo(newDir);
 		this.path = newDir.getAbsolutePath();
+		this.pathInput = path + File.separator + "inputs";
 		System.out.print(path);
+		System.out.println(pathInput);
 	}
 
 	/**

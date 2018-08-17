@@ -21,6 +21,7 @@
       <root url="jar://$PROJECT_DIR$/libs/jfoenix-8.0.5.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/controlsfx-8.40.12-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/controlsfx-8.40.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/py4j-0.10.7.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
