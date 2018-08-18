@@ -341,12 +341,13 @@ public class Anamnesi {
 
     public void setAllergie(ArrayList<String> allergie) { this.allergie = allergie; }
 
-    public void setInfo(String allergiaGenitori, String tipoAllergiaGen,String allergiaFratelli, String tipoAllergiaFratelli,String poliposiGenitori,
-                        String asmaFratelli,String asmaGenitori, String poliposiFratelli, String appuntiFamiglia, String ostruzione, String rinorrea,
+    public void setInfo(String allergiaGenitori, String tipoAllergiaGen, String allergiaFratelli, String tipoAllergiaFratelli, String poliposiGenitori,
+                        String asmaFratelli, String asmaGenitori, String poliposiFratelli, String appuntiFamiglia, String ostruzione, String rinorrea,
                         String espansione, String pruritoNasale, String starnutazione, String olfatto, String ovattamento, String ipoacusia, String acufeni,
                         String vertigini, boolean lacrimazione, boolean fotofobia, boolean prurito, boolean bruciore, String appuntiPat, String pirNasale,
                         String valNasale, String setto, String turbinati, String polSx, String polDx, String essudato, String ipertrofia, String alterazioniLIO,
-                        String esameOtoscopico, String esameRinom, ArrayList<String> allergie) {
+                        String esameOtoscopico, String esameRinom, ArrayList<String> allergie, String baseSx, String baseDx,
+                        String decongSx, String decongDx, String baseSxDx, String decongSxDx) {
         this.setAllergiaGen(allergiaGenitori);
         this.setTipoAllergiaGen(tipoAllergiaGen);
         this.setAllergiaFra(allergiaFratelli);
@@ -384,6 +385,12 @@ public class Anamnesi {
         this.setAppuntiEsameRinom(esameRinom);
         this.setAllergie(allergie);
         this.setAllergia();
+        this.setBaseSx(baseSx);
+        this.setDecongSx(decongSx);
+        this.setBaseDx(baseDx);
+        this.setDecongDx(decongDx);
+        this.setBaseSxDx(baseSxDx);
+        this.setDecongSxDx(decongSxDx);
 
         DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         Date dateobj = new Date();

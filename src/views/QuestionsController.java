@@ -3,6 +3,7 @@ package views;
 import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +12,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
+import rinocitologia.Resistenza;
 import utility.Utility;
 
 import java.io.FileNotFoundException;
@@ -60,6 +63,13 @@ public class QuestionsController  implements Initializable {
     @FXML
     private CheckBox checkBoxPositivo, checkBoxNegativo, cupressacee, nocciolo, ontano,  pioppo,  frassino, betulla, salice,  carpino, platano,  quercia,  orniello, pinacee,  urticacee, graminacee,  poligonacee,  castagno, assenzio, piantaggine;
 
+    @FXML
+    TableView table;
+
+    TableColumn titolo = new TableColumn(" ");
+    TableColumn base = new TableColumn("BASE");
+    TableColumn decong = new TableColumn("DECONG");
+    TableColumn valori = new TableColumn("Valori normali");
 
     private Patient patient;
 
@@ -146,7 +156,30 @@ public class QuestionsController  implements Initializable {
         textAreaAppuntiEsameOtoscopico.setText(currentAnamnesi.getAppuntiEsameOtoscopico());
         textAreaAppuntiEsameRinom.setText(currentAnamnesi.getAppuntiEsameRinom());
 
+        ObservableList<Resistenza> data;
 
+        table.getColumns().addAll(titolo, base, decong, valori);
+
+        data = FXCollections.observableArrayList(
+                new Resistenza("Resistenze Sx", currentAnamnesi.getBaseSx(), "", "< 0,50"),
+                new Resistenza("Resistenze Dx", "", "", "< 0,50"),
+                new Resistenza("Resistenze Sx+Dx", "", "", "< 0,25")
+        );
+
+        titolo.setCellValueFactory(
+                new PropertyValueFactory<Resistenza,String>("titolo")
+        );
+        base.setCellValueFactory(
+                new PropertyValueFactory<Resistenza,String>("base")
+        );
+        decong.setCellValueFactory(
+                new PropertyValueFactory<Resistenza,String>("decong")
+        );
+
+        valori.setCellValueFactory(
+                new PropertyValueFactory<Resistenza,String>("valori")
+        );
+        table.setItems(data);
     }
 
     @FXML
@@ -273,6 +306,12 @@ public class QuestionsController  implements Initializable {
     @FXML
     void salva(ActionEvent event) {
         Anamnesi anamnesi = new Anamnesi();
+        TextField baseSx = (TextField) base.getCellObservableValue(0).getValue();
+        TextField baseDx = (TextField) base.getCellObservableValue(1).getValue();
+        TextField decongSx = (TextField) decong.getCellObservableValue(0).getValue();
+        TextField decongDx = (TextField) decong.getCellObservableValue(1).getValue();
+        TextField baseSxDx = (TextField) base.getCellObservableValue(2).getValue();
+        TextField decongSxDx = (TextField) decong.getCellObservableValue(2).getValue();
         anamnesi.setInfo(comboBoxAllergiaGen.getSelectionModel().getSelectedItem(),
                 comboBoxTipoAllergiaGen.getSelectionModel().getSelectedItem(),
                 comboBoxAllergiaFra.getSelectionModel().getSelectedItem(),
@@ -308,8 +347,15 @@ public class QuestionsController  implements Initializable {
                 textAreaAppuntiAlterazioniLIO.getText(),
                 textAreaAppuntiEsameOtoscopico.getText(),
                 textAreaAppuntiEsameRinom.getText(),
-                checkboxes()
-        );
+                checkboxes(),
+                baseSx.getText(),
+                baseDx.getText(),
+                decongSx.getText(),
+                decongDx.getText(),
+                baseSxDx.getText(),
+                decongSxDx.getText()
+            );
+
         patient.addAnamnesi(anamnesi);
 
         Utility utility = new Utility(patient);
@@ -323,7 +369,7 @@ public class QuestionsController  implements Initializable {
             e.printStackTrace();
         }
 
-        FXMLLoader Loader = new FXMLLoader();
+            FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("Anamnesi.fxml"));
         try {
             Loader.load();

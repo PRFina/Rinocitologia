@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
@@ -20,7 +12,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.DropShadow?>
@@ -31,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.QuestionsController">
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.QuestionsController">
     <children>
         <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" styleClass="head-background" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -253,16 +244,16 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Accordion layoutX="14.0" layoutY="14.0" prefHeight="218.0" prefWidth="405.0">
+                                    <Accordion layoutX="14.0" layoutY="14.0" prefHeight="218.0" prefWidth="335.0">
                                       <panes>
                                         <TitledPane animated="false" text="Esame esterno del naso">
                                              <content>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                    <children>
                                                       <Label layoutX="14.0" layoutY="14.0" text="Piramide nasale:" />
-                                                      <JFXComboBox fx:id="comboBoxPirNasale" focusColor="#f49842" layoutX="275.0" layoutY="13.0" prefWidth="140.0" />
-                                                      <Label layoutX="14.0" layoutY="39.0" text="Valvola nasale:" />
-                                                      <JFXComboBox fx:id="comboBoxValNasale" focusColor="#f49842" layoutX="275.0" layoutY="38.0" prefWidth="140.0" />
+                                                      <JFXComboBox fx:id="comboBoxPirNasale" focusColor="#f49842" layoutX="148.0" layoutY="10.0" prefWidth="140.0" />
+                                                      <Label layoutX="14.0" layoutY="50.0" text="Valvola nasale:" />
+                                                      <JFXComboBox fx:id="comboBoxValNasale" focusColor="#f49842" layoutX="148.0" layoutY="46.0" prefWidth="140.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </content>
@@ -272,15 +263,15 @@
                                                 <AnchorPane prefHeight="131.0" prefWidth="422.0">
                                                    <children>
                                                       <Label layoutX="14.0" layoutY="4.0" text="Setto:" />
-                                                      <JFXComboBox fx:id="comboBoxSetto" focusColor="#f49842" layoutX="294.0" layoutY="-1.0" prefWidth="140.0" />
+                                                      <JFXComboBox fx:id="comboBoxSetto" focusColor="#f49842" layoutX="148.0" layoutY="-2.0" prefWidth="140.0" />
                                                       <Label layoutX="14.0" layoutY="25.0" text="Turbinati:" />
-                                                      <JFXComboBox fx:id="comboBoxTurbinati" focusColor="#f49842" layoutX="294.0" layoutY="20.0" prefWidth="140.0" />
+                                                      <JFXComboBox fx:id="comboBoxTurbinati" focusColor="#f49842" layoutX="148.0" layoutY="19.0" prefWidth="140.0" />
                                                       <Label layoutX="14.0" layoutY="46.0" text="Poliposi nasale sinistra:" />
-                                                      <JFXComboBox fx:id="comboBoxPolSx" focusColor="#f49842" layoutX="294.0" layoutY="41.0" prefWidth="140.0" />
+                                                      <JFXComboBox fx:id="comboBoxPolSx" focusColor="#f49842" layoutX="148.0" layoutY="40.0" prefWidth="140.0" />
                                                       <Label layoutX="14.0" layoutY="90.0" text="Essudato:" />
-                                                      <JFXComboBox fx:id="comboBoxEssudato" focusColor="#f49842" layoutX="294.0" layoutY="87.0" prefWidth="140.0" />
+                                                      <JFXComboBox fx:id="comboBoxEssudato" focusColor="#f49842" layoutX="148.0" layoutY="86.0" prefWidth="140.0" />
                                                       <Label layoutX="14.0" layoutY="68.0" text="Poliposi nasale destra:" />
-                                                      <JFXComboBox fx:id="comboBoxPolDx" focusColor="#f49842" layoutX="294.0" layoutY="63.0" prefWidth="140.0" />
+                                                      <JFXComboBox fx:id="comboBoxPolDx" focusColor="#f49842" layoutX="148.0" layoutY="62.0" prefWidth="140.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </content>
@@ -290,9 +281,9 @@
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                    <children>
                                                       <Label layoutX="14.0" layoutY="14.0" text="Ipertrofia adenoidea: " />
-                                                      <JFXComboBox fx:id="comboBoxIpertrofia" focusColor="#f49842" layoutX="314.0" layoutY="9.0" prefWidth="140.0" />
+                                                      <JFXComboBox fx:id="comboBoxIpertrofia" focusColor="#f49842" layoutX="135.0" layoutY="10.0" prefWidth="140.0" />
                                                       <Label layoutX="14.0" layoutY="35.0" text="Appunti su eventuali alterazioni di laringe, ipofaringe e orofaringe:" />
-                                                      <JFXTextArea fx:id="textAreaAppuntiAlterazioniLIO" focusColor="#f49842" layoutX="14.0" layoutY="53.0" prefHeight="53.0" prefWidth="382.0" />
+                                                      <JFXTextArea fx:id="textAreaAppuntiAlterazioniLIO" focusColor="#f49842" layoutX="14.0" layoutY="53.0" prefHeight="53.0" prefWidth="339.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </content>
@@ -301,7 +292,7 @@
                                              <content>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                    <children>
-                                                      <JFXTextArea fx:id="textAreaAppuntiEsameOtoscopico" focusColor="#f49842" layoutX="14.0" layoutY="35.0" prefHeight="60.0" prefWidth="386.0" />
+                                                      <JFXTextArea fx:id="textAreaAppuntiEsameOtoscopico" focusColor="#f49842" layoutX="14.0" layoutY="35.0" prefHeight="60.0" prefWidth="325.0" />
                                                       <Label layoutX="14.0" layoutY="14.0" text="Appunti su eventuali alterazioni rilevate dall'esame otoscopico:" />
                                                    </children>
                                                 </AnchorPane>
@@ -309,10 +300,11 @@
                                           </TitledPane>
                                       </panes>
                                     </Accordion>
-                                    <TableView fx:id="table" layoutX="556.0" layoutY="32.0" prefHeight="106.0" prefWidth="318.0" />
-                                    <Label layoutX="556.0" layoutY="14.0" text="Esame rinomanometrico:" />
-                                    <Label layoutX="556.0" layoutY="145.0" text="Conclusioni:" />
-                                    <JFXTextArea fx:id="textAreaAppuntiEsameRinom" focusColor="#f49842" layoutX="555.0" layoutY="162.0" prefHeight="69.0" prefWidth="321.0" />
+                                    <TableView fx:id="table" layoutX="415.0" layoutY="31.0" prefHeight="120.0" prefWidth="539.0" />
+                                    <Label layoutX="415.0" layoutY="14.0" text="Esame rinomanometrico:" />
+                                    <Label layoutX="426.0" layoutY="180.0" text="Conclusioni:" />
+                                    <JFXTextArea fx:id="textAreaAppuntiEsameRinom" focusColor="#f49842" layoutX="426.0" layoutY="198.0" prefHeight="69.0" prefWidth="321.0" />
+                                    <Separator layoutX="409.0" layoutY="14.0" orientation="VERTICAL" prefHeight="267.0" prefWidth="2.0" />
                                  </children></AnchorPane>
                           </content>
                         </Tab>
