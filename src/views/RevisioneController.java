@@ -65,6 +65,12 @@ public class RevisioneController implements Initializable {
         patientTxt.setText(label);
     }
 
+    /**
+     * Set tiles to let the medic to review classifier's work.
+     * Each tile displays cells belonging to a class (such as Epiteliali, mucipare, etc).
+     * The medic can move wrong classified cells by right-clicking on one of them and selecting the correct class in the context menu displayed.
+     * The medic can also display the cell with the default Preview application installed in his computer by double clicking an image.
+     */
     public void setTiles(){
         setEpitelialiTile(epitelialiTile);
         setMucipareTile(mucipareTile);
@@ -839,6 +845,11 @@ public class RevisioneController implements Initializable {
         }
     }
 
+    /**
+     * Utility method to copy files (image right-clicked from a tile) to a new (and correct destination).
+     * @param imageFile
+     * @param destination
+     */
     private void copyTo(final File imageFile, String destination){
         Path path = imageFile.toPath();
         if(destination == "Epiteliali") {
@@ -878,6 +889,12 @@ public class RevisioneController implements Initializable {
         }
     }
 
+    /**
+     * Creates an image view to be displayed in a tile.
+     * If right-clicked , the image is opened in default image preview application on medic's computer.
+     * @param imageFile
+     * @return
+     */
     private ImageView createImageView(final File imageFile) {
         // DEFAULT_THUMBNAIL_WIDTH is a constant you need to define
         // The last two arguments are: preserveRatio, and use smooth (slower)

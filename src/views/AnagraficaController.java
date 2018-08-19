@@ -63,6 +63,10 @@ public class AnagraficaController implements Initializable {
     @FXML
     TitledPane success;
 
+    /**
+     * Handles personal changes (informations).
+     * @param event
+     */
     @FXML
     private void insertData(ActionEvent event){
         if(cfTxt.getText().equals("")&&(cfTxt.getText().length() <16 || cfTxt.getText().length()>16)){

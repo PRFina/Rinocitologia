@@ -92,6 +92,10 @@ public class HomeController implements Initializable {
 
     */
 
+    /**
+     * Display Directory Chooser to select the folder containing Cells images (taken with microscope) from medic's pc.
+     * @param event
+     */
     @FXML
     private void search(ActionEvent event) {
         Stage stage = new Stage();

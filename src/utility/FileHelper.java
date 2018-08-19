@@ -7,10 +7,18 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.control.Alert;
 import org.apache.commons.io.FileUtils;
 
 
 public class FileHelper {
+
+    /**
+     * Static method to copy files from origin path to target path (destination).
+     * @param path
+     * @param target
+     */
     public static void copy(Path path, Path target) {
         List<Path> uncopiable = new ArrayList<>();
         try {
@@ -31,10 +39,16 @@ public class FileHelper {
                 content += pathUncopiable.toString() + System.lineSeparator();
             }
             String message = "Some files were not copied properly";
-            //DialogHelper.showAlert(Alert.AlertType.INFORMATION, sourceDirectory, message, content);
+            DialogHelper.showAlert(Alert.AlertType.ERROR, sourceDirectory, message, content);
         }
     }
 
+    /**
+     * Static method to move files from origin path to target path (destination).
+     * @param path
+     * @param targetDirectory
+     * @return
+     */
     public static boolean move(Path path, Path targetDirectory) {
         boolean esito = false;
         List<Path> unmovable = new ArrayList<>();
@@ -52,11 +66,15 @@ public class FileHelper {
                 content += pathUnmovable.toString() + System.lineSeparator();
             }
             String message = "Some files were not moved properly";
-            //DialogHelper.showAlert(Alert.AlertType.INFORMATION, sourceDirectory, message, content);
+            DialogHelper.showAlert(Alert.AlertType.ERROR, sourceDirectory, message, content);
         }
         return esito;
     }
 
+    /**
+     * Static method to delete files from origin path.
+     * @param path
+     */
     public static void delete(Path path) {
         //String sourceDirectory = source.get(0).getParent().toString();
 
@@ -80,7 +98,7 @@ public class FileHelper {
                 String content = "";
                 for (Path pathUndeleted : undeleted) content += pathUndeleted.toString() + System.lineSeparator();
                 String message = "Some files were not deleted";
-                //DialogHelper.showAlert(Alert.AlertType.INFORMATION, sourceDirectory, message, content);
+                DialogHelper.showAlert(Alert.AlertType.ERROR, path, message, content);
             }
         }
     }

@@ -43,6 +43,11 @@ public class AnamnesiController implements Initializable {
     @FXML
     private ListView<String> anamnesiListView;
 
+
+    /**
+     * Displays a list of Anamnesi (showing dates of creation).
+     * If clicked, calls Questions passing informations about it to edit Anamnesi.
+     */
     public void setAnamesiListView(){
 
         for(Anamnesi el:patient.getAnamnesiList()){
@@ -82,6 +87,11 @@ public class AnamnesiController implements Initializable {
         });
     }
 
+    /**
+     * Calls Question passing a new instance of Anamnesi to create it.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void addAnam(ActionEvent event) throws IOException {
         FXMLLoader Loader = new FXMLLoader();

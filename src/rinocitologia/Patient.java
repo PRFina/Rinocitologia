@@ -166,6 +166,11 @@ public class Patient {
 		}
 	}
 
+	/**
+	 * Returns Anamnesi object based on the date when it was created.
+	 * @param time
+	 * @return
+	 */
 	public Anamnesi getAnamnesi(String time){
 		Anamnesi anam = new Anamnesi();
 		for(Anamnesi anamnesi: anamnesiList){

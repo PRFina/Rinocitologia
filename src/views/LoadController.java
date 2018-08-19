@@ -103,7 +103,10 @@ public class LoadController implements Initializable {
 
     */
 
-
+    /**
+     * Let the medic load a patient in memory (reading from json) by CF (aka Codice Fiscale) and handles its input.
+     * @param event
+     */
     @FXML
     private void searchByCF(ActionEvent event) {
         if(cfTxt.getText().equals("")&&(cfTxt.getText().length() <16 || cfTxt.getText().length()>16)){
@@ -123,6 +126,10 @@ public class LoadController implements Initializable {
         }
     }
 
+    /**
+     * Opens a Directory Chooser to let the medic load a patient in memory (reading from json) by selecting his relative folder.
+     * @param event
+     */
     @FXML
     private void searchByFolder(ActionEvent event){
         Stage stage = new Stage();

@@ -302,7 +302,10 @@ public class QuestionsController  implements Initializable {
             checkBoxNegativo.setSelected(true);
     }
 
-
+    /**
+     * Writes informations in anamnesi object.
+     * @param event
+     */
     @FXML
     void salva(ActionEvent event) {
         Anamnesi anamnesi = new Anamnesi();
@@ -393,6 +396,10 @@ public class QuestionsController  implements Initializable {
         stage.show();
     }
 
+    /**
+     * Fills an array with informations get from selected checkboxes
+     * @return
+     */
     public ArrayList<String> checkboxes(){
         ArrayList<String> checkbox = new ArrayList<String>();
         if(graminacee.isSelected()){

@@ -14,9 +14,6 @@ public class ClipsManager {
 	public ClipsManager(Environment clips){
 		this.clips = clips;
 	}
-	
-	
-
 
 	/**
 	 * Returns a list of possible diagnosis from cell count.

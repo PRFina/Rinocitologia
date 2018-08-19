@@ -43,8 +43,10 @@ public class Utility {
 				
 	}
 
-	
-	
+
+	/**
+	 * Utility to write Pdf and Json reports.
+	 */
 	public void writeReports() {
 		writeJson();
 		try {
@@ -140,11 +142,19 @@ public class Utility {
 		}else {
 			//System.out.print("\nWriting others\n" + folderOthers.getAbsolutePath());
 		}
+
+		final File folderCellule = new File(inputsPATH , "cellule");
+		if(!folderMucipare.exists() && !folderMucipare.mkdir()) {
+			//failed to create the folder, probably exit
+			throw new RuntimeException("Failed to create save directory.");
+		}else {
+			//System.out.print("\nWriting mucipare\n" + folderMucipare.getAbsolutePath());
+		}
 	}
 	
 	
 	/**
-	 * Writes informations contained in Patient in a JSON File located in data/<FistName>_<Surname>/.
+	 * Writes informations contained in Patient in a JSON File (report.json) located in patient.getPath()/reports.
 	 * If the directory does not exist, creates it.
 	 */
 	public void writeJson() {
@@ -162,40 +172,12 @@ public class Utility {
 		 System.out.println("Writing JSON into file:\n" + fullPath + "\n----------------------------");
 			  
 	}
-	
-	
-	/**
-	 * Reads informations contained in a JSON format file (retrieved by firstName and surname) and populates an instance of Patient.
-	 * @param firstName String that contains user's first name.
-	 * @param surname String that contains user's surname.
-	 * @return dictionary instance of the class Patient populated with the informations obtained from JSON file.
-	 */
-	public Patient readJson(String firstName, String surname) {
-		String directoryPath = dict.getPath() + File.separator + firstName + "_" + surname + File.separator + "reports";
-		String fullPath = directoryPath + File.separator + firstName + "_" + surname + ".json";
-		Patient patient = null;
-		
-		try {
-			  
-			   System.out.println("Reading JSON from a file");
-			   System.out.println(PATH);
-			   System.out.println(fullPath);
-			   System.out.println("----------------------------");
-			   
-			   BufferedReader br = new BufferedReader(
-			     new FileReader(fullPath));
-			   
-			    //convert the json string back to object
-			   patient = gson.fromJson(br, Patient.class);
 
-			  
-			  } catch (IOException e) {
-			   e.printStackTrace();
-			  }
-			 
-		return patient;
-	}
-	
+	/**
+	 * Static method to read JSON file (report.json) by CF.
+	 * @param cf
+	 * @return
+	 */
 	public static Patient readJson(String cf){
 		String PATH = System.getProperty("user.home") + File.separator + "data" + File.separator + cf + File.separator + "reports" + File.separator + "report.json";
 		Patient patient = null;
@@ -221,6 +203,13 @@ public class Utility {
 		return patient;
 	}
 
+
+	/**
+	 * Static method to read JSON and populate Patient object.
+	 * JSON red from path.
+	 * @param path
+	 * @return
+	 */
 	public static Patient readJson(File path){
 		Patient patient = null;
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -246,36 +235,12 @@ public class Utility {
 	}
 
 
+
+
 	/**
-	 * Reads informations contained in a JSON format file (retrieved by firstName = Pinco and surname = Pallino) and populates an instance of Patient.
-	 * @return dictionary instance of the class Patient populated with the informations obtained from JSON file.
+	 * Writes last session in user.home/data/lastsession.json
+	 *
 	 */
-	public static Patient readJson(Patient dict) {
-		String directoryPath = dict.getPath() + File.separator +  "reports";
-		String fullPath = directoryPath + File.separator + "report.json";
-		Patient patient = null;
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		
-		try {
-			  
-			   System.out.println("Reading JSON from a file");
-			   System.out.println(fullPath);
-			   System.out.println("----------------------------");
-			   
-			   BufferedReader br = new BufferedReader(
-			     new FileReader(fullPath));
-			   
-			    //convert the json string back to object
-			   patient = gson.fromJson(br, Patient.class);
-
-			  
-			  } catch (IOException e) {
-			   e.printStackTrace();
-			  }
-			 
-		return patient;
-	}
-
 	public void writeLastSession(){
 		String json = gson.toJson(dict);
 		String fullPath = dict.getPathData() + File.separator + "lastsession.json";
@@ -292,6 +257,7 @@ public class Utility {
 	}
 	
 	/**
+	 * Utility to write pdf report in patient.getPath/reports/report.pdf.
 	 * Writes a report in Pdf format.
 	 * Refer to http://www.baeldung.com/java-pdf-creation
 	 * @throws FileNotFoundException
@@ -338,6 +304,13 @@ public class Utility {
 		System.out.println("Writing PDF into file:\n" + path + "\n----------------------------");
 	}
 
+
+	/**
+	 * Utility to write pdf report in patient.getPath/reports/report<Anamnesi date>.pdf
+	 * @param anamnesi
+	 * @throws FileNotFoundException
+	 * @throws DocumentException
+	 */
 	public void writePdfReport(Anamnesi anamnesi) throws FileNotFoundException, DocumentException {
 
 		String path = dict.getPath() + File.separator + "reports" + File.separator + "report" + anamnesi.getTime().split(" ")[0].replace("/", "_") + ".pdf";
@@ -404,5 +377,76 @@ public class Utility {
 	    table.addCell(count);
 	    table.addCell(grade);
 		
+	}
+
+
+
+	//************
+	//*DEPRECATED*
+	//************
+	/**
+	 * DEPRECATED???
+	 *
+	 * Reads informations contained in a JSON format file (retrieved by patient.getPath()) and populates an instance of Patient.
+	 * @return dictionary instance of the class Patient populated with the informations obtained from JSON file.
+	 */
+	public static Patient readJson(Patient dict) {
+		String directoryPath = dict.getPath() + File.separator +  "reports";
+		String fullPath = directoryPath + File.separator + "report.json";
+		Patient patient = null;
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+		try {
+
+			System.out.println("Reading JSON from a file");
+			System.out.println(fullPath);
+			System.out.println("----------------------------");
+
+			BufferedReader br = new BufferedReader(
+					new FileReader(fullPath));
+
+			//convert the json string back to object
+			patient = gson.fromJson(br, Patient.class);
+
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return patient;
+	}
+
+
+	/**
+	 * DEPRECATED
+	 * Reads informations contained in a JSON format file (retrieved by firstName and surname) and populates an instance of Patient.
+	 * @param firstName String that contains user's first name.
+	 * @param surname String that contains user's surname.
+	 * @return dictionary instance of the class Patient populated with the informations obtained from JSON file.
+	 */
+	public Patient readJson(String firstName, String surname) {
+		String directoryPath = dict.getPath() + File.separator + firstName + "_" + surname + File.separator + "reports";
+		String fullPath = directoryPath + File.separator + firstName + "_" + surname + ".json";
+		Patient patient = null;
+
+		try {
+
+			System.out.println("Reading JSON from a file");
+			System.out.println(PATH);
+			System.out.println(fullPath);
+			System.out.println("----------------------------");
+
+			BufferedReader br = new BufferedReader(
+					new FileReader(fullPath));
+
+			//convert the json string back to object
+			patient = gson.fromJson(br, Patient.class);
+
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return patient;
 	}
 }
