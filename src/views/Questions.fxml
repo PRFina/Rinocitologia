@@ -176,7 +176,7 @@
          <content>
             <Pane prefHeight="346.0" prefWidth="1015.0">
              <children>
-                 <JFXTabPane layoutX="26.0" layoutY="2.0" prefHeight="348.0" prefWidth="961.0" stylesheets="@tabCSS.css">
+                 <JFXTabPane layoutX="26.0" layoutY="2.0" prefHeight="348.0" prefWidth="961.0" stylesheets="@tabAnam.css">
                      <tabs>
                         <Tab text="Anamnesi familiare">
                           <content>
@@ -205,7 +205,7 @@
                               </AnchorPane>
                           </content>
                         </Tab>
-                        <Tab text="Anamnesi patologica prossima">
+                        <Tab text="Sintomatologia">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>

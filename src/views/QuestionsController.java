@@ -253,8 +253,6 @@ public class QuestionsController  implements Initializable {
             piantaggine.setSelected(false);
             piantaggine.setDisable(true);
         }
-        else
-            checkBoxPositivo.setSelected(true);
     }
 
     @FXML
@@ -298,8 +296,6 @@ public class QuestionsController  implements Initializable {
             piantaggine.setSelected(false);
             piantaggine.setDisable(false);
         }
-        else
-            checkBoxNegativo.setSelected(true);
     }
 
     /**
