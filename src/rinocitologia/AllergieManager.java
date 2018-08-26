@@ -279,6 +279,8 @@ public class AllergieManager {
         int metaMese = listaMesi[month * 3 - 2]; //metà mese (2/3)
         int inizioMese = listaMesi[month * 3 - 3]; //inizio mese (1/3)
         int media = (inizioMese + metaMese + fineMese)/3;
+        System.out.println(media);
+        System.out.println(getPresenza(media));
         getPresenza(media);
         return getPresenza(media);
     }
@@ -350,6 +352,34 @@ public class AllergieManager {
                 break;
         }
         */
+        if(presenza >= 0 && presenza < 1.50){
+            presenzaString = "apollinico";
+        }
+        if(presenza >= 1.50 && presenza < 3.50){
+            presenzaString = "pollinico";
+        }
+        return  presenzaString;
+    }
+
+
+
+    /*
+    public String getPresenza(int presenza){
+        String presenzaString = new String();
+        /*
+        switch (presenza) {
+            case 0:  presenzaString = "Concentrazione pollinica nulla";
+                break;
+            case 1:  presenzaString = "Concentrazione pollinica bassa";
+                break;
+            case 2:  presenzaString = "Concentrazione pollinica media";
+                break;
+            case 3:  presenzaString = "Concentrazione pollinica alta";
+                break;
+            default: presenzaString = "Concentrazione pollinica non reperibile";
+                break;
+        }
+        *//*
         if(presenza >= 0 && presenza < 0.50){
             presenzaString = "Concentrazione pollinica nulla";
         }
@@ -365,4 +395,5 @@ public class AllergieManager {
         System.out.println(presenzaString);
         return  presenzaString;
     }
+    */
 }

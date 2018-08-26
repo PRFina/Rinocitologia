@@ -1,7 +1,7 @@
 package views;
+import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -16,15 +16,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.Anamnesi;
+import rinocitologia.Diagnosis;
 import rinocitologia.Patient;
 import utility.Utility;
-
-import javax.swing.*;
 
 public class HomeController implements Initializable {
 
@@ -243,6 +241,7 @@ public class HomeController implements Initializable {
         }
         DiagnosiController controller = Loader.getController();
         controller.setPatient(patient);
+        controller.setDati();
 
         //Inizio Carica View
         Parent p = Loader.getRoot();

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.DiagnosiController">
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.DiagnosiController">
    <children>
       <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" styleClass="head-background" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -163,6 +168,29 @@
             <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Pane>
-      <ScrollPane layoutX="251.0" layoutY="182.0" prefHeight="406.0" prefWidth="810.0" style="-fx-background-color: #fff;" stylesheets="@style.css" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="182.0" />
+      <ScrollPane layoutX="251.0" layoutY="182.0" prefHeight="406.0" prefWidth="810.0" style="-fx-background-color: #fff;" stylesheets="@style.css" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="182.0">
+         <content>
+            <Pane prefHeight="402.0" prefWidth="1012.0">
+               <children>
+                  <SplitPane dividerPositions="0.43538767395626243" layoutX="14.0" layoutY="38.0" prefHeight="327.0" prefWidth="505.0">
+                    <items>
+                      <AnchorPane fx:id="splitPaneSx" minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="192.0">
+                           <children>
+                              <ListView fx:id="listView" layoutY="-1.0" onMouseClicked="#handleItemClicks" prefHeight="326.0" prefWidth="220.0" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane fx:id="splitPaneDx" minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="321.0" />
+                    </items>
+                  </SplitPane>
+                  <Label layoutX="16.0" layoutY="10.0" text="Possibili diagnosi:" />
+                  <Label layoutX="545.0" layoutY="175.0" text="Terapia:" />
+                  <JFXTextArea fx:id="textAreaTerapia" focusColor="#f49842" layoutX="545.0" layoutY="203.0" prefHeight="131.0" prefWidth="453.0" />
+                  <Separator layoutX="532.0" layoutY="14.0" orientation="VERTICAL" prefHeight="374.0" prefWidth="6.0" />
+                  <JFXButton fx:id="btnSalva" buttonType="RAISED" layoutX="730.0" layoutY="365.0" mnemonicParsing="false" onAction="#salva" ripplerFill="#ee7918" text="Salva" />
+                  <Label layoutX="545.0" layoutY="10.0" text="Diagnosi finale:" />
+                  <JFXTextArea fx:id="textAreaDiagnosi" focusColor="#f49842" layoutX="545.0" layoutY="38.0" prefHeight="120.0" prefWidth="455.0" />
+               </children>
+            </Pane>
+         </content></ScrollPane>
    </children>
 </AnchorPane>

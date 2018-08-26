@@ -4,3 +4,5 @@
 (assert (cellule (nome Batteri) (grado 0)))
 (assert (cellule (nome Spore) (grado 0)))
 (assert (cellule (nome Macchia) (grado 0)))
+
+

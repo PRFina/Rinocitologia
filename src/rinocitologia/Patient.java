@@ -21,10 +21,13 @@ public class Patient {
 	private String pathData = System.getProperty("user.home") + File.separator + "data";
 	private String pathInput = path + File.separator + "inputs";
 	private CodiceFiscale cf;
+	private String terapia;
+	private String diagnosiUfficiale;
 
 	//private Anamnesi anamnesi;
 	private ArrayList<Anamnesi> anamnesiList = new ArrayList<>();
 
+	private ArrayList<Diagnosi> diagnosi = new ArrayList<>();
 	/*
 	//In ogni Controller in anamnesiCaller devi
 	if(patient.getAnamnesi == null){
@@ -120,6 +123,20 @@ public class Patient {
 
 	public String getPathInput() { return pathInput; }
 
+	public void setDiagnosi(ArrayList<Diagnosi> diagnosis) {
+		this.diagnosi = diagnosis;
+	}
+
+	public ArrayList<Diagnosi> getDiagnosi() { return diagnosi; }
+
+	public String getTerapia() { return terapia; }
+
+	public void setTerapia(String terapia) { this.terapia = terapia; }
+
+	public String getDiagnosiUfficiale() { return diagnosiUfficiale; }
+
+	public void setDiagnosiUfficiale(String diagnosiUfficiale) { this.diagnosiUfficiale = diagnosiUfficiale; }
+
 	/**
 	 * Rename patient folder and saves path to path variable
 	 */
@@ -192,8 +209,6 @@ public class Patient {
 		else
 			return name + cells.toString();
 	}
-
-
 }
 
 

@@ -21,17 +21,20 @@ public class Diagnosis {
 	private Patient dict;
 	private ClipsManager cm;
 
-	Diagnosis(Patient dict) throws FileNotFoundException, DocumentException {
+	public ClipsManager getClipsManager() { return cm; }
+
+	public Diagnosis(Patient dict) throws FileNotFoundException, DocumentException {
 		clips = new Environment(); 
-		//clips.clear();
-		clips.loadFromResource("/clips/fatticopia.clp");
+		clips.clear();
+		clips.loadFromResource("/clips/fatti.clp");
+		clips.loadFromResource("/clips/functions.clp");
 		clips.loadFromResource("/clips/diagnosi.clp");
-		
+
 		clips.reset();
-		
-		/*
+
+
 		//DIAGNOSI NARESMA
-		dict = new Patient("Gian", "Sekko");
+		//dict = new Patient("Gian", "Sekko");
 		dict.addElement("Eosinofili", 6);
 		dict.addElement("Mastociti", 6);
 		dict.addElement("Neutrofili", 6);
@@ -39,7 +42,6 @@ public class Diagnosis {
 		handler.assertFacts();
 		Utility util = new Utility(dict);
 		util.writeReports();
-		*/
 	
 		/*
 		//EXAMPLE OF ADDING ELEMENTS MANUALLY TO DICTIONARY NO NAME
@@ -92,9 +94,16 @@ public class Diagnosis {
 		*/
 		
 		clips.run();
-		
+		System.out.println("Caricato run");
+
+		clips.eval("(facts)");
+		clips.eval("(get-number-of-facts-by-name sintomo)");
+		clips.eval("(get-number-of-facts-by-name famiglia)");
+		clips.eval("(get-number-of-facts-by-name scoperta)");
+		clips.eval("(get-number-of-facts-by-name cellula)");
+
 		cm = new ClipsManager(clips);
-		cm.getDiagnosis();
+		dict.setDiagnosi(cm.getDiagnosis());
 	}
 
 	public Patient getDict() {

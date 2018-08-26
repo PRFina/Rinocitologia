@@ -1,9 +1,14 @@
 package rinocitologia;
 
+import javafx.util.converter.DateTimeStringConverter;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class Anamnesi {
     private String allergiaGen, tipoAllergiaGen, allergiaFra, tipoAllergiaFra, poliposiGen, asmaFra, asmaGen, poliposiFra = "";
@@ -30,6 +35,10 @@ public class Anamnesi {
     private String baseSx, baseDx, baseSxDx, decongSx, decongDx, decongSxDx = "";
 
     private String time;
+
+    private int mese;
+
+    public Anamnesi(){ this.setTime(); }
 
     public String getAllergiaGen() {
         return allergiaGen;
@@ -313,6 +322,10 @@ public class Anamnesi {
         }
     }
 
+    public void setMese(int mese){ this.mese = mese; }
+
+    public int getMese() { return mese; }
+
     public ArrayList<String> getAllergie() { return allergie; }
 
     public String getBaseSx() { return baseSx; }
@@ -407,6 +420,8 @@ public class Anamnesi {
     public void setTime() {
         DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         Date dateobj = new Date();
+        LocalDate localDate = dateobj.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.setMese(localDate.getMonthValue());
         this.time = df.format(dateobj);
 
         System.out.println(df.format(dateobj));
@@ -510,8 +525,6 @@ public class Anamnesi {
             anamnesi += "Decongestione Dx: " + decongDx + "\n";
         if(decongSxDx != null && decongSxDx != "")
             anamnesi += "Decongestione Sx e Dx: " + decongSxDx + "\n";
-
-
         return anamnesi;
 
     }

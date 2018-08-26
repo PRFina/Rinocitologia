@@ -220,6 +220,7 @@ public class AnamnesiController implements Initializable {
         }
         DiagnosiController controller = Loader.getController();
         controller.setPatient(patient);
+        controller.setDati();
 
         //Inizio Carica View
         Parent p = Loader.getRoot();

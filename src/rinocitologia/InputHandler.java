@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import net.sf.clipsrules.jni.Environment;
+import net.sf.clipsrules.jni.FactAddressValue;
+import net.sf.clipsrules.jni.MultifieldValue;
 
 /**
  * Handles the inputs from neural network.
@@ -40,14 +42,86 @@ public class InputHandler {
 		patient.completeDictionary();
 		
 		for (Map.Entry<String, Cell> entry : patient.getDictionary().entrySet()) {
-			assertion = "(cellule (nome " + entry.getKey() + ") (grado " + entry.getValue().getgrade() + "))";
+			assertion = "(cellula (nome " + entry.getKey() + ") (grado " + entry.getValue().getgrade() + "))";
 			//System.out.println(assertion);
 			clips.assertString(assertion);
-		}	
+		}
+		Anamnesi anamnesi = patient.getAnamnesiList().get(patient.getAnamnesiList().size()-1);
+		if((anamnesi.getAllergiaGen() != null)&&(anamnesi.getAllergiaGen() == "si"))
+			clips.assertString("(famiglia(soggetto genitore) (disturbo allergia) (tipo "+anamnesi.getTipoAllergiaGen()+"))");
+		if((anamnesi.getAllergiaFra() != null)&&(anamnesi.getAllergiaFra() == "si"))
+			clips.assertString("(famiglia(soggetto fratello) (disturbo allergia) (tipo "+anamnesi.getTipoAllergiaFra()+"))");
+		if((anamnesi.getPoliposiGen() != null)&&(anamnesi.getPoliposiGen() == "si"))
+			clips.assertString("(famiglia(soggetto genitore) (disturbo poliposi))");
+		if((anamnesi.getPoliposiFra() != null)&&(anamnesi.getPoliposiFra() == "si"))
+			clips.assertString("(famiglia(soggetto fratello) (disturbo poliposi))");
+		if((anamnesi.getAsmaGen() != null)&&(anamnesi.getAsmaGen() == "si"))
+			clips.assertString("(famiglia(soggetto genitore) (disturbo asma))");
+		if((anamnesi.getAsmaFra() != null)&&(anamnesi.getAsmaFra() == "si"))
+			clips.assertString("(famiglia(soggetto fratello) (disturbo asma))");
+		int i=0;
+		if((anamnesi.getOstruzione()!=null)&&(anamnesi.getOstruzione()!= "nessuna"))
+			clips.assertString("(sintomo (nome ostruzione) (caratteristica \""+anamnesi.getOstruzione()+"\"))");
+		if((anamnesi.getRinorrea()!=null)&&(anamnesi.getRinorrea()!= "nessuna")){
+			clips.assertString("(sintomo (nome rinorrea) (caratteristica \""+anamnesi.getRinorrea()+"\"))");
+			clips.assertString("(sintomo (nome espansione-rinorrea) (caratteristica \""+anamnesi.getEspansioneRinorrea()+"\"))");
+		}
+		if((anamnesi.getPruritoNasale()!= null)&&(anamnesi.getPruritoNasale()== "si"))
+			clips.assertString("(sintomo (nome prurito-nasale))");
+		if((anamnesi.getStarnuto()!=null)&&(anamnesi.getStarnuto()!= "nessuna"))
+			clips.assertString("(sintomo (nome starnutazione) (caratteristica \""+anamnesi.getStarnuto()+"\"))");
+		if((anamnesi.getOlfatto()!=null)&&(anamnesi.getOlfatto()!= "nessuno"))
+			clips.assertString("(sintomo (nome olfatto) (caratteristica \""+anamnesi.getOlfatto()+"\"))");
+		if((anamnesi.getOvattamento()!=null)&&(anamnesi.getOvattamento()!= "nessuno"))
+			clips.assertString("(sintomo (nome ovattamento) (caratteristica \""+anamnesi.getOvattamento()+"\"))");
+		if((anamnesi.getIpoacusia()!=null)&&(anamnesi.getIpoacusia()!= "nessuno"))
+			clips.assertString("(sintomo (nome ipoacusia) (caratteristica \""+anamnesi.getIpoacusia()+"\"))");
+		if((anamnesi.getAcufeni()!=null)&&(anamnesi.getAcufeni()!= "nessuno"))
+			clips.assertString("(sintomo (nome acufeni) (caratteristica \""+anamnesi.getAcufeni()+"\"))");
+		if((anamnesi.getVertigini()!="")&&(anamnesi.getVertigini()!= "nessuna"))
+			clips.assertString("(sintomo (nome vertigini) (caratteristica \""+anamnesi.getVertigini()+"\"))");
+		if(anamnesi.getLacrimazione())
+			clips.assertString("(sintomo (nome lacrimazione))");
+		if(anamnesi.getFotofobia())
+			clips.assertString("(sintomo (nome fotofobia))");
+		if(anamnesi.getPrurito())
+			clips.assertString("(sintomo (nome prurito-occhio))");
+		if(anamnesi.getBruciore())
+			clips.assertString("(sintomo (nome bruciore))");
+
+		if((anamnesi.getPirNasale()!=null)&&(anamnesi.getPirNasale()!="normofornata"))
+			clips.assertString("(scoperta (parte-anatomica piramide-nasale) (caratteristica \""+anamnesi.getPirNasale()+"\"))");
+		if((anamnesi.getValNasale()!=null)&&(anamnesi.getValNasale()!="normofunzionante"))
+			clips.assertString("(scoperta (parte-anatomica valvola-nasale) (caratteristica \""+anamnesi.getValNasale()+"\"))");
+		if((anamnesi.getSetto()!=null)&&(anamnesi.getSetto()!="in asse"))
+			clips.assertString("(scoperta (parte-anatomica setto-nasale) (caratteristica \""+anamnesi.getSetto()+"\"))");
+		if((anamnesi.getTurbinati()!=null)&&(anamnesi.getTurbinati()!="normofornata"))
+			clips.assertString("(scoperta (parte-anatomica turbinati) (caratteristica \""+anamnesi.getTurbinati()+"\"))");
+		if((anamnesi.getPolSx()!=null)&&(anamnesi.getPolSx()!="assente"))
+			clips.assertString("(scoperta (parte-anatomica poliposi-sinistra) (caratteristica \""+anamnesi.getPolSx()+"\"))");
+		if((anamnesi.getPolDx()!=null)&&(anamnesi.getPolDx()!="assente"))
+			clips.assertString("(scoperta (parte-anatomica poliposi-destra) (caratteristica \""+anamnesi.getPolDx()+"\"))");
+		if((anamnesi.getEssudato()!=null)&&(anamnesi.getEssudato()!="assente"))
+			clips.assertString("(scoperta (parte-anatomica essudato) (caratteristica \""+anamnesi.getEssudato()+"\"))");
+		if((anamnesi.getIpertrofia()!="")&&(anamnesi.getIpertrofia()!="normofornata"))
+			clips.assertString("(scoperta (parte-anatomica ipertrofia) (caratteristica \""+anamnesi.getIpertrofia()+"\"))");
+		//Manca la gestione dell'esame rinomanometrico e dell'esame otoscopico
+		if(anamnesi.getAllergia()!= "Non presenti."){
+			if(anamnesi.getAllergia()!=""){
+				AllergieManager allergieManager = new AllergieManager();
+				for(String allergia : anamnesi.getAllergie()){
+					if(allergia.equals("allergene perenne"))
+						clips.assertString("(prick-test(esito positivo) (allergene perenne))");
+					else{
+						System.out.println("ALLERGENE: "+allergia+" PERIODO: "+allergieManager.evaluateMonthString(allergia, anamnesi.getMese()));
+						clips.assertString("(prick-test(esito positivo) (periodo "+allergieManager.evaluateMonthString(allergia, anamnesi.getMese())+") (allergene "+allergia+"))");
+					}
+				}
+			}
+		}else
+			clips.assertString("(prick-test(esito negativo))");
 	}
-	
-	
-	
+
 	/**
 	 * Read and parse a file (locating it by patient's name) and populates an instance of patient.
 	 * @return patient An instance of Patient containing informations retrieved from file and subsequently filled with default values for missing entries.

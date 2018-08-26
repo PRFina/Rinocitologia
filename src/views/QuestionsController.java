@@ -61,7 +61,7 @@ public class QuestionsController  implements Initializable {
 
     //Variabili delle componenti della parte del Prick-Test
     @FXML
-    private CheckBox checkBoxPositivo, checkBoxNegativo, cupressacee, nocciolo, ontano,  pioppo,  frassino, betulla, salice,  carpino, platano,  quercia,  orniello, pinacee,  urticacee, graminacee,  poligonacee,  castagno, assenzio, piantaggine;
+    private CheckBox checkBoxPositivo, checkBoxNegativo, checkBoxPerenne, cupressacee, nocciolo, ontano,  pioppo,  frassino, betulla, salice,  carpino, platano,  quercia,  orniello, pinacee,  urticacee, graminacee,  poligonacee,  castagno, assenzio, piantaggine;
 
     @FXML
     TableView table;
@@ -216,6 +216,8 @@ public class QuestionsController  implements Initializable {
     void testNegativo(ActionEvent event) {
         if(checkBoxNegativo.isSelected()){
             checkBoxPositivo.setSelected(false);
+            checkBoxPerenne.setSelected(false);
+            checkBoxPerenne.setDisable(false);
             cupressacee.setSelected(false);
             cupressacee.setDisable(true);
             nocciolo.setSelected(false);
@@ -259,6 +261,7 @@ public class QuestionsController  implements Initializable {
     void testPositivo(ActionEvent event) {
         if(checkBoxPositivo.isSelected()){
             checkBoxNegativo.setSelected(false);
+            checkBoxPerenne.setSelected(false);
             cupressacee.setSelected(false);
             cupressacee.setDisable(false);
             nocciolo.setSelected(false);
@@ -398,6 +401,9 @@ public class QuestionsController  implements Initializable {
      */
     public ArrayList<String> checkboxes(){
         ArrayList<String> checkbox = new ArrayList<String>();
+        if(checkBoxPerenne.isSelected()){
+            checkbox.add(checkBoxPerenne.getText());
+        }
         if(graminacee.isSelected()){
             checkbox.add(graminacee.getText());
         }
