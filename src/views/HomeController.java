@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -22,6 +23,7 @@ import javafx.scene.Scene;
 import rinocitologia.Anamnesi;
 import rinocitologia.Diagnosis;
 import rinocitologia.Patient;
+import utility.DialogHelper;
 import utility.Utility;
 
 public class HomeController implements Initializable {
@@ -232,26 +234,31 @@ public class HomeController implements Initializable {
 
     @FXML
     private void diagnosisCaller(ActionEvent event)  throws IOException{
-        FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("Diagnosi.fxml"));
-        try {
-            Loader.load();
-        } catch (IOException ex){
-            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
-        }
-        DiagnosiController controller = Loader.getController();
-        controller.setPatient(patient);
-        controller.setDati();
+        if(patient.getAnamnesiList().size()==0){
+            DialogHelper.showAlert(Alert.AlertType.WARNING, "Anamnesi assente", "Non è possibile accedere alla schermata Diagnosi senza avere l'anamnesi del paziente", "Verrà reindirizzato per la compilazione della prima anamnesi.");
+            anamnesiCaller(event);
+        }else{
+            FXMLLoader Loader = new FXMLLoader();
+            Loader.setLocation(getClass().getResource("Diagnosi.fxml"));
+            try {
+                Loader.load();
+            } catch (IOException ex){
+                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+            }
+            DiagnosiController controller = Loader.getController();
+            controller.setPatient(patient);
+            controller.setDati();
 
-        //Inizio Carica View
-        Parent p = Loader.getRoot();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setOnHidden(e -> {
-            controller.shutdown();
-            Platform.exit();
-        });
-        stage.setScene(new Scene(p));
-        stage.show();
+            //Inizio Carica View
+            Parent p = Loader.getRoot();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setOnHidden(e -> {
+                controller.shutdown();
+                Platform.exit();
+            });
+            stage.setScene(new Scene(p));
+            stage.show();
+        }
     }
 
     @FXML
