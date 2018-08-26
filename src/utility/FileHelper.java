@@ -98,7 +98,7 @@ public class FileHelper {
                 String content = "";
                 for (Path pathUndeleted : undeleted) content += pathUndeleted.toString() + System.lineSeparator();
                 String message = "Some files were not deleted";
-                //DialogHelper.showAlert(Alert.AlertType.ERROR, path, message, content);
+                DialogHelper.showAlert(Alert.AlertType.ERROR, path.toString(), message, content);
             }
         }
     }

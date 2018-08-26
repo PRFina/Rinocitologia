@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 //import py4j.GatewayServer;
+import py4j.GatewayServer;
 import rinocitologia.*;
 import utility.Sequence;
 import utility.Utility;
@@ -77,8 +78,8 @@ public class Main extends Application {
         System.out.println(patient.getFirstName());
 
 
-        //GatewayServer server = new GatewayServer(patient, 25335);
-        //server.start();
+        GatewayServer server = new GatewayServer(patient, 25335);
+        server.start();
 
 
 
