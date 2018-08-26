@@ -213,7 +213,7 @@ public class AnamnesiController implements Initializable {
     private void diagnosisCaller(ActionEvent event)  throws IOException{
         if(patient.getAnamnesiList().size()==0){
             DialogHelper.showAlert(Alert.AlertType.WARNING, "Anamnesi assente", "Non è possibile accedere alla schermata Diagnosi senza avere l'anamnesi del paziente", "Verrà reindirizzato per la compilazione della prima anamnesi.");
-            anamnesiCaller(event);
+            addAnam(event);
         }else{
             FXMLLoader Loader = new FXMLLoader();
             Loader.setLocation(getClass().getResource("Diagnosi.fxml"));
