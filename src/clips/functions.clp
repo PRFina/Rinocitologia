@@ -1,0 +1,7 @@
+(deffunction get-number-of-facts-by-name (?names)
+	(bind ?facts 0)
+	(progn$ (?f (get-fact-list))
+		(if (eq (fact-relation ?f) ?names)
+			then (bind ?facts (+ ?facts 1))))
+	(return ?facts)
+)
