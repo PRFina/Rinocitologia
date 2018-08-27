@@ -3,6 +3,7 @@
         (slot grado (type INTEGER))
 )
 
+
 (deftemplate diagnosi
         (slot nome (type STRING))
 		(multislot informazioni (type STRING))

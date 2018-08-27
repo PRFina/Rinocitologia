@@ -1,3 +1,9 @@
+(defrule start
+		(declare (salience 10000))
+=>
+		(controllo-calcolabilita)
+)
+
 (defrule condizione-normale-riniti-medicamentosa-gravidica
 		(declare (salience 100))
         (cellula (nome Eosinofili) (grado 0))
@@ -13,7 +19,6 @@
         (printout t "Probabile diagnosi: Condizione Normale, Rinite Medicamentosa, Rinite Gravidica." crlf)
         (printout t "Ricorrere ad anamnesi per maggiore precisione nella diagnosi." crlf)
 )
-
 
 (defrule rinite-allergica
 		(declare (salience 100))
@@ -128,87 +133,63 @@
         (assert (diagnosi(nome "poliposi nasale") (informazioni "Grado di eosinofili: 0" "Grado di mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (str-cat "Grado di batteri: " ?gradoB) (str-cat "Grado di spore: " ?gradoS)(str-cat "Grado di macchie: " ?gradoI))))
 )
 
-(defrule citologia-pricktest-anamnesi-assenti
-		(test (= (get-number-of-facts-by-name sintomo) 0))
-		(test (= (get-number-of-facts-by-name famiglia) 0))
-		(test (= (get-number-of-facts-by-name scoperta) 0))
-		(test (= (get-number-of-facts-by-name rinomanometria) 0))
-		(test (= (get-number-of-facts-by-name cellula) 0))
-		(test (= (get-number-of-facts-by-name prick-test) 0))
-=>
-		(assert (diagnosi (nome "non calcolabile") (informazioni "Sintomatologia assente" "Anamnesi familiare assente" "Esame del medico assente" "Prick-test assente" "Citologia assente")))
-)
-
 (defrule citologia-anamnesi-assenti-pricktestpositivo
+		(prick-test (esito positivo))
 		(test (= (get-number-of-facts-by-name sintomo) 0))
 		(test (= (get-number-of-facts-by-name famiglia) 0))
 		(test (= (get-number-of-facts-by-name scoperta) 0))
 		(test (= (get-number-of-facts-by-name rinomanometria) 0))
 		(test (= (get-number-of-facts-by-name cellula) 0))
-		(prick-test (esito positivo))
 =>
 		(assert (diagnosi (nome "rinite allergica") (informazioni "Sintomatologia assente" "Anamnesi familiare assente" "Esame del medico assente" "Citologia assente" "Prick-test: positivo")))
 )
 
 (defrule citologia-anamnesi-assenti-pricktestnegativo
+		(prick-test (esito negativo))
 		(test (= (get-number-of-facts-by-name sintomo) 0))
 		(test (= (get-number-of-facts-by-name famiglia) 0))
 		(test (= (get-number-of-facts-by-name scoperta) 0))
 		(test (= (get-number-of-facts-by-name rinomanometria) 0))
 		(test (= (get-number-of-facts-by-name cellula) 0))
-		(prick-test (esito negativo))
 =>
 		(assert (diagnosi (nome "non calcolabile") (informazioni "Sintomatologia assente" "Anamnesi familiare assente" "Esame del medico assente" "Citologia assente" "Prick-test: negativo")))
 )
 
-(defrule citologia-pricktest-assenti
-		(test (= (get-number-of-facts-by-name cellula) 0))
-		(test (= (get-number-of-facts-by-name prick-test) 0))
-=>
-		(assert (diagnosi (nome "da-modificare") (informazioni "Citologia assente" "Prick-test assente")))
-)
-
-(defrule pricktest-assente
-		(test (= (get-number-of-facts-by-name prick-test) 0))
-=>
-		(assert (diagnosi (nome "da-modificare") (informazioni "Prick-test assente")))
-)
-
 (defrule anamnesi-assente-pricktestpositivo
+		(or(prick-test (esito positivo) (periodo pollinico) (allergene stagionale)) (prick-test (esito positivo) (allergene perenne)))
 		(test (= (get-number-of-facts-by-name sintomo) 0))
 		(test (= (get-number-of-facts-by-name famiglia) 0))
 		(test (= (get-number-of-facts-by-name scoperta) 0))
 		(test (= (get-number-of-facts-by-name rinomanometria) 0))
-		(or(prick-test (esito positivo) (periodo pollinico) (allergene stagionale)) (prick-test (esito positivo) (allergene perenne)))
 		(test (= 0 (length$ (find-fact((?d diagnosi)) (eq ?d:nome "condizione normale")))))
 =>
 		(assert (diagnosi (nome "rinite allergica") (informazioni "Sintomatologia assente" "Anamnesi familiare assente" "Esame del medico assente" "Citologia: negativa" "Prick-test: positivo")))
 )
 
 (defrule anamnesi-assente-pricktestpositivo-apollinico
+		(prick-test (esito positivo) (periodo apollinico) (allergene stagionale))
 		(test (= (get-number-of-facts-by-name sintomo) 0))
 		(test (= (get-number-of-facts-by-name famiglia) 0))
 		(test (= (get-number-of-facts-by-name scoperta) 0))
 		(test (= (get-number-of-facts-by-name rinomanometria) 0))
-		(prick-test (esito positivo) (periodo apollinico) (allergene stagionale))
 =>
 		(assert (diagnosi (nome "rinite allergica") (informazioni "Sintomatologia assente" "Anamnesi familiare assente" "Esame del medico assente" "Prick-test: positivo con periodo apollinico e allergene stagionale")))
 )
 
 (defrule anamnesi-assente-pricktestpositivo-apollinico
+		(prick-test (esito positivo) (periodo apollinico) (allergene stagionale))
+		(diagnosi (nome "condizione normale"))
 		(test (= (get-number-of-facts-by-name sintomo) 0))
 		(test (= (get-number-of-facts-by-name famiglia) 0))
 		(test (= (get-number-of-facts-by-name scoperta) 0))
 		(test (= (get-number-of-facts-by-name rinomanometria) 0))
-		(prick-test (esito positivo) (periodo apollinico) (allergene stagionale))
-		(diagnosi (nome "condizione normale"))
 =>
 		(assert (diagnosi (nome "rinite vasomotoria con sensibilizzazione allergenica") (informazioni "Sintomatologia assente" "Anamnesi familiare assente" "Esame del medico assente" "Citologia: negativa" "Prick-test: positivo con periodo apollinico e allergene stagionale")))
 )
 
 (defrule citologia-assente
-		(test (= (get-number-of-facts-by-name cellula) 0))
 		(prick-test (esito positivo))
+		(test(= (length (find-all-facts ((?fct cellula)) TRUE)) 0))
 =>
 		(assert (diagnosi (nome "rinite allergica") (informazioni "Citologia assente" "Prick-test: positivo")))
 )
