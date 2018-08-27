@@ -63,7 +63,7 @@ System to support medic specialist in _rhinitis and cytology_.
       <a href="http://sourceforge.net/projects/clipsrules/files/CLIPS/6.30/">ClipsJNI</a> - Clips Java Native Interface
       <ul>
         <li>
-          <a href="https://bitbucket.org/fverdoja/xclipsjni/wiki/Home">Italian page describing how to use it
+          <a href="https://bitbucket.org/fverdoja/xclipsjni/wiki/Home">Italian page describing how to use it</a>
         </li>
      </ul>
    </li>
