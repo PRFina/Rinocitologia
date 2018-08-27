@@ -284,6 +284,7 @@ public class Utility {
 			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\n", fontInformativa);
 		}
 
+		Chunk chunkAnamnesiHeader = new Chunk("Anamnesi", fontParagraph);
 		Paragraph anamnesi = null;
 		if (dict.getLastAnamnesi() != null){
 			anamnesi = new Paragraph(dict.getLastAnamnesi().toString(), fontInformativa);
@@ -313,12 +314,15 @@ public class Utility {
 		
 		document.add(table);
 		document.add( Chunk.NEWLINE );
+		document.add(chunkAnamnesiHeader);
+		document.add( Chunk.NEWLINE );
 		if(anamnesi!=null) {
 			document.add(anamnesi);
 		}
-		document.add( Chunk.NEWLINE );
+		document.add( Chunk.NEXTPAGE );
 		document.add(chunkDiagnosiHeader);
 		document.add( Chunk.NEWLINE );
+
 		if(diagnosi!=null) {
 			document.add(diagnosi);
 		}
@@ -346,6 +350,8 @@ public class Utility {
 
 		document.open();
 		Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA, 16, BaseColor.BLACK);
+		Font fontParagraph =  FontFactory.getFont(FontFactory.COURIER_BOLD, 12, BaseColor.BLACK);
+
 		Chunk chunk = new Chunk("Report clinico per il paziente: " + dict.getSurname() + " " + dict.getFirstName() + ".\n", fontHeader);
 
 
@@ -367,6 +373,8 @@ public class Utility {
 			addRows(table, entry.getKey(), Integer.toString(entry.getValue().getcellCount()), Integer.toString(entry.getValue().getgrade()));
 		}
 
+		Chunk chunkAnamnesiHeader = new Chunk("Anamnesi", fontParagraph);
+
 		Paragraph anamnesiParagraph = new Paragraph(anamnesi.toString(), fontInformativa);
 
 
@@ -376,6 +384,8 @@ public class Utility {
 
 		document.add(table);
 		document.add( Chunk.NEWLINE );
+		document.add(chunkAnamnesiHeader);
+		document.add(Chunk.NEWLINE);
 		document.add(anamnesiParagraph);
 		document.add( Chunk.NEWLINE );
 

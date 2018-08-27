@@ -433,8 +433,7 @@ public class Anamnesi {
 
     @Override
     public String toString() {
-        String anamnesi = "Anamnesi:\n";
-        anamnesi += "\nAnamnesi familiare\n";
+        String anamnesi = "Anamnesi familiare\n";
         if(allergiaGen != null)
             anamnesi += "Allergia Genitori: " + allergiaGen + "\n";
         if((tipoAllergiaGen != null)&&(tipoAllergiaGen !=""))
