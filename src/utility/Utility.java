@@ -275,12 +275,26 @@ public class Utility {
 		
 		
 		Font fontInformativa = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
+		Font fontParagraph =  FontFactory.getFont(FontFactory.COURIER_BOLD, 12, BaseColor.BLACK);
+
 		Paragraph info;
 		if(dict.getCf() != null) {
 			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\nNato il: " + dict.getCf().getDay() + "/" + dict.getCf().getMonth() + "/" + dict.getCf().getYear(), fontInformativa);
 		} else {
 			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\n", fontInformativa);
 		}
+
+		Paragraph anamnesi = null;
+		if (dict.getLastAnamnesi() != null){
+			anamnesi = new Paragraph(dict.getLastAnamnesi().toString(), fontInformativa);
+		}
+
+		Chunk chunkDiagnosiHeader = new Chunk("Diagnosi",fontParagraph);
+		Paragraph diagnosi = null;
+		if (dict.getDiagnosiUfficiale() != null && dict.getTerapia() != null){
+			diagnosi = new Paragraph("Diagnosi: " + dict.getDiagnosiUfficiale() + "\nTerapia: " + dict.getTerapia(), fontInformativa);
+		}
+
 		Paragraph informativa = new Paragraph("Questo è un report generato automaticamente dal sistema di supporto medico per la Rinocitologia Nasale. Per maggiori informazioni rivolgersi a un dottore specializzato in Rinocitologia.", fontInformativa);
 		informativa.setIndentationLeft(20);
 		PdfPTable table = new PdfPTable(3); //3 is the number of columns for the table: Name, Cell Count and Grade
@@ -298,7 +312,20 @@ public class Utility {
 		document.add(info);
 		
 		document.add(table);
+		document.add( Chunk.NEWLINE );
+		if(anamnesi!=null) {
+			document.add(anamnesi);
+		}
+		document.add( Chunk.NEWLINE );
+		document.add(chunkDiagnosiHeader);
+		document.add( Chunk.NEWLINE );
+		if(diagnosi!=null) {
+			document.add(diagnosi);
+		}
+
+		document.add( Chunk.NEWLINE );
 		document.add(informativa);
+
 		document.close();
 		
 		System.out.println("Writing PDF into file:\n" + path + "\n----------------------------");
@@ -313,7 +340,7 @@ public class Utility {
 	 */
 	public void writePdfReport(Anamnesi anamnesi) throws FileNotFoundException, DocumentException {
 
-		String path = dict.getPath() + File.separator + "reports" + File.separator + "report" + anamnesi.getTime().split(" ")[0].replace("/", "_") + ".pdf";
+		String path = dict.getPath() + File.separator + "reports" + File.separator + "report_anamnesi" + anamnesi.getTime().split(" ")[0].replace("/", "_") + ".pdf";
 		Document document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(path));
 

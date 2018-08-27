@@ -181,6 +181,10 @@ public class QuestionsController  implements Initializable {
                 new PropertyValueFactory<Resistenza,String>("valori")
         );
         table.setItems(data);
+        comboBoxTipoAllergiaGen.setDisable(true);
+        comboBoxTipoAllergiaFra.setDisable(true);
+        comboBoxEspansioneRinorrea.setDisable(true);
+
     }
 
     @FXML
@@ -639,6 +643,14 @@ public class QuestionsController  implements Initializable {
         System.out.println("\nSAVING SESSION");
         Utility util = new Utility(patient);
         util.writeLastSession();
+        try {
+            util.writePdfReport();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

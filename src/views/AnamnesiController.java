@@ -1,11 +1,13 @@
 package views;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -293,6 +295,14 @@ public class AnamnesiController implements Initializable {
         System.out.println("\nSAVING SESSION");
         Utility util = new Utility(patient);
         util.writeLastSession();
+        try {
+            util.writePdfReport();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

@@ -1,5 +1,6 @@
 package views;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -7,6 +8,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -303,5 +305,13 @@ public class AnagraficaController implements Initializable {
         Utility util = new Utility(this.patient);
         util.writeLastSession();
         util.writeJson();
+        try {
+            util.writePdfReport();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
     }
 }

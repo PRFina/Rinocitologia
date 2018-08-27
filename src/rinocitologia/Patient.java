@@ -123,6 +123,14 @@ public class Patient {
 
 	public String getPathInput() { return pathInput; }
 
+	public Anamnesi getLastAnamnesi(){
+		Anamnesi item = null;
+		if (anamnesiList != null && !anamnesiList.isEmpty()) {
+			item = anamnesiList.get(anamnesiList.size()-1);
+		}
+		return item;
+	}
+
 	public void setDiagnosi(ArrayList<Diagnosi> diagnosis) {
 		this.diagnosi = diagnosis;
 	}

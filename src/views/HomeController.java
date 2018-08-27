@@ -3,6 +3,7 @@ import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -320,6 +321,13 @@ public class HomeController implements Initializable {
         Utility util = new Utility(this.patient);
         util.writeLastSession();
         util.writeJson();
+        try {
+            util.writePdfReport();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
 
     }
 }

@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -1159,6 +1160,14 @@ public class RevisioneController implements Initializable {
         Utility util = new Utility(this.patient);
         util.writeLastSession();
         util.writeJson();
+        try {
+            util.writePdfReport();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

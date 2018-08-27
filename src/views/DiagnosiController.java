@@ -314,6 +314,14 @@ public class DiagnosiController implements Initializable {
         Utility util = new Utility(this.patient);
         util.writeLastSession();
         util.writeJson();
+        try {
+            util.writePdfReport();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
 
     }
 }
