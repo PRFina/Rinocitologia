@@ -155,7 +155,7 @@ public class LoadController implements Initializable {
         } else {
             DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Codice Fiscale errato.", "Seleziona una cartella valida per caricare il paziente.");
         }
-        patient.addAllElements();
+        //patient.addAllElements();
 
     }
 
