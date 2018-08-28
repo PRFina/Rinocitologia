@@ -173,6 +173,72 @@ public class Patient {
 		dictionary.put(actualName, new Cell(nome, numeroCellule));
 		
 	}
+
+	/**
+	 * Automatically counts cells after revision.
+	 */
+	public void addAllElements(){
+		if(new File(pathInput, "eosinofili").list().length == 0){
+			dictionary.put("Eosinofili", new Cell("Eosinofili", 0));
+			System.out.println("Eosinofili 0");
+
+		} else {
+			dictionary.put("Eosinofili", new Cell("Eosinofili", new File(pathInput, "eosinofili").list().length - 1));
+			System.out.println("Eosinofili " + Integer.toString(new File(pathInput, "eosinofili").list().length - 1));
+
+		}
+		if(new File(pathInput, "epiteliali").list().length == 0){
+			dictionary.put("Epiteliali", new Cell("Epiteliali", 0));
+			System.out.println("Epiteliali 0");
+
+		} else {
+			dictionary.put("Epiteliali", new Cell("Epiteliali", new File(pathInput, "epiteliali").list().length - 1));
+			System.out.println("Epitelali " + Integer.toString(new File(pathInput, "epiteliali").list().length - 1));
+
+		}
+		if(new File(pathInput, "linfociti").list().length == 0){
+			dictionary.put("Linfociti", new Cell("Linfociti", 0));
+			System.out.println("Linfociti 0");
+
+		} else {
+			dictionary.put("Linfociti", new Cell("Linfociti", new File(pathInput, "linfociti").list().length - 1));
+			System.out.println("Linfociti " + Integer.toString(new File(pathInput, "linfociti").list().length - 1));
+
+		}
+		if(new File(pathInput, "mastcellule").list().length == 0){
+			dictionary.put("Mastcellule", new Cell("Mastcellule", 0));
+			System.out.println("Mastcellule 0");
+
+		} else {
+			dictionary.put("Mastcellule", new Cell("Mastcellule", new File(pathInput, "mastcellule").list().length - 1));
+			System.out.println("Mastcellule " + Integer.toString(new File(pathInput, "mastcellule").list().length - 1));
+
+		}
+		if(new File(pathInput, "mucipare").list().length == 0){
+			dictionary.put("Mucipare", new Cell("Mucipare", 0));
+			System.out.println("Mucipare 0");
+
+		} else {
+			dictionary.put("Mucipare", new Cell("Mucipare", new File(pathInput, "mucipare").list().length - 1));
+			System.out.println("Mucipare " + Integer.toString(new File(pathInput, "mucipare").list().length - 1));
+		}
+		if(new File(pathInput, "neutrofili").list().length == 0){
+			dictionary.put("Neutrofili", new Cell("Neutrofili", 0));
+			System.out.println("Neutrofili 0");
+		} else {
+			dictionary.put("Neutrofili", new Cell("Neutrofili", new File(pathInput, "neutrofili").list().length - 1));
+			System.out.println("Neutrofili " + Integer.toString(new File(pathInput, "neutrofili").list().length - 1));
+		}
+		if(new File(pathInput, "others").list().length == 0){
+			dictionary.put("Others", new Cell("Others", 0));
+			System.out.println("Others 0");
+
+		} else {
+			dictionary.put("Others", new Cell("Others", new File(pathInput, "others").list().length - 1));
+			System.out.println("Others " + Integer.toString(new File(pathInput, "others").list().length - 1));
+
+		}
+	}
 	
 	/**
 	 * Autofills the dictionary with the missing informations from neural network.

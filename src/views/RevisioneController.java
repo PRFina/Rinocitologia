@@ -84,6 +84,8 @@ public class RevisioneController implements Initializable {
     }
 
     public void setEpitelialiTile(TilePane tile) {
+        //tile.setPrefTileWidth(90);
+        //tile.setPrefTileHeight(90);
 
         tile.setPadding(new Insets(15, 15, 15, 15));
         tile.setHgap(15);

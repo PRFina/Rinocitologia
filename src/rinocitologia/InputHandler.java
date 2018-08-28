@@ -159,6 +159,8 @@ public class InputHandler {
 		
 		return patient;
 	}
+
+
 	
 	public String[] parseInput(String line) {
 		String[] array = line.trim().split("\\s*-\\s*");		
