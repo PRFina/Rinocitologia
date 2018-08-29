@@ -22,13 +22,12 @@
 )
 
 (deftemplate sintomo
-		(slot nome (type SYMBOL))
-		(slot caratteristica (type STRING) (default "non-rilevante"))
+		(slot nome (type STRING))
 )
 
 (deftemplate scoperta
 		(slot parte-anatomica (type SYMBOL))
-		(slot caratteristica (type STRING)  (default "non-rilevante"))
+		(slot caratteristica (type STRING)  (default "non rilevante"))
 )
 
 (deftemplate rinomanometria

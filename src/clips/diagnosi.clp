@@ -9,9 +9,6 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (or (cellula (nome Neutrofili) (grado 0)) (cellula (nome Neutrofili) (grado 1)))
-        (cellula (nome Batteri) (grado 0))
-        (cellula (nome Spore) (grado 0))
-        (cellula (nome Macchia) (grado 0))
 =>
         (assert (diagnosi(nome "condizione normale") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1")))
         (assert (diagnosi(nome "rinit medicamentosa") (informazioni "Grado di  eosinofili" "Grado di  mastociti")))
@@ -25,9 +22,6 @@
         (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(> ?gradoM 0) (< ?gradoM 5))))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
-        (cellula (nome Batteri) (grado 0))
-        (cellula (nome Spore) (grado 0))
-        (cellula (nome Macchia) (grado 0))
 =>
         (assert (diagnosi(nome "rinite allergica") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN))))
 )
@@ -37,13 +31,14 @@
         (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(>= ?gradoN 0) (< ?gradoN 5))))
-        (cellula (nome Batteri) (grado 0))
-        (cellula (nome Spore) (grado 0))
-        (cellula (nome Macchia) (grado 0))
-        ;Rinite non allerigca eosinofila (NARES) - pag 91 dice aumento leucociti e eosinofili
-
+		(prick-test(esito negativo))
+		(or (sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
+			(sintomo(nome "Prurito nasale")) 
+			(sintomo(nome "Bruciore congiuntivale")) 
+			(sintomo(nome ?starnutazione&:(eq (sub-string 1 13 ?starnutazione) "Starnutazione"))) 
+			(sintomo(nome ?olfatto&:(eq (sub-string 1 8 ?olfatto) "Problemi"))))
 =>
-        (assert (diagnosi(nome "NARES") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
+        (assert (diagnosi(nome "NARES") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Prurito nasale" "Bruciore congiuntivale" "Ostruzione" "Starnutazione" "Problemi")))))
 )
 
 (defrule NARESMA
@@ -51,9 +46,6 @@
         (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(> ?gradoM 0) (< ?gradoM 5))))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(>= ?gradoN 0) (< ?gradoN 5))))
-        (cellula (nome Batteri) (grado 0))
-        (cellula (nome Spore) (grado 0))
-        (cellula (nome Macchia) (grado 0))
 =>
         (assert (diagnosi(nome "NARESMA") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN))))
 )
@@ -62,9 +54,6 @@
 		(declare (salience 100))
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(> ?gradoM 0) (< ?gradoM 5))))
-        (cellula (nome Batteri) (grado 0))
-        (cellula (nome Spore) (grado 0))
-        (cellula (nome Macchia) (grado 0))
 =>
         (assert (diagnosi(nome "rinite mastocitaria") (informazioni "Grado di  eosinofili: 0" (str-cat "Grado di mastociti: " ?gradoM))))
 )
@@ -74,9 +63,6 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
-        (cellula (nome Batteri) (grado 0))
-        (cellula (nome Spore) (grado 0))
-        (cellula (nome Macchia) (grado 0))
 =>
         (assert (diagnosi(nome "rinite irritativa") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
         (assert (diagnosi(nome "rinite virale") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
@@ -90,11 +76,8 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
-        (cellula (nome Batteri) (grado ?gradoB&:(and(> ?gradoB 0) (< ?gradoB 5))))
-        (cellula (nome Spore) (grado 0))
-        (cellula (nome Macchia) (grado ?gradoI&:(and(> ?gradoI 0) (< ?gradoI 5))))
 =>
-        (assert (diagnosi(nome "rinosinusite") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (str-cat "Grado di batteri: " ?gradoB) "Grado di spore: 0" (str-cat "Grado di macchie: " ?gradoI))))
+        (assert (diagnosi(nome "rinosinusite") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
 )
 
 (defrule rinite_micotica
@@ -102,11 +85,8 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
-        (cellula (nome Batteri) (grado 0))
-        (cellula (nome Spore) (grado ?gradoS&:(and(> ?gradoS 0) (< ?gradoS 5))))
-        (cellula (nome Macchia) (grado ?gradoI&:(and(> ?gradoI 0) (< ?gradoI 5))))
 =>
-        (assert (diagnosi(nome "rinite micotica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) "Grado di batteri: 0" (str-cat "Grado di spore: " ?gradoS)(str-cat "Grado di macchie: " ?gradoI))))
+        (assert (diagnosi(nome "rinite micotica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
 )
 
 (defrule poliposi_nasale
@@ -114,11 +94,9 @@
         (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(>= ?gradoM 0) (< ?gradoM 5))))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(>= ?gradoN 0) (< ?gradoN 5))))
-        (cellula (nome Batteri) (grado ?gradoB&:(and(>= ?gradoB 0) (< ?gradoB 5))))
-        (cellula (nome Spore) (grado ?gradoS&:(and(>= ?gradoS 0) (< ?gradoS 5))))
-        (cellula (nome Macchia) (grado ?gradoI&:(and(>= ?gradoI 0) (< ?gradoI 5))))
+		(famiglia (soggetto ?s)(disturbo poliposi))
 =>
-        (assert (diagnosi(nome "poliposi nasale") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) (str-cat "Grado di batteri: " ?gradoB) (str-cat "Grado di spore: " ?gradoS)(str-cat "Grado di macchie: " ?gradoI))))
+        (assert (diagnosi(nome "poliposi nasale") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) (str-cat "Un " ?s " ha presentato la poliposi"))))
 )
 
 (defrule polipo_antrocoanale
@@ -126,11 +104,8 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
-        (cellula (nome Batteri) (grado ?gradoB&:(and(>= ?gradoB 0) (< ?gradoB 5))))
-        (cellula (nome Spore) (grado ?gradoS&:(and(>= ?gradoS 0) (< ?gradoS 5))))
-        (cellula (nome Macchia) (grado ?gradoI&:(and(>= ?gradoI 0) (< ?gradoI 5))))
 =>
-        (assert (diagnosi(nome "poliposi nasale") (informazioni "Grado di eosinofili: 0" "Grado di mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (str-cat "Grado di batteri: " ?gradoB) (str-cat "Grado di spore: " ?gradoS)(str-cat "Grado di macchie: " ?gradoI))))
+        (assert (diagnosi(nome "poliposi nasale") (informazioni "Grado di eosinofili: 0" "Grado di mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
 )
 
 (defrule citologia-anamnesi-assenti-pricktestpositivo
@@ -205,10 +180,4 @@
 		(prick-test (esito positivo) (periodo apollinico) (allergene stagionale))
 =>
 		(assert (diagnosi (nome "rinite vasomotoria con sensibilizzazione allergenica") (informazioni "Prick-test: positivo, con periodo apollinico e allergene stagionale")))
-)
-
-(defrule rv-allergenica
-		(prick-test (esito negativo))
-=>
-		(assert (diagnosi (nome "rinite vasomotoria con sensibilizzazione allergenica") (informazioni "Prick-test: negativo")))
 )

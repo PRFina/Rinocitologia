@@ -40,13 +40,14 @@ public class InputHandler {
 	public void assertFacts() {
 		String assertion;
 		patient.completeDictionary();
-		
+
 		for (Map.Entry<String, Cell> entry : patient.getDictionary().entrySet()) {
 			assertion = "(cellula (nome " + entry.getKey() + ") (grado " + entry.getValue().getgrade() + "))";
 			//System.out.println(assertion);
 			clips.assertString(assertion);
 		}
-		Anamnesi anamnesi = patient.getAnamnesiList().get(patient.getAnamnesiList().size()-1);
+		Anamnesi anamnesi = patient.getLastAnamnesi();
+		System.out.println("posizione --------"+patient.getAnamnesiList().size());
 		if((anamnesi.getAllergiaGen() != null)&&(anamnesi.getAllergiaGen() == "si"))
 			clips.assertString("(famiglia(soggetto genitore) (disturbo allergia) (tipo "+anamnesi.getTipoAllergiaGen()+"))");
 		if((anamnesi.getAllergiaFra() != null)&&(anamnesi.getAllergiaFra() == "si"))
@@ -61,33 +62,33 @@ public class InputHandler {
 			clips.assertString("(famiglia(soggetto fratello) (disturbo asma))");
 		int i=0;
 		if((anamnesi.getOstruzione()!=null)&&(anamnesi.getOstruzione()!= "nessuna"))
-			clips.assertString("(sintomo (nome ostruzione) (caratteristica \""+anamnesi.getOstruzione()+"\"))");
+			clips.assertString("(sintomo (nome \"Ostruzione nasale "+anamnesi.getOstruzione()+"\"))");
 		if((anamnesi.getRinorrea()!=null)&&(anamnesi.getRinorrea()!= "nessuna")){
-			clips.assertString("(sintomo (nome rinorrea) (caratteristica \""+anamnesi.getRinorrea()+"\"))");
-			clips.assertString("(sintomo (nome espansione-rinorrea) (caratteristica \""+anamnesi.getEspansioneRinorrea()+"\"))");
+			clips.assertString("(sintomo (nome \"Rinorrea "+anamnesi.getRinorrea()+"\"))");
+			clips.assertString("(sintomo (nome \"Espansione rinorrea: "+anamnesi.getEspansioneRinorrea()+"\"))");
 		}
 		if((anamnesi.getPruritoNasale()!= null)&&(anamnesi.getPruritoNasale()== "si"))
-			clips.assertString("(sintomo (nome prurito-nasale))");
+			clips.assertString("(sintomo (nome \"Prurito nasale\"))");
 		if((anamnesi.getStarnuto()!=null)&&(anamnesi.getStarnuto()!= "nessuna"))
-			clips.assertString("(sintomo (nome starnutazione) (caratteristica \""+anamnesi.getStarnuto()+"\"))");
+			clips.assertString("(sintomo (nome \"Starnutazione "+anamnesi.getStarnuto()+"\"))");
 		if((anamnesi.getOlfatto()!=null)&&(anamnesi.getOlfatto()!= "nessuno"))
-			clips.assertString("(sintomo (nome olfatto) (caratteristica \""+anamnesi.getOlfatto()+"\"))");
+			clips.assertString("(sintomo (nome \"Problemi olfattivi dovuti a "+anamnesi.getOlfatto()+"\"))");
 		if((anamnesi.getOvattamento()!=null)&&(anamnesi.getOvattamento()!= "nessuno"))
-			clips.assertString("(sintomo (nome ovattamento) (caratteristica \""+anamnesi.getOvattamento()+"\"))");
+			clips.assertString("(sintomo (nome \"Ovattamento "+anamnesi.getOvattamento()+"\"))");
 		if((anamnesi.getIpoacusia()!=null)&&(anamnesi.getIpoacusia()!= "nessuno"))
-			clips.assertString("(sintomo (nome ipoacusia) (caratteristica \""+anamnesi.getIpoacusia()+"\"))");
+			clips.assertString("(sintomo (nome \"Ipoacusi "+anamnesi.getIpoacusia()+"\"))");
 		if((anamnesi.getAcufeni()!=null)&&(anamnesi.getAcufeni()!= "nessuno"))
-			clips.assertString("(sintomo (nome acufeni) (caratteristica \""+anamnesi.getAcufeni()+"\"))");
-		if((anamnesi.getVertigini()!="")&&(anamnesi.getVertigini()!= "nessuna"))
-			clips.assertString("(sintomo (nome vertigini) (caratteristica \""+anamnesi.getVertigini()+"\"))");
+			clips.assertString("(sintomo (nome \"Acufeni "+anamnesi.getAcufeni()+"\"))");
+		if((anamnesi.getVertigini()!="")&&(anamnesi.getVertigini()!= "nessuna")&&(anamnesi.getVertigini()!=null))
+			clips.assertString("(sintomo (nome \"Sindrome vertiginosa "+anamnesi.getVertigini()+"\"))");
 		if(anamnesi.getLacrimazione())
-			clips.assertString("(sintomo (nome lacrimazione))");
+			clips.assertString("(sintomo (nome \"Lacrimazione\"))");
 		if(anamnesi.getFotofobia())
-			clips.assertString("(sintomo (nome fotofobia))");
+			clips.assertString("(sintomo (nome \"Fotofobia\"))");
 		if(anamnesi.getPrurito())
-			clips.assertString("(sintomo (nome prurito-occhio))");
+			clips.assertString("(sintomo (nome \"Prurito occhio\"))");
 		if(anamnesi.getBruciore())
-			clips.assertString("(sintomo (nome bruciore))");
+			clips.assertString("(sintomo (nome \"Bruciore\"))");
 
 		if((anamnesi.getPirNasale()!=null)&&(anamnesi.getPirNasale()!="normofornata"))
 			clips.assertString("(scoperta (parte-anatomica piramide-nasale) (caratteristica \""+anamnesi.getPirNasale()+"\"))");
@@ -103,7 +104,7 @@ public class InputHandler {
 			clips.assertString("(scoperta (parte-anatomica poliposi-destra) (caratteristica \""+anamnesi.getPolDx()+"\"))");
 		if((anamnesi.getEssudato()!=null)&&(anamnesi.getEssudato()!="assente"))
 			clips.assertString("(scoperta (parte-anatomica essudato) (caratteristica \""+anamnesi.getEssudato()+"\"))");
-		if((anamnesi.getIpertrofia()!="")&&(anamnesi.getIpertrofia()!="normofornata"))
+		if((anamnesi.getIpertrofia()!="")&&(anamnesi.getIpertrofia()!="normofornata")&&(anamnesi.getIpertrofia()!=null))
 			clips.assertString("(scoperta (parte-anatomica ipertrofia) (caratteristica \""+anamnesi.getIpertrofia()+"\"))");
 		//Manca la gestione dell'esame rinomanometrico e dell'esame otoscopico
 		if(anamnesi.getAllergia()!= "Non presenti."){

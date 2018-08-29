@@ -93,6 +93,8 @@ public class DiagnosiController implements Initializable {
      */
 
     public void setDati(){
+        textAreaTerapia.setText(patient.getTerapia());
+        textAreaDiagnosi.setText(patient.getDiagnosiUfficiale());
         try {
             new Diagnosis(patient);
         } catch (FileNotFoundException e) {

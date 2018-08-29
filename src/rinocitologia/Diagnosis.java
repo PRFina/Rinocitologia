@@ -32,17 +32,19 @@ public class Diagnosis {
 
 		clips.reset();
 
-
-		//DIAGNOSI NARESMA
+		//DIAGNOSI NARES
 		//dict = new Patient("Gian", "Sekko");
 		dict.addElement("Eosinofili", 6);
-		dict.addElement("Mastociti", 6);
+		dict.addElement("Mastociti", 0);
 		dict.addElement("Neutrofili", 6);
 		handler = new InputHandler(clips, dict);
 		handler.assertFacts();
 		Utility util = new Utility(dict);
 		util.writeReports();
-	
+
+
+		//dict.addAllElements();
+
 		/*
 		//EXAMPLE OF ADDING ELEMENTS MANUALLY TO DICTIONARY NO NAME
 		dict = new Patient();
@@ -97,10 +99,6 @@ public class Diagnosis {
 		System.out.println("Caricato run");
 
 		clips.eval("(facts)");
-		clips.eval("(get-number-of-facts-by-name sintomo)");
-		clips.eval("(get-number-of-facts-by-name famiglia)");
-		clips.eval("(get-number-of-facts-by-name scoperta)");
-		clips.eval("(get-number-of-facts-by-name cellula)");
 
 		cm = new ClipsManager(clips);
 		dict.setDiagnosi(cm.getDiagnosis());
