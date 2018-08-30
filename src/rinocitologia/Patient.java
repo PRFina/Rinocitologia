@@ -23,6 +23,7 @@ public class Patient {
 	private String pathCellule;
 	private String pathCFPhoto;
 	private String pathCampi;
+	private Boolean extractedCells;
 	private CodiceFiscale cf;
 	private String terapia;
 	private String diagnosiUfficiale;
@@ -155,6 +156,13 @@ public class Patient {
 		this.pathCampi = pathCampi;
 	}
 
+	public Boolean getExtractedCells() {
+		return extractedCells;
+	}
+
+	public void setExtractedCells(Boolean extractedCells) {
+		this.extractedCells = extractedCells;
+	}
 
 	public void setPathCFPhoto(String pathCFPhoto) {
 		this.pathCFPhoto = pathCFPhoto;

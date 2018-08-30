@@ -34,6 +34,7 @@ public class Diagnosis {
 
 		//DIAGNOSI NARES
 		//dict = new Patient("Gian", "Sekko");
+		/*
 		dict.addElement("Eosinofili", 6);
 		dict.addElement("Mastociti", 0);
 		dict.addElement("Neutrofili", 6);
@@ -42,8 +43,8 @@ public class Diagnosis {
 		Utility util = new Utility(dict);
 		util.writeReports();
 
-
-		//dict.addAllElements();
+*/
+		dict.addAllElements();
 
 		/*
 		//EXAMPLE OF ADDING ELEMENTS MANUALLY TO DICTIONARY NO NAME

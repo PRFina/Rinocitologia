@@ -126,7 +126,9 @@ public class HomeController implements Initializable {
                     ProcessBuilder pb = new ProcessBuilder("python","watershed_extraction.py");
                     Process p = pb.start();
                     p.waitFor();
-
+                    ProcessBuilder pbClass = new ProcessBuilder("python","classificatore.py");
+                    Process pClass = pbClass.start();
+                    pClass.waitFor();
                 }
 
 
