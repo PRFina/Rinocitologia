@@ -4,6 +4,8 @@
 JavaFx + CLIPS Engine + Python software - Graduation Thesis @Uniba. 
 System to support medic specialist in _rhinitis and cytology_.
 
+<img src="http://whoami.altervista.org/Materiale/Preview.png" alt="Cells revisioned by specialist">
+
 ## Features
 <dl>
   <dt>Python</dt>
@@ -87,10 +89,10 @@ System to support medic specialist in _rhinitis and cytology_.
       </ul>
      </li>
      <li>
-        <a href="#">Keras</a>
+        <a href="https://keras.io/">Keras</a>
      </li>
      <li>
-        <a href="#">Tensorflow</a>
+        <a href="https://www.tensorflow.org/">Tensorflow</a>
      </li>
      </ul>
      </dl>
@@ -98,13 +100,13 @@ System to support medic specialist in _rhinitis and cytology_.
       <dt>Anaconda distro</dt>
       <ul>
           <li>
-             <a href="#">Mathplotlib</a>
+             <a href="https://matplotlib.org">Matplotlib</a>
           </li>
                <li>
-                  <a href="#">Scipy</a>
+                  <a href="https://www.scipy.org/">Scipy</a>
                </li>
                     <li>
-                       <a href="#">Scikit Image</a>
+                       <a href="https://scikit-image.org">Scikit Image</a>
                     </li>
   </ul>
 </dl>
