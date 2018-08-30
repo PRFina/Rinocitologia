@@ -50,7 +50,9 @@ public class AnagraficaController implements Initializable {
 
     @FXML
     private void webcam(ActionEvent event) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder("/Users/chiccolacriola/anaconda3/bin/python.app","webcam.py");
+        //ProcessBuilder pb = new ProcessBuilder("/Users/chiccolacriola/anaconda3/bin/python.app","webcam.py");
+        ProcessBuilder pb = new ProcessBuilder("python","webcam.py");
+
         Process p = null;
         try {
             p = pb.start();
@@ -191,6 +193,7 @@ public class AnagraficaController implements Initializable {
         }
         HomeController controller = Loader.getController();
         controller.setPatient(patient);
+        controller.setInfo();
 
 
         //Inizio Carica View

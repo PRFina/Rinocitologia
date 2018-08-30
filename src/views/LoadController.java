@@ -122,6 +122,25 @@ public class LoadController implements Initializable {
                 setPatient(patient);
                 System.out.println(patient.toString());
 
+                //CALL INSERT CELLS
+                FXMLLoader Loader = new FXMLLoader();
+                Loader.setLocation(getClass().getResource("Home.fxml"));
+                try {
+                    Loader.load();
+                } catch (IOException ex){
+                    Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+                }
+                HomeController controller = Loader.getController();
+                controller.setPatient(patient);
+                controller.setInfo();
+
+
+                //Inizio Carica View
+                Parent p = Loader.getRoot();
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(p));
+                stage.show();
+
             } else {
                 DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Codice Fiscale errato.", "Inserisci un codice fiscale corretto per poter caricare i dati di un paziente.");
             }
@@ -152,6 +171,25 @@ public class LoadController implements Initializable {
             setPatient(patient);
             System.out.println(patient.toString());
             DialogHelper.showAlert(Alert.AlertType.INFORMATION, "Caricamento Riuscito", "Caricamento riuscito.", "I dati del paziente sono stati caricati correttamente.");
+
+            //CALL INSERT CELLS
+            FXMLLoader Loader = new FXMLLoader();
+            Loader.setLocation(getClass().getResource("Home.fxml"));
+            try {
+                Loader.load();
+            } catch (IOException ex){
+                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+            }
+            HomeController controller = Loader.getController();
+            controller.setPatient(patient);
+            controller.setInfo();
+
+
+            //Inizio Carica View
+            Parent p = Loader.getRoot();
+            Stage newstage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            newstage.setScene(new Scene(p));
+            newstage.show();
         } else {
             DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Codice Fiscale errato.", "Seleziona una cartella valida per caricare il paziente.");
         }
@@ -176,6 +214,7 @@ public class LoadController implements Initializable {
         }
         HomeController controller = Loader.getController();
         controller.setPatient(patient);
+        controller.setInfo();
 
 
         //Inizio Carica View

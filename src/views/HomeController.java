@@ -2,9 +2,7 @@ package views;
 import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -93,6 +91,11 @@ public class HomeController implements Initializable {
 
     */
 
+    public void setInfo(){
+        if(patient.getPathCampi() != null)
+            pathLbl.setText(patient.getPathCampi());
+    }
+
     /**
      * Display Directory Chooser to select the folder containing Cells images (taken with microscope) from medic's pc.
      * @param event
@@ -108,11 +111,31 @@ public class HomeController implements Initializable {
         if (selectedDirectory != null) {
             selectedDirectory.getAbsolutePath();
             pathLbl.setText(selectedDirectory.getAbsolutePath());
+            patient.setPathCampi(selectedDirectory.getAbsolutePath());
         }
 
     }
 
+    @FXML
+    private void start(ActionEvent event) {
+        if(patient.getPathCampi() != null){
+            try{
+                //ProcessBuilder pb = new ProcessBuilder("/Users/chiccolacriola/anaconda3/bin/python.app","foto.py");
 
+                if(DialogHelper.showConfirmationDialog("ATTENZIONE", "L'operazione potrebbe impiegare vari minuti.", "Sicuro di voler continuare?")){
+                    ProcessBuilder pb = new ProcessBuilder("python","watershed_extraction.py");
+                    Process p = pb.start();
+                    p.waitFor();
+
+                }
+
+
+            }catch(Exception e){System.out.println(e);}
+        } else {
+            DialogHelper.showAlert(Alert.AlertType.ERROR, "ERRORE", "Selezionare la cartella contenente i campi", "Occorre selezionare una cartella contenente i campi prelevati e da esaminare.");
+        }
+
+    }
 
         /*
      *
@@ -316,30 +339,6 @@ public class HomeController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private void cfCaller(ActionEvent event)  throws IOException{
-        FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("AcquisizioneCF.fxml"));
-        try {
-            Loader.load();
-        } catch (IOException ex){
-            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
-        }
-        AcquisizioneCFController controller = Loader.getController();
-        controller.setPatient(patient);
-
-
-
-        //Inizio Carica View
-        Parent p = Loader.getRoot();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(p));
-        stage.setOnHidden(e -> {
-            controller.shutdown();
-            Platform.exit();
-        });
-        stage.show();
-    }
 
     public void shutdown() {
         System.out.println("\nSAVING SESSION");

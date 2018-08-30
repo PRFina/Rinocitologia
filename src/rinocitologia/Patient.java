@@ -22,6 +22,7 @@ public class Patient {
 	private String pathInput;
 	private String pathCellule;
 	private String pathCFPhoto;
+	private String pathCampi;
 	private CodiceFiscale cf;
 	private String terapia;
 	private String diagnosiUfficiale;
@@ -145,6 +146,15 @@ public class Patient {
 	public String getPathCFPhoto() {
 		return pathCFPhoto;
 	}
+
+	public String getPathCampi() {
+		return pathCampi;
+	}
+
+	public void setPathCampi(String pathCampi) {
+		this.pathCampi = pathCampi;
+	}
+
 
 	public void setPathCFPhoto(String pathCFPhoto) {
 		this.pathCFPhoto = pathCFPhoto;

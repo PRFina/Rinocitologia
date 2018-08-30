@@ -135,6 +135,7 @@ public class DiagnosiController implements Initializable {
         }
         HomeController controller = Loader.getController();
         controller.setPatient(patient);
+        controller.setInfo();
 
 
         //Inizio Carica View

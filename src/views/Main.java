@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 public class Main extends Application {
     private Patient patient;
     private HomeController controller;
+    GatewayServer server;
 
     @Override
     public void start(Stage stage) throws Exception{
@@ -78,7 +79,7 @@ public class Main extends Application {
         System.out.println(patient.getFirstName());
 
 
-        GatewayServer server = new GatewayServer(patient, 25335);
+        server = new GatewayServer(patient, 25335);
         server.start();
 
 
@@ -97,6 +98,7 @@ public class Main extends Application {
     @Override
     public void stop(){
         System.out.println("Stage is closing");
+        server.shutdown();
     }
 
     /**
