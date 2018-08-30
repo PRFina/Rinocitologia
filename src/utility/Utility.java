@@ -144,7 +144,7 @@ public class Utility {
 		}
 
 		final File folderCellule = new File(inputsPATH , "cellule");
-		if(!folderMucipare.exists() && !folderMucipare.mkdir()) {
+		if(!folderCellule.exists() && !folderCellule.mkdir()) {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}else {

@@ -11,7 +11,6 @@ gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # turn it grey trough openCv
 barcodes = decode(gray_img)
 if len(barcodes) == 1:
     code = barcodes[0].data
-    patient.setFirstName("Giobbe")
     print(code.decode("utf-8"))
 else:
     print("Codice Fiscale non trovato")

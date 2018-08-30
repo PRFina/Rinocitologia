@@ -19,28 +19,14 @@ public class Patient {
 	private Map<String, Cell> dictionary;
 	private String path;
 	private String pathData = System.getProperty("user.home") + File.separator + "data";
-	private String pathInput = path + File.separator + "inputs";
-
-
-
+	private String pathInput;
+	private String pathCellule;
 	private String pathCFPhoto;
 	private CodiceFiscale cf;
 	private String terapia;
 	private String diagnosiUfficiale;
-
-
-	//private Anamnesi anamnesi;
 	private ArrayList<Anamnesi> anamnesiList = new ArrayList<>();
-
 	private ArrayList<Diagnosi> diagnosi = new ArrayList<>();
-	/*
-	//In ogni Controller in anamnesiCaller devi
-	if(patient.getAnamnesi == null){
-		Anamnesi anam = new Anamnesi()
-		patient.setAnamnesi(anam);
-	}
-	controller.setPatient(patient);
-	*/
 
 	public Patient() {
 		dictionary = new HashMap<String, Cell>();
@@ -57,6 +43,8 @@ public class Patient {
 			   throw new RuntimeException("Failed to create save directory.");
 		}
 		this.path = folder.getAbsolutePath();
+		this.pathInput = path + File.separator + "inputs";
+		this.pathCellule = pathInput + File.separator + "cellule";
 		System.out.print(path);
 
 	}
@@ -77,6 +65,8 @@ public class Patient {
 			   throw new RuntimeException("Failed to create save directory.");
 		}
 		this.path = folder.getAbsolutePath();
+		this.pathInput = path + File.separator + "inputs";
+		this.pathCellule = pathInput + File.separator + "cellule";
 
 	}
 
@@ -148,6 +138,8 @@ public class Patient {
 
 	public String getDiagnosiUfficiale() { return diagnosiUfficiale; }
 
+	public String getPathCellule() {return  pathCellule;}
+
 	public void setDiagnosiUfficiale(String diagnosiUfficiale) { this.diagnosiUfficiale = diagnosiUfficiale; }
 
 	public String getPathCFPhoto() {
@@ -171,6 +163,7 @@ public class Patient {
 		folder.renameTo(newDir);
 		this.path = newDir.getAbsolutePath();
 		this.pathInput = path + File.separator + "inputs";
+		this.pathCellule = pathInput + File.separator + "cellule";
 		System.out.print(path);
 		System.out.println(pathInput);
 	}
