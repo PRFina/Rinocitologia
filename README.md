@@ -68,7 +68,8 @@ System to support medic specialist in _rhinitis and cytology_.
      </ul>
    </li>
   </ul>
-  
+ </dl>
+ <dl>
  <dt>Python</dt>
   <ul>
     <li>
@@ -85,8 +86,26 @@ System to support medic specialist in _rhinitis and cytology_.
         <li>Requires <a href="http://zbar.sourceforge.net">ZBar</a></li>
       </ul>
      </li>
+     <li>
+        <a href="#">Keras</a>
+     </li>
+     <li>
+        <a href="#">Tensorflow</a>
+     </li>
+     </ul>
+     </dl>
+     <dl>
+      <dt>Anaconda distro</dt>
+      <ul>
+          <li>
+             <a href="#">Mathplotlib</a>
+          </li>
+               <li>
+                  <a href="#">Scipy</a>
+               </li>
+                    <li>
+                       <a href="#">Scikit Image</a>
+                    </li>
   </ul>
- 
-
 </dl>
 
