@@ -11,8 +11,8 @@
         (or (cellula (nome Neutrofili) (grado 0)) (cellula (nome Neutrofili) (grado 1)))
 =>
         (assert (diagnosi(nome "condizione normale") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1")))
-        (assert (diagnosi(nome "rinit medicamentosa") (informazioni "Grado di  eosinofili" "Grado di  mastociti")))
-        (assert (diagnosi(nome "rinite gravidica") (informazioni "Grado di  eosinofili" "Grado di  mastociti")))
+        (assert (diagnosi(nome "rinite medicamentosa") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1")))
+        (assert (diagnosi(nome "rinite gravidica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1")))
         (printout t "Probabile diagnosi: Condizione Normale, Rinite Medicamentosa, Rinite Gravidica." crlf)
         (printout t "Ricorrere ad anamnesi per maggiore precisione nella diagnosi." crlf)
 )
@@ -22,8 +22,9 @@
         (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(> ?gradoM 0) (< ?gradoM 5))))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
+		(prick-test(esito positivo))
 =>
-        (assert (diagnosi(nome "rinite allergica") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN))))
+        (assert (diagnosi(nome "rinite allergica") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) "Prick-test positivo")))
 )
 
 (defrule NARES
@@ -46,8 +47,11 @@
         (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(> ?gradoM 0) (< ?gradoM 5))))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(>= ?gradoN 0) (< ?gradoN 5))))
+		(prick-test(esito negativo))
+		(sintomo(nome ?starnutazione&:(eq (sub-string 1 13 ?starnutazione) "Starnutazione"))) 
+		;starnutazione
 =>
-        (assert (diagnosi(nome "NARESMA") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN))))
+        (assert (diagnosi(nome "NARESMA") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) "Prick-test negativo" ?starnutazione)))
 )
 
 (defrule rinite_mastocitaria
@@ -76,8 +80,11 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
+		(or (sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
+			(sintomo(nome "Prurito nasale")) 
+			(sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea"))) 
 =>
-        (assert (diagnosi(nome "rinosinusite") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
+        (assert (diagnosi(nome "rinosinusite") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Prurito nasale" "Bruciore congiuntivale" "Ostruzione" "Prurito" "Rinorrea" "Espansione")))))
 )
 
 (defrule rinite_micotica
@@ -85,18 +92,29 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
+		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
 =>
-        (assert (diagnosi(nome "rinite micotica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
+        (assert (diagnosi(nome "rinite micotica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
 )
 
-(defrule poliposi_nasale
+(defrule poliposi-nasale-ereditata
 		(declare (salience 100))
         (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(>= ?gradoM 0) (< ?gradoM 5))))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(>= ?gradoN 0) (< ?gradoN 5))))
-		(famiglia (soggetto ?s)(disturbo poliposi))
+		(famiglia (soggetto ?s)(disturbo poliposi)) 
 =>
-        (assert (diagnosi(nome "poliposi nasale") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) (str-cat "Un " ?s " ha presentato la poliposi"))))
+        (assert (diagnosi(nome "poliposi nasale ereditata") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) (str-cat "Un " ?s " ha presentato la poliposi"))))
+)
+
+(defrule poliposi-nasale
+		(declare (salience 100))
+        (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
+        (cellula (nome Mastociti) (grado ?gradoM&:(and(>= ?gradoM 0) (< ?gradoM 5))))
+        (cellula (nome Neutrofili) (grado ?gradoN&:(and(>= ?gradoN 0) (< ?gradoN 5))))
+		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
+=>
+        (assert (diagnosi(nome "poliposi nasale") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
 )
 
 (defrule polipo_antrocoanale
@@ -104,8 +122,9 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
+		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
 =>
-        (assert (diagnosi(nome "poliposi nasale") (informazioni "Grado di eosinofili: 0" "Grado di mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
+        (assert (diagnosi(nome "poliposi nasale") (informazioni "Grado di eosinofili: 0" "Grado di mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
 )
 
 (defrule citologia-anamnesi-assenti-pricktestpositivo

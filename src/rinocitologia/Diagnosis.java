@@ -95,7 +95,12 @@ public class Diagnosis {
 		handler.readFile();
 		System.out.println(dict);
 		*/
-		
+
+		handler = new InputHandler(clips, dict);
+		handler.assertFacts();
+		Utility util = new Utility(dict);
+		util.writeReports();
+
 		clips.run();
 		System.out.println("Caricato run");
 
