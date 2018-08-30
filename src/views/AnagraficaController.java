@@ -1,7 +1,6 @@
 package views;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -16,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -47,6 +47,79 @@ public class AnagraficaController implements Initializable {
                 cfTxt.setText(patient.getCf().getCF());
         }
     }
+
+    @FXML
+    private void webcam(ActionEvent event) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("/Users/chiccolacriola/anaconda3/bin/python.app","webcam.py");
+        Process p = null;
+        try {
+            p = pb.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while ((line = in.readLine()) != null) {
+            System.out.println(line);
+            //cfTxt.setText(line);
+            if(!line.equals("[]")){
+                if(line.equals("Codice Fiscale non trovato")){
+                    DialogHelper.showAlert(Alert.AlertType.WARNING, "Riprovare", "Codice Fiscale non rinvenuto", "Riprovare con una nuova foto. Provare a mettere meglio a fuoco il codice a barre.");
+                } else {
+                    if (DialogHelper.showConfirmationDialog("Codice Fiscale rinvenuto", line, "Confermare?") == true) {
+                            /*
+                            CodiceFiscale cf = new CodiceFiscale(cfTxt.getText());
+                            patient.setCf(cf);
+                            System.out.println(patient.toString());
+                            patient.rename();
+                            patient.setNewPath();
+                            */
+                        cfTxt.setText(line);
+                    }
+                }
+            }
+        }
+    }
+
+    final FileChooser fileChooser = new FileChooser();
+
+    @FXML
+    private void foto(ActionEvent event){
+        try{
+            Stage stage = new Stage();
+            File file = fileChooser.showOpenDialog(stage);
+            if (file != null) {
+                patient.setPathCFPhoto(file.getAbsolutePath());
+            }
+            //ProcessBuilder pb = new ProcessBuilder("/Users/chiccolacriola/anaconda3/bin/python.app","foto.py");
+            ProcessBuilder pb = new ProcessBuilder("python","foto.py");
+            Process p = pb.start();
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+                //cfTxt.setText(line);
+                if(line.equals("Codice Fiscale non trovato")){
+                    DialogHelper.showAlert(Alert.AlertType.WARNING, "Riprovare", "Codice Fiscale non rinvenuto", "Riprovare con una nuova foto. Provare a mettere meglio a fuoco il codice a barre.");
+                } else {
+                    if(DialogHelper.showConfirmationDialog("Codice Fiscale rinvenuto", line, "Confermare?") == true){
+                        /*
+                        CodiceFiscale cf = new CodiceFiscale(cfTxt.getText());
+                        patient.setCf(cf);
+                        System.out.println(patient.toString());
+                        patient.rename();
+                        patient.setNewPath();
+                        */
+                        cfTxt.setText(line);
+                    }
+
+                }
+            }
+            p.waitFor();
+
+        }catch(Exception e){System.out.println(e);}
+    }
+
 
     @FXML
     Label patientTxt;

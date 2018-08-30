@@ -316,6 +316,31 @@ public class HomeController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    private void cfCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("AcquisizioneCF.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        AcquisizioneCFController controller = Loader.getController();
+        controller.setPatient(patient);
+
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(p));
+        stage.setOnHidden(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
+        stage.show();
+    }
+
     public void shutdown() {
         System.out.println("\nSAVING SESSION");
         Utility util = new Utility(this.patient);

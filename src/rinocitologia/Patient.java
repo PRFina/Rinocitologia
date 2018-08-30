@@ -20,9 +20,14 @@ public class Patient {
 	private String path;
 	private String pathData = System.getProperty("user.home") + File.separator + "data";
 	private String pathInput = path + File.separator + "inputs";
+
+
+
+	private String pathCFPhoto;
 	private CodiceFiscale cf;
 	private String terapia;
 	private String diagnosiUfficiale;
+
 
 	//private Anamnesi anamnesi;
 	private ArrayList<Anamnesi> anamnesiList = new ArrayList<>();
@@ -144,6 +149,14 @@ public class Patient {
 	public String getDiagnosiUfficiale() { return diagnosiUfficiale; }
 
 	public void setDiagnosiUfficiale(String diagnosiUfficiale) { this.diagnosiUfficiale = diagnosiUfficiale; }
+
+	public String getPathCFPhoto() {
+		return pathCFPhoto;
+	}
+
+	public void setPathCFPhoto(String pathCFPhoto) {
+		this.pathCFPhoto = pathCFPhoto;
+	}
 
 	/**
 	 * Rename patient folder and saves path to path variable
