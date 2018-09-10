@@ -150,6 +150,20 @@ public class Utility {
 		}else {
 			//System.out.print("\nWriting mucipare\n" + folderMucipare.getAbsolutePath());
 		}
+		final File folderBiofilmsi = new File(inputsPATH , "biofilmsi");
+		if(!folderBiofilmsi.exists() && !folderBiofilmsi.mkdir()) {
+			//failed to create the folder, probably exit
+			throw new RuntimeException("Failed to create save directory.");
+		}else {
+			//System.out.print("\nWriting mucipare\n" + folderMucipare.getAbsolutePath());
+		}
+		final File folderBiofilmno = new File(inputsPATH , "biofilmno");
+		if(!folderBiofilmno.exists() && !folderBiofilmno.mkdir()) {
+			//failed to create the folder, probably exit
+			throw new RuntimeException("Failed to create save directory.");
+		}else {
+			//System.out.print("\nWriting mucipare\n" + folderMucipare.getAbsolutePath());
+		}
 	}
 	
 	

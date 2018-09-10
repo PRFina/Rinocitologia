@@ -23,6 +23,8 @@ public class Patient {
 	private String pathCellule;
 	private String pathCFPhoto;
 	private String pathCampi;
+	private String pathBiofilmsi;
+	private String pathBiofilmno;
 	private Boolean extractedCells;
 	private CodiceFiscale cf;
 	private String terapia;
@@ -47,6 +49,8 @@ public class Patient {
 		this.path = folder.getAbsolutePath();
 		this.pathInput = path + File.separator + "inputs";
 		this.pathCellule = pathInput + File.separator + "cellule";
+		this.pathBiofilmsi = pathInput + File.separator + "biofilmsi";
+		this.pathBiofilmno = pathInput + File.separator + "biofilmno";
 		System.out.print(path);
 
 	}
@@ -69,6 +73,8 @@ public class Patient {
 		this.path = folder.getAbsolutePath();
 		this.pathInput = path + File.separator + "inputs";
 		this.pathCellule = pathInput + File.separator + "cellule";
+		this.pathBiofilmsi = pathInput + File.separator + "biofilmsi";
+		this.pathBiofilmno = pathInput + File.separator + "biofilmno";
 
 	}
 
@@ -168,6 +174,15 @@ public class Patient {
 		this.pathCFPhoto = pathCFPhoto;
 	}
 
+	public String getPathBiofilmsi() { return pathBiofilmsi; }
+
+	public void setPathBiofilmsi(String pathBiofilmsi) { this.pathBiofilmsi = pathBiofilmsi; }
+
+	public String getPathBiofilmno() { return pathBiofilmno; }
+
+	public void setPathBiofilmno(String getPathBiofilmno) { this.pathBiofilmno = getPathBiofilmno; }
+
+
 	/**
 	 * Rename patient folder and saves path to path variable
 	 */
@@ -182,6 +197,8 @@ public class Patient {
 		this.path = newDir.getAbsolutePath();
 		this.pathInput = path + File.separator + "inputs";
 		this.pathCellule = pathInput + File.separator + "cellule";
+		this.pathBiofilmsi = pathInput + File.separator + "biofilmsi";
+		this.pathBiofilmno = pathInput + File.separator + "biofilmno";
 		System.out.print(path);
 		System.out.println(pathInput);
 	}

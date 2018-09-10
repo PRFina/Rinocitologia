@@ -1,14 +1,15 @@
 package views;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.awt.Dialog;
+import java.io.*;
+import java.net.Socket;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,10 +41,13 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.Anamnesi;
+import rinocitologia.Cell;
 import rinocitologia.Patient;
 import utility.FileHelper;
 import utility.Utility;
 import utility.DialogHelper;
+
+import javax.swing.*;
 
 public class RevisioneController implements Initializable {
 
@@ -52,13 +56,31 @@ public class RevisioneController implements Initializable {
     private FileHelper fileHelper = new FileHelper();
 
     @FXML
-    TilePane epitelialiTile, mucipareTile, neutrofiliTile, eosinofiliTile, mastcelluleTile, linfocitiTile, altroTile;
+    TilePane epitelialiTile, mucipareTile, neutrofiliTile, eosinofiliTile, mastcelluleTile, linfocitiTile, biofilmTile,  altroTile;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
 
     @FXML
     Label patientTxt;
+
+
+
+    //-------------------------
+    //     VAR PER CLIENT
+    String dirName;
+    Socket clientSocket;
+    InputStream inFromServer;
+    OutputStream outToServer;
+    BufferedInputStream bis;
+    PrintWriter pw;
+    String name, file, path;
+    String hostAddr;
+    int portNumber;
+    int c;
+    int size = 9022386;
+    //__________________________
+    Boolean connected = false;
 
     @FXML
     public void setPatient(Patient patient) {this.patient = patient;
@@ -73,14 +95,52 @@ public class RevisioneController implements Initializable {
      * The medic can also display the cell with the default Preview application installed in his computer by double clicking an image.
      */
     public void setTiles(){
+
+//        System.out.println(patient.toString());
+
+        /*
+        //SETTO SERVER
+        hostAddr = "localhost";
+        portNumber = 3333;
+
+        try {
+            clientSocket = new Socket(hostAddr, portNumber);
+            inFromServer = clientSocket.getInputStream();
+            pw = new PrintWriter(clientSocket.getOutputStream(), true);
+            outToServer = clientSocket.getOutputStream();
+            ObjectInputStream oin = new ObjectInputStream(inFromServer);
+
+            String s = (String) oin.readObject();
+            System.out.println(s);
+            connected = true;
+            */
+            /*
+            len = Integer.parseInt((String) oin.readObject());
+            System.out.println(len);
+
+            String[] temp_names = new String[len];
+
+            for (int i = 0; i < len; i++) {
+                String filename = (String) oin.readObject();
+                System.out.println(filename);
+                names[i] = filename;
+                temp_names[i] = filename;
+            }
+            */
+            /*
+        } catch (Exception exc) {
+            System.out.println("Exception: " + exc.getMessage());
+        }
+            */
+            establishConnection();
         setEpitelialiTile(epitelialiTile);
         setMucipareTile(mucipareTile);
         setNeutrofiliTile(neutrofiliTile);
         setEosinofiliTile(eosinofiliTile);
         setMastcelluleTile(mastcelluleTile);
         setLinfocitiTile(linfocitiTile);
+        setBiofilmTile(biofilmTile);
         setAltroTile(altroTile);
-//        System.out.println(patient.toString());
     }
 
     public void setEpitelialiTile(TilePane tile) {
@@ -177,8 +237,35 @@ public class RevisioneController implements Initializable {
                 }
             });
 
-            contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            if (clientSocket != null) {
+                MenuItem serverTitleItem = new MenuItem("Pass to:");
+                serverTitleItem.setDisable(true);
 
+
+                MenuItem serverMove = new MenuItem("Server");
+                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item2.getText());
+                        uploadServer(file, "epiteliali", patient.getSurname(), patient.getFirstName());
+                        try {
+                            if(clientSocket != null) {
+            clientSocket.close();
+        }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        establishConnection();
+
+                    }
+                });
+
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+            } else {
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            }
             // When user right-click on Circle
             imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
@@ -288,8 +375,35 @@ public class RevisioneController implements Initializable {
                 }
             });
 
-            contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            if (clientSocket != null) {
+                MenuItem serverTitleItem = new MenuItem("Pass to:");
+                serverTitleItem.setDisable(true);
 
+
+                MenuItem serverMove = new MenuItem("Server");
+                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item2.getText());
+                        uploadServer(file, "neutrofili", patient.getSurname(), patient.getFirstName());
+                        try {
+                            if(clientSocket != null) {
+            clientSocket.close();
+        }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        establishConnection();
+
+                    }
+                });
+
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+            } else {
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            }
             // When user right-click on Circle
             imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
@@ -396,8 +510,35 @@ public class RevisioneController implements Initializable {
                 }
             });
 
-            contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            if (clientSocket != null) {
+                MenuItem serverTitleItem = new MenuItem("Pass to:");
+                serverTitleItem.setDisable(true);
 
+
+                MenuItem serverMove = new MenuItem("Server");
+                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item2.getText());
+                        uploadServer(file, "mucipare", patient.getSurname(), patient.getFirstName());
+                        try {
+                            if(clientSocket != null) {
+            clientSocket.close();
+        }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        establishConnection();
+
+                    }
+                });
+
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+            } else {
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            }
             // When user right-click on Circle
             imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
@@ -505,8 +646,35 @@ public class RevisioneController implements Initializable {
                 }
             });
 
-            contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            if (clientSocket != null) {
+                MenuItem serverTitleItem = new MenuItem("Pass to:");
+                serverTitleItem.setDisable(true);
 
+
+                MenuItem serverMove = new MenuItem("Server");
+                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item2.getText());
+                        uploadServer(file, "eosinofili", patient.getSurname(), patient.getFirstName());
+                        try {
+                            if(clientSocket != null) {
+            clientSocket.close();
+        }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        establishConnection();
+
+                    }
+                });
+
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+            } else {
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            }
             // When user right-click on Circle
             imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
@@ -614,8 +782,35 @@ public class RevisioneController implements Initializable {
                 }
             });
 
-            contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            if (clientSocket != null) {
+                MenuItem serverTitleItem = new MenuItem("Pass to:");
+                serverTitleItem.setDisable(true);
 
+
+                MenuItem serverMove = new MenuItem("Server");
+                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item2.getText());
+                        uploadServer(file, "mastcellule", patient.getSurname(), patient.getFirstName());
+                        try {
+                            if(clientSocket != null) {
+            clientSocket.close();
+        }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        establishConnection();
+
+                    }
+                });
+
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+            } else {
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            }
 
             // When user right-click on Circle
             imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
@@ -723,8 +918,111 @@ public class RevisioneController implements Initializable {
 
                 }
             });
+            if (clientSocket != null) {
+                MenuItem serverTitleItem = new MenuItem("Pass to:");
+                serverTitleItem.setDisable(true);
 
-            contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+
+                MenuItem serverMove = new MenuItem("Server");
+                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item2.getText());
+                        uploadServer(file, "linfociti", patient.getSurname(), patient.getFirstName());
+                        try {
+                            if(clientSocket != null) {
+            clientSocket.close();
+        }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        establishConnection();
+
+                    }
+                });
+
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+            } else {
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            }
+
+            // When user right-click on Circle
+            imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+                @Override
+                public void handle(ContextMenuEvent event) {
+
+                    contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                }
+            });
+            tile.getChildren().addAll(imageView);
+        }
+
+    }
+
+
+    public void setBiofilmTile(TilePane tile) {
+
+        tile.setPadding(new Insets(15, 15, 15, 15));
+        tile.setHgap(15);
+        //Patient patient = new Patient();
+        String path = patient.getPath() + File.separator + "inputs" + File.separator + "biofilmsi";
+
+        File folder = new File(path);
+        File[] listOfFiles = folder.listFiles();
+
+        for (final File file : listOfFiles) {
+            ImageView imageView;
+            imageView = createImageView(file);
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem titleItem = new MenuItem("Remove:");
+            titleItem.setDisable(true);
+
+            MenuItem item1 = new MenuItem("Yes");
+            item1.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+                    System.out.println(item1.getText());
+                    copyTo(file, item1.getText());
+                    imageView.setVisible(false);
+                    setEpitelialiTile(epitelialiTile);
+
+                }
+            });
+
+
+            if (clientSocket != null) {
+                MenuItem serverTitleItem = new MenuItem("Pass to:");
+                serverTitleItem.setDisable(true);
+
+
+                MenuItem serverMove = new MenuItem("Server");
+                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        //System.out.println(item2.getText());
+                        uploadServer(file, "biofilm", patient.getSurname(), patient.getFirstName());
+                        try {
+                            if(clientSocket != null) {
+                                clientSocket.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        establishConnection();
+
+                    }
+                });
+
+                contextMenu.getItems().addAll(titleItem, item1, serverTitleItem, serverMove);
+
+            } else {
+                contextMenu.getItems().addAll(titleItem, item1);
+            }
 
             // When user right-click on Circle
             imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
@@ -738,6 +1036,8 @@ public class RevisioneController implements Initializable {
             tile.getChildren().addAll(imageView);
         }
     }
+
+
 
     public void setAltroTile(TilePane tile) {
 
@@ -832,8 +1132,35 @@ public class RevisioneController implements Initializable {
                 }
             });
 
-            contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            if (clientSocket != null) {
+                MenuItem serverTitleItem = new MenuItem("Pass to:");
+                serverTitleItem.setDisable(true);
 
+
+                MenuItem serverMove = new MenuItem("Server");
+                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item2.getText());
+                        uploadServer(file, "others", patient.getSurname(), patient.getFirstName());
+                        try {
+                            if(clientSocket != null) {
+            clientSocket.close();
+        }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        establishConnection();
+
+                    }
+                });
+
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+            } else {
+                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
+            }
 
             // When user right-click on Circle
             imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
@@ -846,6 +1173,123 @@ public class RevisioneController implements Initializable {
             });
             tile.getChildren().addAll(imageView);
         }
+    }
+
+    private void establishConnection(){
+        //SETTO SERVER
+        hostAddr = "localhost";
+        portNumber = 3333;
+
+        try {
+            clientSocket = new Socket(hostAddr, portNumber);
+            inFromServer = clientSocket.getInputStream();
+            pw = new PrintWriter(clientSocket.getOutputStream(), true);
+            outToServer = clientSocket.getOutputStream();
+            ObjectInputStream oin = new ObjectInputStream(inFromServer);
+
+            String s = (String) oin.readObject();
+            System.out.println(s);
+            connected = true;
+            /*
+            len = Integer.parseInt((String) oin.readObject());
+            System.out.println(len);
+
+            String[] temp_names = new String[len];
+
+            for (int i = 0; i < len; i++) {
+                String filename = (String) oin.readObject();
+                System.out.println(filename);
+                names[i] = filename;
+                temp_names[i] = filename;
+            }
+            */
+        } catch (Exception exc) {
+            System.out.println("Exception: " + exc.getMessage());
+        }
+    }
+
+
+
+    private void uploadServer(File image, String typology, String surname, String name){
+        try {
+            path = image.getAbsolutePath();
+            //outToServer = clientSocket.getOutputStream();
+            FileInputStream file = null;
+            BufferedInputStream bis = null;
+
+            boolean fileExists = true;
+
+
+            try {
+                file = new FileInputStream(path);
+                bis = new BufferedInputStream(file);
+            } catch (FileNotFoundException excep) {
+                fileExists = false;
+                System.out.println("FileNotFoundException:" + excep.getMessage());
+
+            }
+
+            if (fileExists) {
+                // send file name to server
+                String[] filepath = path.split(File.separator);
+                String filename = typology + File.separator + surname + "_" + name + "_" + filepath[filepath.length-1];
+
+                //pw.println(path);
+                pw.println(filename);
+
+                System.out.println("Upload begins");
+
+
+                // send file data to server
+                sendBytes(bis, outToServer);
+                System.out.println("Completed");
+
+                /*
+                boolean exists = false;
+                for(int i = 0; i < len; i++){
+                    if(names[i].equals(name)){
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if(!exists){
+                    names[len] = name;
+                    len++;
+                }
+
+                String[] temp_names = new String[len];
+                for(int i = 0; i < len; i++){
+                    temp_names[i] = names[i];
+                }
+
+                // sort the array of strings that's going to get displayed in the scrollpane
+                Arrays.sort(temp_names);
+                */
+
+                // close all file buffers
+                bis.close();
+                file.close();
+                DialogHelper.showAlert(Alert.AlertType.INFORMATION, "Trasferimento completato", "Il trasferimento è stato completato", "Continuare");
+                //outToServer.close();
+                //outToServer.flush();
+            }
+        }
+        catch (Exception exc) {
+            System.out.println("Exception: " + exc.getMessage());
+            DialogHelper.showAlert(Alert.AlertType.ERROR, "ERRORE", "Errore", "Non è stato possibile completare il trasferimento");
+
+        }
+    }
+
+    //private static void sendBytes(BufferedInputStream in , OutputStream out) throws Exception {
+    private void sendBytes(BufferedInputStream in , OutputStream out) throws Exception {
+        int size = 9022386;
+        byte[] data = new byte[size];
+        int bytes = 0;
+        int c = in.read(data, 0, data.length);
+        out.write(data, 0, c);
+        out.flush();
     }
 
     /**
@@ -889,6 +1333,11 @@ public class RevisioneController implements Initializable {
             Path target = Paths.get(patient.getPath() + File.separator + "inputs" + File.separator + "Others");
             fileHelper.copy(path, target);
             System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator +"inputs" + File.separator + "others");
+        }
+        if(destination == "Yes") {
+            Path target = Paths.get(patient.getPath() + File.separator + "inputs" + File.separator + "biofilmno");
+            fileHelper.copy(path, target);
+            System.out.println("Copiato " + imageFile.getName() + " in " + patient.getPath() + File.separator +"inputs" + File.separator + "biofilmno");
         }
     }
 
@@ -956,6 +1405,19 @@ public class RevisioneController implements Initializable {
         return imageView;
     }
 
+    @FXML
+    private void countCells (ActionEvent event) {
+        patient.addAllElements();
+        int sum = 0;
+        StringBuilder cells = new StringBuilder("Cells List:\n");
+        for (Map.Entry<String, Cell> entry : patient.getDictionary().entrySet()) {
+            cells.append("Name: " + entry.getKey() + " - Count: " + entry.getValue().getcellCount() + " - Grade: " + entry.getValue().getgrade() + ";\n");
+            sum = sum + entry.getValue().getcellCount();
+        }
+        DialogHelper.showExpandableAlert(Alert.AlertType.INFORMATION, "Risultato citologia", "Risultato citologia", "Totale cellule: " + sum, cells.toString());
+
+    }
+
 
     /*
      *
@@ -965,7 +1427,11 @@ public class RevisioneController implements Initializable {
 
     @FXML
     private void anamnesiCaller(ActionEvent event)  throws IOException{
-
+       
+            if(clientSocket != null) {
+            clientSocket.close();
+        }
+        
         if(patient.getAnamnesiList().size() == 0){
             Anamnesi anam = new Anamnesi();
 
@@ -1027,6 +1493,10 @@ public class RevisioneController implements Initializable {
 
     @FXML
     private void insertCells(ActionEvent event)  throws IOException{
+        if(clientSocket != null) {
+            clientSocket.close();
+        }
+
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("Home.fxml"));
         try {
@@ -1052,6 +1522,10 @@ public class RevisioneController implements Initializable {
 
     @FXML
     private void revisionCaller(ActionEvent event)  throws IOException{
+        if(clientSocket != null) {
+            clientSocket.close();
+        }
+
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("Revisione.fxml"));
         try {
@@ -1078,6 +1552,10 @@ public class RevisioneController implements Initializable {
 
     @FXML
     private void diagnosisCaller(ActionEvent event)  throws IOException{
+        if(clientSocket != null) {
+            clientSocket.close();
+        }
+
         if(patient.getAnamnesiList().size()==0){
             DialogHelper.showAlert(Alert.AlertType.WARNING, "Anamnesi assente", "Non è possibile accedere alla schermata Diagnosi senza avere l'anamnesi del paziente", "Verrà reindirizzato per la compilazione della prima anamnesi.");
             anamnesiCaller(event);
@@ -1107,6 +1585,10 @@ public class RevisioneController implements Initializable {
 
     @FXML
     private void anagraficaCaller(ActionEvent event)  throws IOException{
+        if(clientSocket != null) {
+            clientSocket.close();
+        }
+
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("Anagrafica.fxml"));
         try {
@@ -1133,6 +1615,10 @@ public class RevisioneController implements Initializable {
 
     @FXML
     private void loadCaller(ActionEvent event)  throws IOException{
+        if(clientSocket != null) {
+            clientSocket.close();
+        }
+
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("Load.fxml"));
         try {
