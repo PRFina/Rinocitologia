@@ -4,17 +4,25 @@
 		(controllo-calcolabilita)
 )
 
-(defrule condizione-normale-riniti-medicamentosa-gravidica
+(defrule condizione-normale
 		(declare (salience 100))
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (or (cellula (nome Neutrofili) (grado 0)) (cellula (nome Neutrofili) (grado 1)))
 =>
         (assert (diagnosi(nome "condizione normale") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1")))
-        (assert (diagnosi(nome "rinite medicamentosa") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1")))
-        (assert (diagnosi(nome "rinite gravidica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1")))
-        (printout t "Probabile diagnosi: Condizione Normale, Rinite Medicamentosa, Rinite Gravidica." crlf)
-        (printout t "Ricorrere ad anamnesi per maggiore precisione nella diagnosi." crlf)
+)
+
+(defrule riniti-medicamentosa
+		(declare (salience 100))
+        (cellula (nome Eosinofili) (grado 0))
+        (cellula (nome Mastociti) (grado 0))
+        (or (cellula (nome Neutrofili) (grado 0)) (cellula (nome Neutrofili) (grado 1)))
+		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione")))
+		;decongestionanti positivi, stato gravidico
+		;sintomi: ostruzione nasale grave (effetto rebound)
+=>
+        (assert (diagnosi(nome "rinite medicamentosa") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1" ?ostruzione "Eventuale uso eccessivo di farmaci")))
 )
 
 (defrule rinite-allergica
@@ -23,8 +31,15 @@
         (cellula (nome Mastociti) (grado ?gradoM&:(and(> ?gradoM 0) (< ?gradoM 5))))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
 		(prick-test(esito positivo))
+		(or (sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
+			(sintomo(nome "Prurito nasale")) 
+			(sintomo(nome "Prurito congiuntivale")) 
+			(sintomo(nome ?starnutazione&:(eq (sub-string 1 13 ?starnutazione) "Starnutazione"))) 
+			(sintomo(nome "Lacrimazione"))
+			(sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea"))))
+		;sintomi: ostruzione nasale, prurito, starnutazione, lacrimazione, prurito congiuntivale, rinorrea
 =>
-        (assert (diagnosi(nome "rinite allergica") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) "Prick-test positivo")))
+        (assert (diagnosi(nome "rinite allergica") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Prurito nasale" "Prurito congiuntivale" "Ostruzione" "Starnutazione" "Rinorrea" "Lacrimazione") "Prick-test positivo"))))
 )
 
 (defrule NARES
@@ -33,13 +48,12 @@
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(>= ?gradoN 0) (< ?gradoN 5))))
 		(prick-test(esito negativo))
-		(or (sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
-			(sintomo(nome "Prurito nasale")) 
-			(sintomo(nome "Bruciore congiuntivale")) 
+		(or (sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea")))
 			(sintomo(nome ?starnutazione&:(eq (sub-string 1 13 ?starnutazione) "Starnutazione"))) 
 			(sintomo(nome ?olfatto&:(eq (sub-string 1 8 ?olfatto) "Problemi"))))
+		;sintomi: naso chiuso, starnutazione (indipendente), rinorrea (niente prurito)
 =>
-        (assert (diagnosi(nome "NARES") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Prurito nasale" "Bruciore congiuntivale" "Ostruzione" "Starnutazione" "Problemi")))))
+        (assert (diagnosi(nome "NARES") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Rinorrea" "Starnutazione" "Problemi")))))
 )
 
 (defrule NARESMA
@@ -47,32 +61,45 @@
         (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(> ?gradoM 0) (< ?gradoM 5))))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(>= ?gradoN 0) (< ?gradoN 5))))
-		(prick-test(esito negativo))
-		(sintomo(nome ?starnutazione&:(eq (sub-string 1 13 ?starnutazione) "Starnutazione"))) 
-		;starnutazione
+		(or (sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea")))
+			(sintomo(nome ?starnutazione&:(eq (sub-string 1 13 ?starnutazione) "Starnutazione"))) 
+			(sintomo(nome ?olfatto&:(eq (sub-string 1 8 ?olfatto) "Problemi"))))
+		;sintomi: naso chiuso, starnutazione (indipendente), rinorrea (niente prurito)
 =>
-        (assert (diagnosi(nome "NARESMA") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) "Prick-test negativo" ?starnutazione)))
+        (assert (diagnosi(nome "NARESMA") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) "Prick-test negativo" (aggiungi-informazioni (create$ "Rinorrea" "Starnutazione" "Problemi")))))
 )
 
 (defrule rinite_mastocitaria
 		(declare (salience 100))
-        (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(> ?gradoM 0) (< ?gradoM 5))))
+		(or (sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea")))
+			(sintomo(nome ?starnutazione&:(eq (sub-string 1 13 ?starnutazione) "Starnutazione"))) 
+			(sintomo(nome ?olfatto&:(eq (sub-string 1 8 ?olfatto) "Problemi"))))
+		;sintomi: naso chiuso, starnutazione (indipendente), rinorrea (niente prurito)
 =>
-        (assert (diagnosi(nome "rinite mastocitaria") (informazioni "Grado di  eosinofili: 0" (str-cat "Grado di mastociti: " ?gradoM))))
+        (assert (diagnosi(nome "rinite mastocitaria") (informazioni (str-cat "Grado di mastociti: " ?gradoM) (aggiungi-informazioni (create$ "Rinorrea" "Starnutazione" "Problemi")))))
 )
 
-(defrule riniti-irritativa-virale-atrofica
+(defrule NARNE
+		(declare (salience 100))
+        (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
+		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione")))
+		; RINITE NEUTROFILA ostruzione nasale, bruciore nasale
+=>
+        (assert (diagnosi(nome "NARNE") (informazioni (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
+)
+
+(defrule riniti-irritativa-atrofica
 		(declare (salience 100))
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
+		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione")))
+		;come la neutrofila
+		;atrofica: ostruzione nasale, epistassi, presenza di croste nasali (mucosa secca)
 =>
-        (assert (diagnosi(nome "rinite irritativa") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
-        (assert (diagnosi(nome "rinite virale") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
-        (assert (diagnosi(nome "rinite atrofica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN))))
-        (printout t "Probabile diagnosi: Rinite irritativa, Rinite Virale, Rinite Atrofica." crlf)
-        (printout t "La scelta della diagnosi più corretta tra le tre patologie riscontrare potrebbe richiedere il controllo delle cellula ciliate. Ad ogni modo è opportuno ricorrere ad anamnesi per maggiore precisione nella diagnosi." crlf)
+        (assert (diagnosi(nome "rinite irritativa") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
+		(assert (diagnosi(nome "rinite atrofica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione "Eventuali epistassi e croste nasali")))
 )
 
 (defrule rinosinusite
@@ -82,10 +109,10 @@
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
 		(or (sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
 			(sintomo(nome "Prurito nasale")) 
-			(sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea")))
-		)
+			(sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea"))))
+		;algie facciali, febbre, dolore gravativo
 =>
-        (assert (diagnosi(nome "rinosinusite") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Prurito nasale" "Bruciore congiuntivale" "Ostruzione" "Prurito" "Rinorrea" "Espansione")))))
+        (assert (diagnosi(nome "rinosinusite") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Prurito nasale" "Ostruzione" "Rinorrea" )) "Eventuale algia facciale o febbre")))
 )
 
 (defrule rinite_micotica
@@ -93,9 +120,10 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
-		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
+		(or (sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
+			(sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea"))))
 =>
-        (assert (diagnosi(nome "rinite micotica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
+        (assert (diagnosi(nome "rinite micotica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Ostruzione" "Rinorrea")))))
 )
 
 (defrule poliposi-nasale-ereditata
@@ -113,9 +141,13 @@
         (cellula (nome Eosinofili) (grado ?gradoE&:(and(> ?gradoE 0) (< ?gradoE 5))))
         (cellula (nome Mastociti) (grado ?gradoM&:(and(>= ?gradoM 0) (< ?gradoM 5))))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(>= ?gradoN 0) (< ?gradoN 5))))
-		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
+		(scoperta (parte-anatomica essudato))
+		(or (sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea")))
+			(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 			
+			(sintomo(nome ?olfatto&:(eq (sub-string 1 8 ?olfatto) "Problemi"))))
+		;disturbi olfattivi (anosmia, iposmia), essudato, rinorrea catarrale/purulenta, disturbi respiratori del sonno
 =>
-        (assert (diagnosi(nome "poliposi nasale") (informazioni (str-cat "Grado di eosinofili: " ?gradoE) (str-cat "Grado di mastociti: " ?gradoM) (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
+        (assert (diagnosi(nome "poliposi nasale") (informazioni "Grado di eosinofili: 0" "Grado di mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) "Essudato" (aggiungi-informazioni (create$ "Rinorrea" "Ostruzione" "Problemi")))))
 )
 
 (defrule polipo_antrocoanale
@@ -123,9 +155,9 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
-		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
+		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione")))
 =>
-        (assert (diagnosi(nome "poliposi nasale") (informazioni "Grado di eosinofili: 0" "Grado di mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
+        (assert (diagnosi(nome "poliposi antrocoanale") (informazioni "Grado di eosinofili: 0" "Grado di mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
 )
 
 (defrule citologia-anamnesi-assenti-pricktestpositivo
