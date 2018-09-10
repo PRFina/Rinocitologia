@@ -82,7 +82,8 @@
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
 		(or (sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
 			(sintomo(nome "Prurito nasale")) 
-			(sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea"))) 
+			(sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea")))
+		)
 =>
         (assert (diagnosi(nome "rinosinusite") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Prurito nasale" "Bruciore congiuntivale" "Ostruzione" "Prurito" "Rinorrea" "Espansione")))))
 )

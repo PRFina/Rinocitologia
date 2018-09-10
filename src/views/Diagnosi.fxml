@@ -171,7 +171,7 @@
          <content>
             <Pane prefHeight="402.0" prefWidth="1012.0">
                <children>
-                  <SplitPane dividerPositions="0.43538767395626243" layoutX="14.0" layoutY="38.0" prefHeight="327.0" prefWidth="505.0">
+                  <SplitPane fx:id="splitPane" dividerPositions="0.43538767395626243" layoutX="14.0" layoutY="38.0" prefHeight="327.0" prefWidth="505.0">
                     <items>
                       <AnchorPane fx:id="splitPaneSx" minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="192.0">
                            <children>

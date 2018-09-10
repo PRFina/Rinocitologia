@@ -1,6 +1,7 @@
 package rinocitologia;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.itextpdf.text.DocumentException;
@@ -17,6 +18,7 @@ public class Diagnosis {
 	private Environment clips = null;
 	private InputHandler handler;
 
+	private ArrayList<ArrayList<String>> fattiAsseriti = new ArrayList<>();
 
 	private Patient dict;
 	private ClipsManager cm;
@@ -98,6 +100,7 @@ public class Diagnosis {
 
 		handler = new InputHandler(clips, dict);
 		handler.assertFacts();
+		this.setFattiAsseriti(handler.getFattiAsseriti());
 		Utility util = new Utility(dict);
 		util.writeReports();
 
@@ -106,12 +109,29 @@ public class Diagnosis {
 
 		clips.eval("(facts)");
 
+		clips.eval("(build \"(defrule lol2 (scoperta(parte-anatomica ?f)) => (printout t \\\"PROVA BUILD - \\\" ?f crlf))\")");
+
+
 		cm = new ClipsManager(clips);
 		dict.setDiagnosi(cm.getDiagnosis());
 	}
 
+
+
 	public Patient getDict() {
 		return dict;
+	}
+
+	public ArrayList<ArrayList<String>> getFattiAsseriti() {
+		return fattiAsseriti;
+	}
+
+	public void setFattiAsseriti(ArrayList<ArrayList<String>> fattiAsseriti) {
+		this.fattiAsseriti = fattiAsseriti;
+	}
+
+	public void writeFileDiagnosi(String parteSinistra, String informazioni) {
+		handler.writeFileDiagnosi(parteSinistra, informazioni);
 	}
 
 /*

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,10 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import rinocitologia.Anamnesi;
-import rinocitologia.Diagnosi;
-import rinocitologia.Diagnosis;
-import rinocitologia.Patient;
+import rinocitologia.*;
 import utility.Utility;
 
 public class DiagnosiController implements Initializable {
@@ -34,13 +32,18 @@ public class DiagnosiController implements Initializable {
 
 
     private ArrayList<Diagnosi> diagnosi = new ArrayList<>();
+
     private Patient patient;
+    private Diagnosis diagnosis;
 
     @FXML
     private ListView<String> listView;
 
     @FXML
-    private AnchorPane splitPaneDx;
+    private SplitPane splitPane;
+
+    @FXML
+    private AnchorPane splitPaneDx, splitPaneSx;
 
     @FXML
     Label patientTxt;
@@ -60,6 +63,46 @@ public class DiagnosiController implements Initializable {
         System.out.println(patient.getDiagnosi());
         patient.setTerapia(textAreaTerapia.getText());
         patient.setDiagnosiUfficiale(textAreaDiagnosi.getText());
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK, ButtonType.CANCEL);
+        alert.setTitle("Aggiunta diagnosi personalizzata");
+        alert.setHeaderText("Quali informazioni sono state determinanti per diagnosticare la patologia inserita?");
+        alert.getDialogPane().setPrefSize(480, 320);
+        ScrollPane scrollpane = new ScrollPane();
+
+        ArrayList<CheckBox> checkboxes = new ArrayList<>();
+        AnchorPane anchorpane = new AnchorPane();
+        int posizione = 30;
+        for(ArrayList<String> i : diagnosis.getFattiAsseriti()){
+            CheckBox c = new CheckBox(i.get(0));
+            c.setLayoutY(posizione);
+            checkboxes.add(c);
+            anchorpane.getChildren().add(checkboxes.get(checkboxes.size()-1));
+            posizione = posizione + 30;
+        }
+        scrollpane.setContent(anchorpane);
+        scrollpane.setPannable(true);
+        alert.getDialogPane().setContent(scrollpane);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            alert.close();
+            String parteSinistra = "";
+            String informazioni = "";
+            for(CheckBox c : checkboxes){
+                if(c.isSelected()){
+                    for(ArrayList<String> i : diagnosis.getFattiAsseriti()){
+                        if(c.getText()==i.get(0)) {
+                            informazioni = informazioni +" \\\""+c.getText()+"\\\"";
+                            parteSinistra = parteSinistra + " " + i.get(1);
+                        }
+                    }
+                }
+            }
+            diagnosis.writeFileDiagnosi(parteSinistra, informazioni);
+        }
+        if(result.get() == ButtonType.CANCEL)
+            alert.close();
 
         Utility utility = new Utility(patient);
         utility.writeJson();
@@ -93,10 +136,12 @@ public class DiagnosiController implements Initializable {
      */
 
     public void setDati(){
+        splitPaneSx.maxWidthProperty().bind(splitPane.widthProperty().multiply(0.43538767395626243));
+        splitPaneDx.maxWidthProperty().bind(splitPane.widthProperty().multiply(0.43538767395626243));
         textAreaTerapia.setText(patient.getTerapia());
         textAreaDiagnosi.setText(patient.getDiagnosiUfficiale());
         try {
-            new Diagnosis(patient);
+            diagnosis = new Diagnosis(patient);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (DocumentException e) {
@@ -105,7 +150,6 @@ public class DiagnosiController implements Initializable {
         diagnosi = patient.getDiagnosi();
         for(Diagnosi d : diagnosi)
             listView.getItems().add(d.getNome());
-        System.out.println(listView.getItems().toString());
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 

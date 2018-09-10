@@ -222,7 +222,7 @@ public class QuestionsController  implements Initializable {
         if(checkBoxNegativo.isSelected()){
             checkBoxPositivo.setSelected(false);
             checkBoxPerenne.setSelected(false);
-            checkBoxPerenne.setDisable(false);
+            checkBoxPerenne.setDisable(true);
             cupressacee.setSelected(false);
             cupressacee.setDisable(true);
             nocciolo.setSelected(false);
