@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -42,6 +43,9 @@ public class HomeController implements Initializable {
 
     @FXML
     private Label pathLbl, patientTxt;
+
+    @FXML
+    private CheckBox biofilmBox;
 
     @FXML
     public void setPatient(Patient patient) {this.patient = patient;
@@ -123,12 +127,19 @@ public class HomeController implements Initializable {
                 //ProcessBuilder pb = new ProcessBuilder("/Users/chiccolacriola/anaconda3/bin/python.app","foto.py");
 
                 if(DialogHelper.showConfirmationDialog("ATTENZIONE", "L'operazione potrebbe impiegare vari minuti.", "Sicuro di voler continuare?")){
+
                     ProcessBuilder pb = new ProcessBuilder("python","watershed_extraction.py");
                     Process p = pb.start();
                     p.waitFor();
                     ProcessBuilder pbClass = new ProcessBuilder("python","classificatore.py");
                     Process pClass = pbClass.start();
                     pClass.waitFor();
+
+                    if(biofilmBox.isSelected() == true) {
+                        ProcessBuilder pbBiofilm = new ProcessBuilder("python", "biofilm_detection_java.py");
+                        Process pBiofilm = pbBiofilm.start();
+                        pBiofilm.waitFor();
+                    }
                 }
 
 

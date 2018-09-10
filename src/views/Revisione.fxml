@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
@@ -16,7 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.RevisioneController">
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.RevisioneController">
    <children>
       <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" styleClass="head-background" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -223,19 +231,29 @@
                            </content></ScrollPane>
                         </content>
                      </Tab>
-                     <Tab text="Altro">
+                     <Tab text="Biofilm">
                         <content>
-                           <ScrollPane fx:id="altroPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <ScrollPane fx:id="biofilmPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <content>
-                              <TilePane fx:id="altroTile" prefHeight="200.0" prefWidth="1016.0" />
+                              <TilePane fx:id="biofilmTile" prefHeight="200.0" prefWidth="1016.0" />
                            </content></ScrollPane>
                         </content>
                      </Tab>
+                  <Tab text="Altro">
+                     <content>
+                        <ScrollPane fx:id="altroPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <content>
+                              <TilePane fx:id="altroTile" prefHeight="200.0" prefWidth="1016.0" />
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </Tab>
                   </tabs>
                </JFXTabPane>
          </children>
 
 
       </Pane>
+      <JFXButton layoutX="1140.0" layoutY="588.0" onAction="#countCells" text="Conta cellulare" />
    </children>
 </AnchorPane>
