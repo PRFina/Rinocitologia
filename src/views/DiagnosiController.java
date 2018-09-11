@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.*;
+import utility.DialogHelper;
 import utility.Utility;
 
 public class DiagnosiController implements Initializable {
@@ -64,45 +65,50 @@ public class DiagnosiController implements Initializable {
         patient.setTerapia(textAreaTerapia.getText());
         patient.setDiagnosiUfficiale(textAreaDiagnosi.getText());
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK, ButtonType.CANCEL);
-        alert.setTitle("Aggiunta diagnosi personalizzata");
-        alert.setHeaderText("Quali informazioni sono state determinanti per diagnosticare la patologia inserita?");
-        alert.getDialogPane().setPrefSize(480, 320);
-        ScrollPane scrollpane = new ScrollPane();
+        if(patient.getDiagnosiUfficiale()!=null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK, ButtonType.CANCEL);
+            alert.setTitle("Aggiunta diagnosi personalizzata");
+            alert.setHeaderText("Quali informazioni sono state determinanti per diagnosticare la patologia inserita?");
+            alert.getDialogPane().setPrefSize(480, 320);
+            ScrollPane scrollpane = new ScrollPane();
 
-        ArrayList<CheckBox> checkboxes = new ArrayList<>();
-        AnchorPane anchorpane = new AnchorPane();
-        int posizione = 30;
-        for(ArrayList<String> i : diagnosis.getFattiAsseriti()){
-            CheckBox c = new CheckBox(i.get(0));
-            c.setLayoutY(posizione);
-            checkboxes.add(c);
-            anchorpane.getChildren().add(checkboxes.get(checkboxes.size()-1));
-            posizione = posizione + 30;
-        }
-        scrollpane.setContent(anchorpane);
-        scrollpane.setPannable(true);
-        alert.getDialogPane().setContent(scrollpane);
+            ArrayList<CheckBox> checkboxes = new ArrayList<>();
+            AnchorPane anchorpane = new AnchorPane();
+            int posizione = 30;
+            for(ArrayList<String> i : diagnosis.getFattiAsseriti()){
+                CheckBox c = new CheckBox(i.get(0));
+                c.setLayoutY(posizione);
+                checkboxes.add(c);
+                anchorpane.getChildren().add(checkboxes.get(checkboxes.size()-1));
+                posizione = posizione + 30;
+            }
+            scrollpane.setContent(anchorpane);
+            scrollpane.setPannable(true);
+            alert.getDialogPane().setContent(scrollpane);
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
-            alert.close();
-            String parteSinistra = "";
-            String informazioni = "";
-            for(CheckBox c : checkboxes){
-                if(c.isSelected()){
-                    for(ArrayList<String> i : diagnosis.getFattiAsseriti()){
-                        if(c.getText()==i.get(0)) {
-                            informazioni = informazioni +" \\\""+c.getText()+"\\\"";
-                            parteSinistra = parteSinistra + " " + i.get(1);
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get() == ButtonType.OK){
+                alert.close();
+                String parteSinistra = "";
+                String informazioni = "";
+                for(CheckBox c : checkboxes){
+                    if(c.isSelected()){
+                        for(ArrayList<String> i : diagnosis.getFattiAsseriti()){
+                            if(c.getText()==i.get(0)) {
+                                informazioni = informazioni +" \\\""+c.getText()+"\\\"";
+                                parteSinistra = parteSinistra + " " + i.get(1);
+                            }
                         }
                     }
                 }
+                if(parteSinistra.length() > 3){
+                    diagnosis.writeFileDiagnosi(parteSinistra, informazioni);
+                }else
+                    DialogHelper.showAlert(Alert.AlertType.INFORMATION, "Apprendimento automatico", "Assenza informazioni inerenti i sintomi","La diagnosi attuale sarà salvata per il paziente, ma non sarà memorizzata per i pazienti futuri.");
             }
-            diagnosis.writeFileDiagnosi(parteSinistra, informazioni);
+            if(result.get() == ButtonType.CANCEL)
+                alert.close();
         }
-        if(result.get() == ButtonType.CANCEL)
-            alert.close();
 
         Utility utility = new Utility(patient);
         utility.writeJson();
