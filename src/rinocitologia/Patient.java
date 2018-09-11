@@ -17,6 +17,8 @@ public class Patient {
 	private String firstName; //????????
 	private String surname; //??????
 	private Map<String, Cell> dictionary;
+	private String comuneNascita;
+	private String comuneResidenza;
 	private String path;
 	private String pathData = System.getProperty("user.home") + File.separator + "data";
 	private String pathInput;
@@ -39,6 +41,8 @@ public class Patient {
 			//failed to create the folder, probably exit
 			throw new RuntimeException("Failed to create save directory.");
 		}
+
+
 
 
 		final File folder = new File(pathData , "Pinco_Pallino");
@@ -183,6 +187,24 @@ public class Patient {
 	public void setPathBiofilmno(String getPathBiofilmno) { this.pathBiofilmno = getPathBiofilmno; }
 
 
+	public String getComuneNascita() {
+		return comuneNascita;
+	}
+
+	public void setComuneNascita(String comuneNascita) {
+		this.comuneNascita = comuneNascita;
+	}
+
+	public String getComuneResidenza() {
+		return comuneResidenza;
+	}
+
+	public void setComuneResidenza(String comuneResidenza) {
+		this.comuneResidenza = comuneResidenza;
+	}
+
+
+
 	/**
 	 * Rename patient folder and saves path to path variable
 	 */
@@ -314,13 +336,13 @@ public class Patient {
 	
 	@Override
 	public String toString() {
-		String name = "First Name: " + firstName + "\nSurname: " + surname + "\n\n";
-		StringBuilder cells = new StringBuilder("Cells List:\n");
+		String name = "First Name: " + firstName + "\nSurname: " + surname + "\nNato a: " + comuneNascita + "\nResidente a: " + comuneResidenza + "\n\n";
+		StringBuilder cells = new StringBuilder("\nCells List:\n");
 		for (Map.Entry<String, Cell> entry : dictionary.entrySet()) {
 			cells.append("Name: " + entry.getKey() + " - Count: " + entry.getValue().getcellCount() + " - Grade: " + entry.getValue().getgrade() + ";\n");
 		}
 		if(cf != null)
-			return name + cells.toString() + cf.toString();
+			return name + "Il: " + cf.getDay() + "/" + cf.getMonth() + "/" + cf.getYear() + "\nSesso: " + cf.getSex() + "\nCodice fiscale: " + cf.getCF() + "\n" + cells.toString() ;
 		else
 			return name + cells.toString();
 	}

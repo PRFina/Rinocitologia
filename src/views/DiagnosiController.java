@@ -112,25 +112,30 @@ public class DiagnosiController implements Initializable {
 
         Utility utility = new Utility(patient);
         utility.writeJson();
+        try {
+            utility.writePdfReport(ReportType.completo);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
 
         FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getResource("Home.fxml"));
+        Loader.setLocation(getClass().getResource("Report.fxml"));
         try {
             Loader.load();
         } catch (IOException ex){
-            Logger.getLogger(DiagnosiController.class.getName()).log(Level.SEVERE,null, ex);
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
         }
-        HomeController controller = Loader.getController();
+        ReportController controller = Loader.getController();
         controller.setPatient(patient);
+        controller.setListView();
+
 
         //Inizio Carica View
         Parent p = Loader.getRoot();
 
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setOnHidden(e -> {
-            controller.shutdown();
-            Platform.exit();
-        });
         stage.setScene(new Scene(p));
         stage.show();
     }
@@ -356,6 +361,28 @@ public class DiagnosiController implements Initializable {
             controller.shutdown();
             Platform.exit();
         });
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+    @FXML
+    private void reportCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Report.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        ReportController controller = Loader.getController();
+        controller.setPatient(patient);
+        controller.setListView();
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(p));
         stage.show();
     }

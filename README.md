@@ -109,5 +109,11 @@ System to support medic specialist in _rhinitis and cytology_.
                        <a href="https://scikit-image.org">Scikit Image</a>
                     </li>
   </ul>
+
+## Resources
+  <ul>
+  <li>Italian cities list by <a href="https://github.com/matteocontrini/comuni-json">Matteo Contrini</a></li>
+  <li>PNG Icons by <a href="https://www.flaticon.com">Flaticon</a></li>
+  </ul>
 </dl>
 

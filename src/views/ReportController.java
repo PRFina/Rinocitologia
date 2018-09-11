@@ -1,6 +1,9 @@
 package views;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,13 +18,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.*;
 import utility.*;
 
-public class AnamnesiController implements Initializable {
+public class ReportController implements Initializable {
 
     private Patient patient;
 
@@ -43,15 +47,15 @@ public class AnamnesiController implements Initializable {
     }
 
     @FXML
-    private ListView<String> anamnesiListView;
+    private ListView<String> listView;
 
 
     /**
      * Displays a list of Anamnesi (showing dates of creation).
      * If clicked, calls Questions passing informations about it to edit Anamnesi.
      */
-    public void setAnamesiListView(){
-
+    public void setListView(){
+        /*
         for(Anamnesi el:patient.getAnamnesiList()){
             anamnesiListView.getItems().add(el.getTime());
             System.out.println(el.getTime());
@@ -86,6 +90,34 @@ public class AnamnesiController implements Initializable {
             stage.setScene(new Scene(p));
             stage.show();
 
+        });
+        */
+        final Tooltip tooltip = new Tooltip();
+        tooltip.setText("Clicca per aprire");
+        listView.setTooltip(tooltip);
+        File dir = new File(patient.getPath() + File.separator + "reports");
+        File [] files = dir.listFiles((dir1, name) -> name.endsWith(".pdf"));
+
+        for (File el : files) {
+            listView.getItems().add(el.getName());
+            System.out.println(el);
+        }
+
+        listView.setOnMouseClicked(event -> {
+            if(files.length != 0) {
+                String selectedItem = listView.getSelectionModel().getSelectedItem().toString();
+                for (File el : files) {
+                    if (el.getName().equals(selectedItem)) {
+                        if (Desktop.isDesktopSupported()) {
+                            try {
+                                Desktop.getDesktop().open(el);
+                            } catch (IOException ex) {
+                                // no application registered for PDFs
+                            }
+                        }
+                    }
+                }
+            }
         });
     }
 

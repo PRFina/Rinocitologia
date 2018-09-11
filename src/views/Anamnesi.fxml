@@ -116,6 +116,21 @@
                   <Insets left="40.0" />
                </padding>
             </Label>
+            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#reportCaller" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Report" textFill="#5b5858">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="reportCaller" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Report.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </JFXButton>
             <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#anagraficaCaller" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Anagrafica" textFill="#5b5858">
                <font>
                   <Font size="13.0" />
