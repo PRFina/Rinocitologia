@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -17,8 +18,11 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import javafx.collections.ObservableList;
+import org.json.JSONArray;
 import rinocitologia.Anamnesi;
 import rinocitologia.Cell;
+import rinocitologia.Diagnosi;
 import rinocitologia.Patient;
 
 
@@ -31,7 +35,7 @@ public class Utility {
 	
 	private Patient dict;
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	private String PATH = String.format("%s", System.getProperty("user.home"));
+	private static String PATH = String.format("%s", System.getProperty("user.home"));
 	
 	/**
 	 * Instantiates dict by a parameter and creates inputs and reports folders.
@@ -297,6 +301,15 @@ public class Utility {
 		} else {
 			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\n", fontInformativa);
 		}
+		Paragraph comune = null;
+		String comuneString = "";
+		if(dict.getComuneResidenza() != null || dict.getComuneNascita() != null){
+			if(dict.getComuneNascita() != null)
+				comuneString = comuneString + "\nNato a: " + dict.getComuneNascita();
+			if(dict.getComuneResidenza() != null)
+				comuneString = comuneString + "\nResidente a: " + dict.getComuneResidenza();
+			comune = new Paragraph(comuneString, fontInformativa);
+		}
 
 		Chunk chunkAnamnesiHeader = new Chunk("Anamnesi", fontParagraph);
 		Paragraph anamnesi = null;
@@ -325,6 +338,10 @@ public class Utility {
 		document.add(chunk);
 		document.add( Chunk.NEWLINE );
 		document.add(info);
+
+		if(dict.getComuneResidenza() != null || dict.getComuneNascita() != null){
+			document.add(comune);
+		}
 		
 		document.add(table);
 		document.add( Chunk.NEWLINE );
@@ -349,6 +366,116 @@ public class Utility {
 		System.out.println("Writing PDF into file:\n" + path + "\n----------------------------");
 	}
 
+	public void writePdfReport(String type) throws FileNotFoundException, DocumentException {
+		String path = null;
+		if(type == "COMPLETO"){
+			ArrayList<Diagnosi> diagnosi = dict.getDiagnosi();
+			path = dict.getPath() + File.separator + "reports" + File.separator + "Diagnosi_" + diagnosi.get(0).getTime().split(" ")[0].replace("/", "_") + ".pdf";
+		}
+		//String path = dict.getPath() + File.separator + "reports" + File.separator + "report.pdf";
+		Document document = new Document();
+		PdfWriter.getInstance(document, new FileOutputStream(path));
+
+		document.open();
+		Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA, 16, BaseColor.BLACK);
+		Chunk chunk = new Chunk("Report clinico per il paziente: " + dict.getSurname() + " " + dict.getFirstName() + ".\n", fontHeader);
+
+
+		Font fontInformativa = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
+		Font fontParagraph =  FontFactory.getFont(FontFactory.COURIER_BOLD, 12, BaseColor.BLACK);
+
+		Paragraph info;
+		if(dict.getCf() != null) {
+			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\nNato il: " + dict.getCf().getDay() + "/" + dict.getCf().getMonth() + "/" + dict.getCf().getYear(), fontInformativa);
+		} else {
+			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\n", fontInformativa);
+		}
+
+		Paragraph comune = null;
+		String comuneString = "";
+		if(dict.getComuneResidenza() != null || dict.getComuneNascita() != null){
+			if(dict.getComuneNascita() != null)
+				comuneString = comuneString + "\nNato a: " + dict.getComuneNascita();
+			if(dict.getComuneResidenza() != null)
+				comuneString = comuneString + "\nResidente a: " + dict.getComuneResidenza();
+			comune = new Paragraph(comuneString, fontInformativa);
+		}
+
+		Chunk chunkAnamnesiHeader = new Chunk("Anamnesi", fontParagraph);
+		Paragraph anamnesi = null;
+		if (dict.getLastAnamnesi() != null){
+			anamnesi = new Paragraph(dict.getLastAnamnesi().toString(), fontInformativa);
+		}
+
+		Chunk chunkDiagnosiHeader = new Chunk("Diagnosi",fontParagraph);
+		Paragraph diagnosi = null;
+		List list = null;
+
+
+		if(type == "COMPLETO"){
+			if (dict.getDiagnosiUfficiale() != null || dict.getTerapia() != null){
+				String diagnosiUfficiale = " ";
+				if(dict.getDiagnosiUfficiale() != null)
+					diagnosiUfficiale = dict.getDiagnosiUfficiale();
+				String terapiaUfficiale = " ";
+				if(dict.getTerapia() != null)
+					terapiaUfficiale = dict.getTerapia();
+				diagnosi = new Paragraph("Diagnosi: " + diagnosiUfficiale + "\nTerapia: " + terapiaUfficiale);
+			}
+			list = new List(List.UNORDERED);
+			ArrayList<Diagnosi> diagnosiList = dict.getDiagnosi();
+			for(Diagnosi el: diagnosiList){
+				list.add(new ListItem(new Chunk(el.getNome())));
+			}
+		}
+
+
+
+		Paragraph informativa = new Paragraph("Questo è un report generato automaticamente dal sistema di supporto medico per la Rinocitologia Nasale. Per maggiori informazioni rivolgersi a un dottore specializzato in Rinocitologia.", fontInformativa);
+		informativa.setIndentationLeft(20);
+		PdfPTable table = new PdfPTable(3); //3 is the number of columns for the table: Name, Cell Count and Grade
+		table.setSpacingBefore(12);
+		table.setSpacingAfter(12);
+
+		addTableHeader(table);
+		for (Map.Entry<String, Cell> entry : dict.getDictionary().entrySet()) {
+			addRows(table, entry.getKey(), Integer.toString(entry.getValue().getcellCount()), Integer.toString(entry.getValue().getgrade()));
+		}
+
+
+		document.add(chunk);
+		document.add( Chunk.NEWLINE );
+		document.add(info);
+		if(dict.getComuneResidenza() != null || dict.getComuneNascita() != null) {
+			document.add(comune);
+		}
+
+		document.add(table);
+		document.add( Chunk.NEWLINE );
+		document.add(chunkAnamnesiHeader);
+		document.add( Chunk.NEWLINE );
+		if(anamnesi!=null) {
+			document.add(anamnesi);
+		}
+		document.add( Chunk.NEXTPAGE );
+		document.add(chunkDiagnosiHeader);
+		document.add( Chunk.NEWLINE );
+
+		if(diagnosi!=null) {
+			document.add(diagnosi);
+		}
+		if(type == "COMPLETO") {
+			document.add( Chunk.NEWLINE );
+			document.add(list);
+
+		}
+		document.add( Chunk.NEWLINE );
+		document.add(informativa);
+
+		document.close();
+
+		System.out.println("Writing PDF into file:\n" + path + "\n----------------------------");
+	}
 
 	/**
 	 * Utility to write pdf report in patient.getPath/reports/report<Anamnesi date>.pdf
@@ -358,7 +485,7 @@ public class Utility {
 	 */
 	public void writePdfReport(Anamnesi anamnesi) throws FileNotFoundException, DocumentException {
 
-		String path = dict.getPath() + File.separator + "reports" + File.separator + "report_anamnesi" + anamnesi.getTime().split(" ")[0].replace("/", "_") + ".pdf";
+		String path = dict.getPath() + File.separator + "reports" + File.separator + "Anamnesi_" + anamnesi.getTime().split(" ")[0].replace("/", "_") + ".pdf";
 		Document document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(path));
 
@@ -376,6 +503,17 @@ public class Utility {
 		} else {
 			info = new Paragraph("Nome: " + dict.getFirstName() + "\nCognome: " + dict.getSurname() + "\n", fontInformativa);
 		}
+		Paragraph comune = null;
+		String comuneString = "";
+		if(dict.getComuneResidenza() != null || dict.getComuneNascita() != null){
+			if(dict.getComuneNascita() != null)
+				comuneString = comuneString + "\nNato a: " + dict.getComuneNascita();
+			if(dict.getComuneResidenza() != null)
+				comuneString = comuneString + "\nResidente a: " + dict.getComuneResidenza();
+			comune = new Paragraph(comuneString, fontInformativa);
+		}
+
+
 		Paragraph informativa = new Paragraph("Questo è un report generato automaticamente dal sistema di supporto medico per la Rinocitologia Nasale. Per maggiori informazioni rivolgersi a un dottore specializzato in Rinocitologia.", fontInformativa);
 		informativa.setIndentationLeft(20);
 		PdfPTable table = new PdfPTable(3); //3 is the number of columns for the table: Name, Cell Count and Grade
@@ -395,6 +533,10 @@ public class Utility {
 		document.add(chunk);
 		document.add( Chunk.NEWLINE );
 		document.add(info);
+		if(dict.getComuneResidenza() != null || dict.getComuneNascita() != null) {
+			document.add(comune);
+		}
+
 
 		document.add(table);
 		document.add( Chunk.NEWLINE );
@@ -500,4 +642,37 @@ public class Utility {
 
 		return patient;
 	}
+
+	public static ArrayList<String> comuni() throws IOException{
+		String path = "comuni.json";
+		BufferedReader br = new BufferedReader(
+				new FileReader(path));
+
+		StringBuilder sb = new StringBuilder();
+
+		String line;
+		while ((line = br.readLine()) != null) {
+			sb.append(line);
+		}
+		JSONArray json = new JSONArray(sb.toString());
+		ArrayList<String> comuni = new ArrayList<>();
+		comuni.add("Non definito");
+		for(int i = 0 ; i < json.length() ; i++){
+			comuni.add(json.getJSONObject(i).get("nome").toString());
+			//System.out.println(json.getJSONObject(i).get("nome"));
+		}
+
+		return comuni;
+	}
+
+	public static boolean checkPatientExist(String cf){
+		File dir = new File(PATH, "data");
+		File[] files = dir.listFiles();
+		for(File file: files){
+			if(file.getName().equals(cf))
+				return true;
+		}
+		return false;
+	}
+
 }

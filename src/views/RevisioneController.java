@@ -988,7 +988,7 @@ public class RevisioneController implements Initializable {
                     System.out.println(item1.getText());
                     copyTo(file, item1.getText());
                     imageView.setVisible(false);
-                    setEpitelialiTile(epitelialiTile);
+                    //setEpitelialiTile(epitelialiTile);
 
                 }
             });
@@ -1638,6 +1638,28 @@ public class RevisioneController implements Initializable {
             controller.shutdown();
             Platform.exit();
         });
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
+    @FXML
+    private void reportCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Report.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        ReportController controller = Loader.getController();
+        controller.setPatient(patient);
+        controller.setListView();
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(p));
         stage.show();
     }

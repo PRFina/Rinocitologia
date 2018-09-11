@@ -2,6 +2,7 @@ package views;
 
 import java.io.*;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -9,16 +10,21 @@ import java.util.logging.Logger;
 
 import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.util.converter.DateTimeStringConverter;
+import org.controlsfx.control.textfield.TextFields;
 import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
 import utility.*;
@@ -28,6 +34,9 @@ import utility.*;
 public class AnagraficaController implements Initializable {
 
     private Patient patient;
+
+    @FXML
+    private ComboBox comuneNascitaBox, comuneResidenzaBox;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -37,7 +46,23 @@ public class AnagraficaController implements Initializable {
         }));
 
         success.setVisible(false);
+        ObservableList<String> observableListOfSomething = null;
+        try {
+            observableListOfSomething = FXCollections.observableArrayList(Utility.comuni());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        comuneNascitaBox.setItems(observableListOfSomething);
+        comuneNascitaBox.setEditable(true);
+        TextFields.bindAutoCompletion(comuneNascitaBox.getEditor(), comuneNascitaBox.getItems());
+
+        comuneResidenzaBox.setItems(observableListOfSomething);
+        comuneResidenzaBox.setEditable(true);
+        TextFields.bindAutoCompletion(comuneResidenzaBox.getEditor(), comuneResidenzaBox.getItems());
     }
+
+
+
 
     public void setFields(){
         if (patient.getFirstName() != "Anonimo"){
@@ -45,8 +70,15 @@ public class AnagraficaController implements Initializable {
             surnameTxt.setText(patient.getSurname());
             if(patient.getCf()!= null)
                 cfTxt.setText(patient.getCf().getCF());
+            if(patient.getComuneNascita() != null)
+                comuneNascitaBox.getSelectionModel().select(patient.getComuneNascita());
+            if(patient.getComuneResidenza() != null)
+                comuneResidenzaBox.getSelectionModel().select(patient.getComuneResidenza());
         }
+
     }
+
+
 
     @FXML
     private void webcam(ActionEvent event) throws IOException {
@@ -135,7 +167,7 @@ public class AnagraficaController implements Initializable {
     public Patient getPatient() {return patient;}
 
     @FXML
-    TextField nameTxt, surnameTxt, cfTxt;
+    TextField nameTxt, surnameTxt, cfTxt, dataTxt;
 
     @FXML
     TitledPane success;
@@ -150,27 +182,83 @@ public class AnagraficaController implements Initializable {
             DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Codice Fiscale errato.", "Il codice fiscale è fondamentale qualora il paziente non voglia rimanere anonimo.\nAssicurati di averlo inserito o di averlo inserito correttamente. \nIl codice fiscale deve essere lungo 16 caratteri.");
         } else {
             if(cfTxt.getText().length() == 16) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Conferma");
-                alert.setHeaderText("Conferma cambiamento dati paziente");
-                alert.setContentText("Vuoi procedere?");
+                if (Utility.checkPatientExist(cfTxt.getText())) {
+                    DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Il paziente è già stato registrato","Caricare il paziente");
+                    FXMLLoader Loader = new FXMLLoader();
+                    Loader.setLocation(getClass().getResource("Load.fxml"));
+                    try {
+                        Loader.load();
+                    } catch (IOException ex){
+                        Logger.getLogger(AnagraficaController.class.getName()).log(Level.SEVERE,null, ex);
+                    }
+                    LoadController controller = Loader.getController();
+                    controller.setPatient(patient);
 
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    System.out.println(nameTxt.getText() + " " + surnameTxt.getText() + " " + cfTxt.getText());
-                    CodiceFiscale cf = new CodiceFiscale(cfTxt.getText());
-                    if (!nameTxt.getText().trim().isEmpty())
-                        patient.setFirstName(nameTxt.getText());
-                    if (!surnameTxt.getText().trim().isEmpty())
-                        patient.setSurname(surnameTxt.getText());
-                    patient.setCf(cf);
-                    System.out.println(patient.toString());
-                    patient.rename();
-                    success.setVisible(true);
-                    patientTxt.setText("Paziente: " + patient.getFirstName() + " " + patient.getSurname());
-                    patient.setNewPath();
-                    Utility util = new Utility(patient);
-                    util.writeJson();
+
+
+                    //Inizio Carica View
+                    Parent p = Loader.getRoot();
+                    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                    stage.setOnHidden(e -> {
+                        controller.shutdown();
+                        Platform.exit();
+                    });
+                    stage.setScene(new Scene(p));
+                    stage.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Conferma");
+                    alert.setHeaderText("Conferma cambiamento dati paziente");
+                    alert.setContentText("Vuoi procedere?");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        System.out.println(nameTxt.getText() + " " + surnameTxt.getText() + " " + cfTxt.getText());
+                        CodiceFiscale cf = new CodiceFiscale(cfTxt.getText());
+                        if (!nameTxt.getText().trim().isEmpty())
+                            patient.setFirstName(nameTxt.getText());
+                        if (!surnameTxt.getText().trim().isEmpty())
+                            patient.setSurname(surnameTxt.getText());
+                        patient.setCf(cf);
+                        if (!comuneNascitaBox.getSelectionModel().isEmpty()) {
+                            patient.setComuneNascita(comuneNascitaBox.getValue().toString());
+                        } else {
+                            patient.setComuneNascita("Non definito");
+                        }
+                        if (!comuneResidenzaBox.getSelectionModel().isEmpty()) {
+                            patient.setComuneResidenza(comuneResidenzaBox.getValue().toString());
+                        } else {
+                            patient.setComuneResidenza("Non definito");
+                        }
+                        System.out.println(patient.toString());
+                        patient.rename();
+                        success.setVisible(true);
+                        patientTxt.setText("Paziente: " + patient.getFirstName() + " " + patient.getSurname());
+                        patient.setNewPath();
+                        Utility util = new Utility(patient);
+                        util.writeJson();
+                        FXMLLoader Loader = new FXMLLoader();
+                        Loader.setLocation(getClass().getResource("Home.fxml"));
+                        try {
+                            Loader.load();
+                        } catch (IOException ex){
+                            Logger.getLogger(AnagraficaController.class.getName()).log(Level.SEVERE,null, ex);
+                        }
+                        HomeController controller = Loader.getController();
+                        controller.setPatient(patient);
+                        controller.setInfo();
+
+
+                        //Inizio Carica View
+                        Parent p = Loader.getRoot();
+                        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                        stage.setOnHidden(e -> {
+                            controller.shutdown();
+                            Platform.exit();
+                        });
+                        stage.setScene(new Scene(p));
+                        stage.show();
+                    }
                 }
             }
         }
@@ -375,6 +463,27 @@ public class AnagraficaController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    private void reportCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Report.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        ReportController controller = Loader.getController();
+        controller.setPatient(patient);
+        controller.setListView();
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
 
     public void shutdown() {
         System.out.println("\nSAVING SESSION");

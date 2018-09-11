@@ -314,10 +314,10 @@ def predict_one(image, scaler, pca, clf):
 
 if __name__ == '__main__':
 
-    # # connect to the JVM
+    # connect to the JVM
     gateway = JavaGateway(gateway_parameters=GatewayParameters(port=25335))
-    #
-    # # get the patient path.
+
+    # get the patient path.
     patient = gateway.entry_point
     load_path = patient.getPathCampi()
 
@@ -331,20 +331,22 @@ if __name__ == '__main__':
     pca = joblib.load('pca.pkl')
 
     for file in os.listdir(load_path):
-        image = cv2.imread(load_path + "/" + file)
-        height, width = image.shape[:2]
-        step = 128
-        height = height - (height % step)
-        c = 0
-        for y in range(0, height, step):
-            for x in range(0, width, step):
-                crop = image[y:y + step, x:x + step]
-                label = predict_one(crop, scaler, pca, clf)
+        if file.endswith(('.jpg', '.png', '.JPG', '.PNG')):
+            print(file)
+            image = cv2.imread(load_path + "/" + file)
+            height, width = image.shape[:2]
+            step = 128
+            height = height - (height % step)
+            c = 0
+            for y in range(0, height, step):
+                for x in range(0, width, step):
+                    crop = image[y:y + step, x:x + step]
+                    label = predict_one(crop, scaler, pca, clf)
 
-                if label == "BIOFILM":
-                    crop = cv2.cvtColor(crop, cv2.COLOR_BGR2RGB)
-                    io.imsave(biofilm_path + "/" + str(c) + "-" + file, crop)
-                else:
-                    crop = cv2.cvtColor(crop, cv2.COLOR_BGR2RGB)
-                    io.imsave(other_path + "/" + str(c) + "-" + file, crop)
-                c += 1
+                    if label == "BIOFILM":
+                        crop = cv2.cvtColor(crop, cv2.COLOR_BGR2RGB)
+                        io.imsave(biofilm_path + "/" + str(c) + "-" + file, crop)
+                    else:
+                        crop = cv2.cvtColor(crop, cv2.COLOR_BGR2RGB)
+                        io.imsave(other_path + "/" + str(c) + "-" + file, crop)
+                    c += 1

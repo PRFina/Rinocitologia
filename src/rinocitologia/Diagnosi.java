@@ -1,10 +1,17 @@
 package rinocitologia;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 public class Diagnosi {
     private String nome;
+    private String time;
+    private int mese;
     private ArrayList<String> informazioni = new ArrayList<String>();
 
     public Diagnosi(String nome, String info) {
@@ -15,6 +22,19 @@ public class Diagnosi {
         info = info.substring(0, info.length()-2);
         String str[] = info.split("\" \"");
         informazioni.addAll(Arrays.asList(str));
+
+        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        Date dateobj = new Date();
+        LocalDate localDate = dateobj.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.setMese(localDate.getMonthValue());
+        this.time = df.format(dateobj);
+
+    }
+
+    public void setMese(int mese){ this.mese = mese; }
+
+    public String getTime() {
+        return time;
     }
 
     public String getNome() {

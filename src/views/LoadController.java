@@ -360,6 +360,28 @@ public class LoadController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    private void reportCaller(ActionEvent event)  throws IOException{
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Report.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(LoadController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        ReportController controller = Loader.getController();
+        controller.setPatient(patient);
+        controller.setListView();
+
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(p));
+        stage.show();
+    }
+
     public void shutdown() {
         System.out.println("\nSAVING SESSION");
         Utility util = new Utility(this.patient);
