@@ -18,10 +18,12 @@ public class Diagnosi {
         nome = nome.substring(1);
         nome = nome.substring(0, nome.length()-1);
         this.setNome(nome);
-        info = info.substring(2);
-        info = info.substring(0, info.length()-2);
-        String str[] = info.split("\" \"");
-        informazioni.addAll(Arrays.asList(str));
+        if(info.length() < 3){
+            info = info.substring(2);
+            info = info.substring(0, info.length()-2);
+            String str[] = info.split("\" \"");
+            informazioni.addAll(Arrays.asList(str));
+        }
 
         DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         Date dateobj = new Date();
