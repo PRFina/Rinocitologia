@@ -331,7 +331,8 @@ if __name__ == '__main__':
     pca = joblib.load('pca.pkl')
 
     for file in os.listdir(load_path):
-        if file.endswith(('.jpg', '.png', '.JPG', '.PNG')):
+        # if file.endswith(('.jpg', '.png', '.JPG', '.PNG')):
+        if file.endswith(('.jpg', '.JPG')):
             print(file)
             image = cv2.imread(load_path + "/" + file)
             height, width = image.shape[:2]

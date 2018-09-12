@@ -68,13 +68,14 @@ public class AnagraficaController implements Initializable {
         if (patient.getFirstName() != "Anonimo"){
             nameTxt.setText(patient.getFirstName());
             surnameTxt.setText(patient.getSurname());
+        }
             if(patient.getCf()!= null)
                 cfTxt.setText(patient.getCf().getCF());
             if(patient.getComuneNascita() != null)
                 comuneNascitaBox.getSelectionModel().select(patient.getComuneNascita());
             if(patient.getComuneResidenza() != null)
                 comuneResidenzaBox.getSelectionModel().select(patient.getComuneResidenza());
-        }
+
 
     }
 
@@ -182,6 +183,7 @@ public class AnagraficaController implements Initializable {
             DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Codice Fiscale errato.", "Il codice fiscale è fondamentale qualora il paziente non voglia rimanere anonimo.\nAssicurati di averlo inserito o di averlo inserito correttamente. \nIl codice fiscale deve essere lungo 16 caratteri.");
         } else {
             if(cfTxt.getText().length() == 16) {
+                /*
                 if (Utility.checkPatientExist(cfTxt.getText())) {
                     DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Il paziente è già stato registrato","Caricare il paziente");
                     FXMLLoader Loader = new FXMLLoader();
@@ -205,7 +207,9 @@ public class AnagraficaController implements Initializable {
                     });
                     stage.setScene(new Scene(p));
                     stage.show();
+
                 } else {
+                */
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Conferma");
                     alert.setHeaderText("Conferma cambiamento dati paziente");
@@ -215,6 +219,9 @@ public class AnagraficaController implements Initializable {
                     if (result.get() == ButtonType.OK) {
                         System.out.println(nameTxt.getText() + " " + surnameTxt.getText() + " " + cfTxt.getText());
                         CodiceFiscale cf = new CodiceFiscale(cfTxt.getText());
+
+                        String oldSurname = patient.getSurname();
+
                         if (!nameTxt.getText().trim().isEmpty())
                             patient.setFirstName(nameTxt.getText());
                         if (!surnameTxt.getText().trim().isEmpty())
@@ -231,6 +238,11 @@ public class AnagraficaController implements Initializable {
                             patient.setComuneResidenza("Non definito");
                         }
                         System.out.println(patient.toString());
+
+                        SqliteHelper helper = new SqliteHelper(patient.getPathData() + File.separator + "test.db");
+                        helper.updatePatient(oldSurname, patient.getFirstName(), patient.getSurname(), patient.getCf().getCF(), patient.getCf().getYear(), patient.getCf().getMonth(), patient.getCf().getDay(), patient.getCf().getSex());
+
+
                         patient.rename();
                         success.setVisible(true);
                         patientTxt.setText("Paziente: " + patient.getFirstName() + " " + patient.getSurname());
@@ -258,7 +270,7 @@ public class AnagraficaController implements Initializable {
                         });
                         stage.setScene(new Scene(p));
                         stage.show();
-                    }
+                    //}
                 }
             }
         }

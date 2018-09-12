@@ -352,9 +352,9 @@ public class LoadController implements Initializable {
 
         //Inizio Carica View
         Parent p = Loader.getRoot();
-        if (patient.getFirstName() != "Anonimo"){
+        //if (patient.getFirstName() != "Anonimo"){
             controller.setFields();
-        }
+        //}
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(p));
         stage.show();

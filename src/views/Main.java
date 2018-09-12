@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import py4j.GatewayServer;
 import rinocitologia.*;
 import utility.Sequence;
+import utility.SqliteHelper;
 import utility.Utility;
 
 import java.io.File;
@@ -77,7 +78,10 @@ public class Main extends Application {
         Utility util = new Utility(patient);
         controller.setPatient(patient);
         System.out.println(patient.getFirstName());
-
+        SqliteHelper helper = new SqliteHelper(patient.getPathData() + File.separator + "test.db");
+        SqliteHelper.createNewDatabase();
+        SqliteHelper.createNewTable();
+        helper.insertPatient(patient.getFirstName(), patient.getSurname());
 
         server = new GatewayServer(patient, 25335);
         server.start();

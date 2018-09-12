@@ -22,6 +22,7 @@
       <root url="jar://$PROJECT_DIR$/libs/commons-io-2.5.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/jgrapht-core-1.0.0-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/json-20160810-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/sqlite-jdbc-3.23.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
