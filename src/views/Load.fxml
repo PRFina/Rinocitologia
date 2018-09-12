@@ -207,6 +207,7 @@
                   </ImageView>
                   <JFXTextField fx:id="cfTxt" focusColor="#ee7d14" layoutX="14.0" layoutY="87.0" promptText="Codice Fiscale" />
                   <JFXButton layoutX="270.0" layoutY="117.0" onAction="#searchByFolder" text="Cerca" />
+                  <JFXButton layoutX="14.0" layoutY="154.0" onAction="#searchPatient" text="Tool di ricerca dei pazienti" />
 
                </children>
             </Pane>

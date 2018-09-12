@@ -197,6 +197,28 @@ public class LoadController implements Initializable {
 
     }
 
+    @FXML
+    private void searchPatient(ActionEvent event) {
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getResource("Pazienti.fxml"));
+        try {
+            Loader.load();
+        } catch (IOException ex){
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+        }
+
+        PazientiController controller = Loader.<PazientiController>getController();
+        controller.setPatient(patient);
+
+        //Inizio Carica View
+        Parent p = Loader.getRoot();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(p));
+        stage.show();
+
+
+    }
+
     /*
      *
      * START SIDEBAR COMMANDS

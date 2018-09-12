@@ -82,6 +82,7 @@ public class Main extends Application {
         SqliteHelper.createNewDatabase();
         SqliteHelper.createNewTable();
         helper.insertPatient(patient.getFirstName(), patient.getSurname());
+        helper.selectAllCfNotNull();
 
         server = new GatewayServer(patient, 25335);
         server.start();
