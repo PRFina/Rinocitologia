@@ -9,6 +9,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,6 +31,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -155,6 +161,48 @@ public class PazientiController implements Initializable {
             }
         });
 
+        //treeView.getSelectionModel().selectedItemProperty().addListener();
+        Object object =  treeView.getSelectionModel().selectedItemProperty().get();
+        int index = treeView.getSelectionModel().selectedIndexProperty().get();
+        treeView.setOnMouseClicked((MouseEvent event) -> {
+            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount()==2){
+                System.out.println(treeView.getSelectionModel().getSelectedItem().getValue().codicefiscale.get());
+                String cf = treeView.getSelectionModel().getSelectedItem().getValue().codicefiscale.get();
+                if(DialogHelper.showConfirmationDialog("Confermare caricamento", "Confermare il caricamento per il paziente " + cf, "Confermare?")) {
+
+                    String target = patient.getPathData() + File.separator + cf;
+                    Path path = Paths.get(target);
+                    if (Files.exists(path)) {
+                        DialogHelper.showAlert(Alert.AlertType.INFORMATION, "Successo", "Successo.", "Paziente caricato con successo.");
+                        patient = Utility.readJson(cf);
+                        setPatient(patient);
+                        System.out.println(patient.toString());
+
+                        //CALL INSERT CELLS
+                        FXMLLoader Loader = new FXMLLoader();
+                        Loader.setLocation(getClass().getResource("Home.fxml"));
+                        try {
+                            Loader.load();
+                        } catch (IOException ex) {
+                            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        HomeController controller = Loader.getController();
+                        controller.setPatient(patient);
+                        controller.setInfo();
+
+
+                        //Inizio Carica View
+                        Parent p = Loader.getRoot();
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        stage.setScene(new Scene(p));
+                        stage.show();
+
+                    } else {
+                        DialogHelper.showAlert(Alert.AlertType.ERROR, "Errore", "Codice Fiscale errato.", "Inserisci un codice fiscale corretto per poter caricare i dati di un paziente.");
+                    }
+                }
+            }
+        });
     }
 
     @FXML

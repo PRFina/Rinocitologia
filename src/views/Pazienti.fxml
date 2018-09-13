@@ -178,14 +178,9 @@
          <content>
             <Pane prefHeight="368.0" prefWidth="986.0">
                <children>
-                  <Label layoutX="56.0" layoutY="5.0" text="Lista Pazienti">
-                   <font>
-                       <Font size="36.0" />
-                   </font>
-                  </Label>
-                  <JFXTreeTableView fx:id="treeView" layoutX="45.0" layoutY="125.0" prefHeight="199.0" prefWidth="727.0" stylesheets="@tableview.css" />
-                  <Label layoutX="45.0" layoutY="80.0" text="Cerca Paziente" />
-                  <JFXTextField fx:id="input" focusColor="#e0a774" layoutX="154.0" layoutY="75.0" prefHeight="27.0" prefWidth="216.0" promptText="Nome, Cognome, Codice Fiscale, Data di Nascita">
+                  <JFXTreeTableView fx:id="treeView" layoutX="29.0" layoutY="90.0" prefHeight="250.0" prefWidth="677.0" stylesheets="@tableview.css" />
+                  <Label layoutX="29.0" layoutY="45.0" text="Cerca Paziente" />
+                  <JFXTextField fx:id="input" focusColor="#e0a774" layoutX="138.0" layoutY="40.0" prefHeight="27.0" prefWidth="216.0" promptText="Nome, Cognome, Codice Fiscale, Data di Nascita">
                      <font>
                         <Font size="9.0" />
                      </font>
