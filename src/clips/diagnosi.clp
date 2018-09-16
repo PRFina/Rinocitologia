@@ -18,11 +18,12 @@
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
         (or (cellula (nome Neutrofili) (grado 0)) (cellula (nome Neutrofili) (grado 1)))
-		(sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione")))
+		(or (sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione")))
+		(sintomo(nome "Uso eccessivo di farmaci")))
 		;decongestionanti positivi, stato gravidico
 		;sintomi: ostruzione nasale grave (effetto rebound)
 =>
-        (assert (diagnosi(nome "rinite medicamentosa") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1" ?ostruzione "Eventuale uso eccessivo di farmaci")))
+        (assert (diagnosi(nome "rinite medicamentosa") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" "Grado di  neutrofili: 0-1" (aggiungi-informazioni (create$ "Ostruzione" "Uso eccessivo di farmaci")))))
 )
 
 (defrule rinite-allergica
@@ -89,7 +90,7 @@
         (assert (diagnosi(nome "NARNE") (informazioni (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
 )
 
-(defrule riniti-irritativa-atrofica
+(defrule riniti-irritativa
 		(declare (salience 100))
         (cellula (nome Eosinofili) (grado 0))
         (cellula (nome Mastociti) (grado 0))
@@ -99,7 +100,6 @@
 		;atrofica: ostruzione nasale, epistassi, presenza di croste nasali (mucosa secca)
 =>
         (assert (diagnosi(nome "rinite irritativa") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione)))
-		(assert (diagnosi(nome "rinite atrofica") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) ?ostruzione "Eventuali epistassi e croste nasali")))
 )
 
 (defrule rinosinusite
@@ -109,10 +109,11 @@
         (cellula (nome Neutrofili) (grado ?gradoN&:(and(> ?gradoN 0) (< ?gradoN 5))))
 		(or (sintomo(nome ?ostruzione&:(eq (sub-string 1 10 ?ostruzione) "Ostruzione"))) 
 			(sintomo(nome "Prurito nasale")) 
-			(sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea"))))
+			(sintomo(nome ?rinorrea&:(eq (sub-string 1 8 ?rinorrea) "Rinorrea")))
+			(sintomo(nome "Febbre")))
 		;algie facciali, febbre, dolore gravativo
 =>
-        (assert (diagnosi(nome "rinosinusite") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Prurito nasale" "Ostruzione" "Rinorrea" )) "Eventuale algia facciale o febbre")))
+        (assert (diagnosi(nome "rinosinusite") (informazioni "Grado di  eosinofili: 0" "Grado di  mastociti: 0" (str-cat "Grado di neutrofili: " ?gradoN) (aggiungi-informazioni (create$ "Prurito nasale" "Ostruzione" "Rinorrea" "Febbre")))))
 )
 
 (defrule rinite_micotica

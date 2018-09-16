@@ -45,7 +45,7 @@ public class QuestionsController  implements Initializable {
 
     //Variabili delle componenti della parte di Anamnesi patologica prossima
     @FXML
-    private ComboBox<String> comboBoxOstruzione, comboBoxRinorrea, comboBoxEspansioneRinorrea, comboBoxPruritoNasale, comboBoxStarnuto, comboBoxOlfatto, comboBoxOvattamento, comboBoxIpoacusia, comboBoxAcufeni, comboBoxVertigini;
+    private ComboBox<String> comboBoxFebbre, comboBoxFarmaci, comboBoxOstruzione, comboBoxRinorrea, comboBoxEspansioneRinorrea, comboBoxPruritoNasale, comboBoxStarnuto, comboBoxOlfatto, comboBoxOvattamento, comboBoxIpoacusia, comboBoxAcufeni, comboBoxVertigini;
 
     @FXML
     private CheckBox checkBoxLacrimazione, checkBoxFotofobia, checkBoxPrurito, checkBoxBruciore;
@@ -128,6 +128,10 @@ public class QuestionsController  implements Initializable {
         comboBoxAcufeni.setValue(currentAnamnesi.getAcufeni());
         comboBoxVertigini.setItems(FXCollections.observableArrayList("nessuna", "soggettiva", "oggettiva"));
         comboBoxVertigini.setValue(currentAnamnesi.getVertigini());
+        comboBoxFebbre.setItems(FXCollections.observableArrayList("si", "no"));
+        comboBoxFebbre.setValue(currentAnamnesi.getFebbre());
+        comboBoxFarmaci.setItems(FXCollections.observableArrayList("si", "no"));
+        comboBoxFarmaci.setValue(currentAnamnesi.getFarmaci());
 
         checkBoxLacrimazione.setSelected(currentAnamnesi.getLacrimazione());
         checkBoxFotofobia.setSelected(currentAnamnesi.getFotofobia());
@@ -338,6 +342,8 @@ public class QuestionsController  implements Initializable {
                 comboBoxIpoacusia.getSelectionModel().getSelectedItem(),
                 comboBoxAcufeni.getSelectionModel().getSelectedItem(),
                 comboBoxVertigini.getSelectionModel().getSelectedItem(),
+                comboBoxFebbre.getSelectionModel().getSelectedItem(),
+                comboBoxFarmaci.getSelectionModel().getSelectedItem(),
                 checkBoxLacrimazione.isSelected(),
                 checkBoxFotofobia.isSelected(),
                 checkBoxPrurito.isSelected(),

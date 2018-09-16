@@ -40,15 +40,18 @@ public class InputHandler {
 		String assertion;
 		patient.completeDictionary();
 
+		int i = 0;
 		for (Map.Entry<String, Cell> entry : patient.getDictionary().entrySet()) {
 			assertion = "(cellula (nome " + entry.getKey() + ") (grado " + entry.getValue().getgrade() + "))";
-			//System.out.println(assertion);
+			fattiAsseriti.add(new ArrayList<String>());
+			fattiAsseriti.get(i).add("Grado di "+entry.getKey()+" uguale a "+entry.getValue().getgrade());
+			fattiAsseriti.get(i).add(assertion);
+			i++;
 			clips.assertString(assertion);
 		}
 		Anamnesi anamnesi = patient.getLastAnamnesi();
 		System.out.println("INPUTHANDLER ------ "+ anamnesi.toString());
 
-		int i = 0;
 		if ((anamnesi.getAllergiaGen() != null) && (anamnesi.getAllergiaGen() == "si")) {
 			clips.assertString("(famiglia(soggetto genitore) (disturbo allergia) (tipo " + anamnesi.getTipoAllergiaGen() + "))");
 			fattiAsseriti.add(new ArrayList<String>());
@@ -153,6 +156,20 @@ public class InputHandler {
 			fattiAsseriti.add(new ArrayList<String>());
 			fattiAsseriti.get(i).add("Sindrome vertiginosa " + anamnesi.getVertigini());
 			fattiAsseriti.get(i).add("(sintomo (nome \\\"Sindrome vertiginosa " + anamnesi.getVertigini() + "\\\"))");
+			i++;
+		}
+		if ((anamnesi.getFebbre() != null) && (anamnesi.getFebbre() == "si")) {
+			clips.assertString("(sintomo (nome \"Febbre\"))");
+			fattiAsseriti.add(new ArrayList<String>());
+			fattiAsseriti.get(i).add("Febbre");
+			fattiAsseriti.get(i).add("(sintomo (nome \\\"Febbre\\\"))");
+			i++;
+		}
+		if ((anamnesi.getFarmaci() != null) && (anamnesi.getFarmaci() == "si")) {
+			clips.assertString("(sintomo (nome \"Uso eccessivo di farmaci\"))");
+			fattiAsseriti.add(new ArrayList<String>());
+			fattiAsseriti.get(i).add("Uso eccessivo di farmaci");
+			fattiAsseriti.get(i).add("(sintomo (nome \\\"Uso eccessivo di farmaci\\\"))");
 			i++;
 		}
 		if(anamnesi.getLacrimazione()) {

@@ -15,7 +15,7 @@ public class Anamnesi {
 
     private String appuntiFam = "";
 
-    private String ostruzione, rinorrea, espansioneRinorrea, pruritoNasale, starnuto, olfatto, ovattamento, ipoacusia, acufeni, vertigini = "";
+    private String ostruzione, rinorrea, espansioneRinorrea, pruritoNasale, starnuto, olfatto, ovattamento, ipoacusia, acufeni, vertigini, febbre, farmaci = "";
 
     private Boolean lacrimazione = false;
     private Boolean fotofobia = false;
@@ -354,10 +354,18 @@ public class Anamnesi {
 
     public void setAllergie(ArrayList<String> allergie) { this.allergie = allergie; }
 
+    public String getFebbre() { return febbre; }
+
+    public void setFebbre(String febbre) { this.febbre = febbre; }
+
+    public String getFarmaci() {return farmaci; }
+
+    public void setFarmaci(String farmaci) { this.farmaci = farmaci; }
+
     public void setInfo(String allergiaGenitori, String tipoAllergiaGen, String allergiaFratelli, String tipoAllergiaFratelli, String poliposiGenitori,
                         String asmaFratelli, String asmaGenitori, String poliposiFratelli, String appuntiFamiglia, String ostruzione, String rinorrea,
                         String espansione, String pruritoNasale, String starnutazione, String olfatto, String ovattamento, String ipoacusia, String acufeni,
-                        String vertigini, boolean lacrimazione, boolean fotofobia, boolean prurito, boolean bruciore, String appuntiPat, String pirNasale,
+                        String vertigini, String febbre, String farmaci, boolean lacrimazione, boolean fotofobia, boolean prurito, boolean bruciore, String appuntiPat, String pirNasale,
                         String valNasale, String setto, String turbinati, String polSx, String polDx, String essudato, String ipertrofia, String alterazioniLIO,
                         String esameOtoscopico, String esameRinom, ArrayList<String> allergie, String baseSx, String baseDx,
                         String decongSx, String decongDx, String baseSxDx, String decongSxDx) {
@@ -380,6 +388,8 @@ public class Anamnesi {
         this.setIpoacusia(ipoacusia);
         this.setAcufeni(acufeni);
         this.setVertigini(vertigini);
+        this.setFebbre(febbre);
+        this.setFarmaci(farmaci);
         this.setLacrimazione(lacrimazione);
         this.setFotofobia(fotofobia);
         this.setPrurito(prurito);

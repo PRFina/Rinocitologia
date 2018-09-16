@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
@@ -30,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.QuestionsController">
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.QuestionsController">
     <children>
         <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" styleClass="head-background" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -256,9 +248,13 @@
                                     <JFXCheckBox fx:id="checkBoxPrurito" checkedColor="#f49842" layoutX="586.0" layoutY="36.0" text="Prurito congiuntivale" />
                                     <JFXCheckBox fx:id="checkBoxBruciore" checkedColor="#f49842" layoutX="750.0" layoutY="36.0" text="Bruciore congiuntivale" />
                                     <Label layoutX="473.0" layoutY="73.0" text="Appunti del medico:" />
-                                    <JFXTextArea fx:id="textAreaAppuntiPat" focusColor="#f49842" layoutX="473.0" layoutY="96.0" prefHeight="112.0" prefWidth="440.0" promptText="Qui posso essere memorizzate eventuali annotazioni aggiuntive inerenti l'anamnesi familiare del paziente." />
-                                    <Separator layoutX="458.0" layoutY="18.0" orientation="VERTICAL" prefHeight="214.0" prefWidth="6.0" />
+                                    <JFXTextArea fx:id="textAreaAppuntiPat" focusColor="#f49842" layoutX="473.0" layoutY="96.0" prefHeight="186.0" prefWidth="440.0" promptText="Qui posso essere memorizzate eventuali annotazioni aggiuntive inerenti l'anamnesi familiare del paziente." />
+                                    <Separator layoutX="458.0" layoutY="18.0" orientation="VERTICAL" prefHeight="276.0" prefWidth="6.0" />
                                     <JFXComboBox fx:id="comboBoxEspansioneRinorrea" focusColor="#f49842" layoutX="326.0" layoutY="35.0" />
+                                    <Label layoutX="14.0" layoutY="235.0" text="Febbre:" />
+                                    <JFXComboBox fx:id="comboBoxFebbre" focusColor="#f49842" layoutX="171.0" layoutY="235.0" prefWidth="140.0" />
+                                    <Label layoutX="14.0" layoutY="260.0" text="Uso di farmaci:" />
+                                    <JFXComboBox fx:id="comboBoxFarmaci" focusColor="#f49842" layoutX="171.0" layoutY="260.0" prefWidth="140.0" />
                                  </children>
                               </AnchorPane>
                           </content>

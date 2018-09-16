@@ -65,7 +65,7 @@ public class DiagnosiController implements Initializable {
         patient.setTerapia(textAreaTerapia.getText());
         patient.setDiagnosiUfficiale(textAreaDiagnosi.getText());
 
-        if(patient.getDiagnosiUfficiale()!=null){
+        if(textAreaDiagnosi.getText()!=null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK, ButtonType.CANCEL);
             alert.setTitle("Aggiunta diagnosi personalizzata");
             alert.setHeaderText("Quali informazioni sono state determinanti per diagnosticare la patologia inserita?");
