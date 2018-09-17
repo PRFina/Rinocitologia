@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -18,7 +17,6 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import rinocitologia.Anamnesi;
 import rinocitologia.Cell;

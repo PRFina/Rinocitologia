@@ -1,5 +1,4 @@
 package rinocitologia;
-import utility.CodiceFiscale;
 
 import java.io.File;
 import java.util.*;

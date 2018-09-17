@@ -1,11 +1,12 @@
-package rinocitologia;
+package utility;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
 
 import net.sf.clipsrules.jni.Environment;
-import net.sf.clipsrules.jni.FactAddressValue;
-import net.sf.clipsrules.jni.MultifieldValue;
+import rinocitologia.Anamnesi;
+import rinocitologia.Cell;
+import rinocitologia.Patient;
 
 /**
  * Handles the inputs from neural network.

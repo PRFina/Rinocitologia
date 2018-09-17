@@ -2,7 +2,6 @@ package views;
 import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,17 +22,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
-import utility.CodiceFiscale;
 import utility.Utility;
 import utility.DialogHelper;
-
-import javax.swing.*;
 
 public class LoadController implements Initializable {
 

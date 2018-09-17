@@ -2,7 +2,6 @@ package views;
 
 import java.io.*;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,14 +17,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.util.converter.DateTimeStringConverter;
 import org.controlsfx.control.textfield.TextFields;
 import rinocitologia.Anamnesi;
+import rinocitologia.CodiceFiscale;
 import rinocitologia.Patient;
 import utility.*;
 

@@ -1,7 +1,6 @@
 package utility;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import net.sf.clipsrules.jni.Environment;
 import net.sf.clipsrules.jni.FactAddressValue;

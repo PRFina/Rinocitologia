@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.Anamnesi;
-import rinocitologia.Diagnosis;
 import rinocitologia.Patient;
 import utility.DialogHelper;
 import utility.Utility;

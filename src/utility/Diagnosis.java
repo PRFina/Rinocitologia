@@ -1,13 +1,13 @@
-package rinocitologia;
-import java.io.File;
+package utility;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import com.itextpdf.text.DocumentException;
 
 import net.sf.clipsrules.jni.*;
+import rinocitologia.Patient;
 import utility.ClipsManager;
+import utility.InputHandler;
 import utility.Utility;
 /**
  * Launch CLIPS (Expert System) and get preliminary informations such as templates for facts and rules (sources located in src/clips).

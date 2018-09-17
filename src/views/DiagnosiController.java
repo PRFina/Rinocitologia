@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +22,10 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import rinocitologia.*;
+import rinocitologia.Diagnosi;
+import utility.Diagnosis;
 import utility.DialogHelper;
+import utility.ReportType;
 import utility.Utility;
 
 public class DiagnosiController implements Initializable {
