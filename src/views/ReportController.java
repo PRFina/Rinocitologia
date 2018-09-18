@@ -360,6 +360,69 @@ public class ReportController implements Initializable {
 
     }
 
+    @FXML
+    private void anamnesiCaller(ActionEvent event)  throws IOException{
+
+        if(patient.getAnamnesiList().size() == 0){
+            Anamnesi anam = new Anamnesi();
+
+            FXMLLoader Loader = new FXMLLoader();
+            Loader.setLocation(getClass().getResource("Questions.fxml"));
+            try {
+                Loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            QuestionsController controller = Loader.getController();
+            controller.setPatient(patient);
+
+        /*
+        currentAnamnesi.setLacrimazione(true);
+        currentAnamnesi.setFotofobia(true);
+        */
+            controller.setCurrentAnamnesi(anam);
+            controller.setInfo();
+
+
+            //Inizio Carica View
+            Parent p = Loader.getRoot();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setOnHidden(e -> {
+                controller.shutdown();
+                Platform.exit();
+            });
+            stage.setScene(new Scene(p));
+            stage.show();
+
+
+        } else {
+            FXMLLoader Loader = new FXMLLoader();
+            Loader.setLocation(getClass().getResource("Anamnesi.fxml"));
+            try {
+                Loader.load();
+            } catch (IOException ex){
+                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE,null, ex);
+            }
+            AnamnesiController controller = Loader.getController();
+            controller.setPatient(patient);
+
+            controller.setAnamesiListView();
+            //controller.getInfo();
+            //Inizio Carica View
+            Parent p = Loader.getRoot();
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setOnHidden(e -> {
+                controller.shutdown();
+                Platform.exit();
+            });
+            stage.setScene(new Scene(p));
+            stage.show();
+        }
+
+    }
+
+
 
 }
 
