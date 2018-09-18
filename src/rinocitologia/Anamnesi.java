@@ -485,6 +485,10 @@ public class Anamnesi {
             anamnesi += "Acufeni: " + acufeni + "\n";
         if(vertigini != null && vertigini != "")
             anamnesi += "Vertigini: " + vertigini + "\n";
+        if(febbre != null && febbre != "")
+            anamnesi += "Febbre: " + febbre + "\n";
+        if(farmaci != null && farmaci != "")
+            anamnesi += "Farmaci: " + farmaci + "\n";
 
         anamnesi += "Lacrimazione: " + booleanToString(lacrimazione) + "\n";
         anamnesi += "Fotofobia: " + booleanToString(fotofobia) + "\n";

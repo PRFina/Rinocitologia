@@ -159,14 +159,14 @@ public class InputHandler {
 			fattiAsseriti.get(i).add("(sintomo (nome \\\"Sindrome vertiginosa " + anamnesi.getVertigini() + "\\\"))");
 			i++;
 		}
-		if ((anamnesi.getFebbre() != null) && (anamnesi.getFebbre() == "si")) {
+		if ((anamnesi.getFebbre() != null) && (anamnesi.getFebbre().contains("s"))) {
 			clips.assertString("(sintomo (nome \"Febbre\"))");
 			fattiAsseriti.add(new ArrayList<String>());
 			fattiAsseriti.get(i).add("Febbre");
 			fattiAsseriti.get(i).add("(sintomo (nome \\\"Febbre\\\"))");
 			i++;
 		}
-		if ((anamnesi.getFarmaci() != null) && (anamnesi.getFarmaci() == "si")) {
+		if ((anamnesi.getFarmaci() != null) && (anamnesi.getFarmaci().contains("s"))) {
 			clips.assertString("(sintomo (nome \"Uso eccessivo di farmaci\"))");
 			fattiAsseriti.add(new ArrayList<String>());
 			fattiAsseriti.get(i).add("Uso eccessivo di farmaci");
