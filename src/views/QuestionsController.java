@@ -18,8 +18,10 @@ import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
 import rinocitologia.Resistenza;
 import utility.DialogHelper;
+import utility.Sequence;
 import utility.Utility;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -484,6 +486,65 @@ public class QuestionsController  implements Initializable {
      * START SIDEBAR COMMANDS
      *
      */
+
+    @FXML
+    private void newPatient(ActionEvent event) throws IOException {
+        if(DialogHelper.showConfirmationDialog("Confermare creazione nuovo paziente", "Sicuro di voler creare un nuovo paziente?", "Verrai portato alla schermata di classificazione cellule")){
+            Utility util = new Utility(patient);
+            //util.writeLastSession();
+            try {
+                util.writePdfReport();
+                util.writeJson();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+            Sequence seq = new Sequence();
+            int number = 0;
+            try {
+                File f = new File(seq.getPATH());
+
+                if (f.exists()){
+                    number = seq.readSeq() + 1;
+                    seq.writeSeq(number);
+                } else {
+                    seq.writeSeq(number);
+
+                }
+                System.out.println(seq.readSeq());
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            patient = new Patient("Anonimo", Integer.toString(number));
+            Utility newPatient = new Utility(patient);
+            this.setPatient(patient);
+
+            FXMLLoader Loader = new FXMLLoader();
+            Loader.setLocation(getClass().getResource("Home.fxml"));
+            try {
+                Loader.load();
+            } catch (IOException ex) {
+                Logger.getLogger(AnamnesiController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            HomeController controller = Loader.getController();
+            controller.setPatient(patient);
+            controller.setInfo();
+
+
+            //Inizio Carica View
+            Parent p = Loader.getRoot();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setOnHidden(e -> {
+                controller.shutdown();
+                Platform.exit();
+            });
+            stage.setScene(new Scene(p));
+            stage.show();
+        }
+
+    }
+
 
     @FXML
     private void anamnesiCaller(ActionEvent event)  throws IOException {

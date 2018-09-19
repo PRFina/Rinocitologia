@@ -37,6 +37,8 @@
                </font>
             </Label>
          </children>
+         <JFXButton layoutX="980.0" layoutY="59.0" onAction="#newPatient" text="Nuovo Paziente" />
+
       </Pane>
       <VBox layoutX="-1.0" layoutY="145.0" prefHeight="438.0" prefWidth="252.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="146.0">
          <children>

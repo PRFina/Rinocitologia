@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.jetbrains.annotations.Nullable;
+//import org.jetbrains.annotations.Nullable;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -135,7 +135,7 @@ public class DialogHelper {
      * @param hint
      * @return
      */
-    @Nullable
+    //@Nullable
     public static String showTextInputDialog(String title, String header, String content, String hint) {
         TextInputDialog dialog = new TextInputDialog(hint);
         dialog.setTitle(title);
