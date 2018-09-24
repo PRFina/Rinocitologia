@@ -155,128 +155,129 @@ public class RevisioneController implements Initializable {
 
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
+        if(listOfFiles != null) {
+            for (final File file : listOfFiles) {
+                ImageView imageView;
+                imageView = createImageView(file);
+                ContextMenu contextMenu = new ContextMenu();
 
-        for (final File file : listOfFiles) {
-            ImageView imageView;
-            imageView = createImageView(file);
-            ContextMenu contextMenu = new ContextMenu();
+                MenuItem titleItem = new MenuItem("Move to:");
+                titleItem.setDisable(true);
 
-            MenuItem titleItem = new MenuItem("Move to:");
-            titleItem.setDisable(true);
+                MenuItem item1 = new MenuItem("Mucipare");
+                item1.setOnAction(new EventHandler<ActionEvent>() {
 
-            MenuItem item1 = new MenuItem("Mucipare");
-            item1.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item1.getText());
-                    setMucipareTile(mucipareTile);
-                    imageView.setVisible(false);
-                    copyTo(file, item1.getText());
-                }
-            });
-            MenuItem item2 = new MenuItem("Neutrofili");
-            item2.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item2.getText());
-                    copyTo(file, item2.getText());
-                    imageView.setVisible(false);
-                    setNeutrofiliTile(neutrofiliTile);
-
-                }
-
-            });
-
-            MenuItem item3 = new MenuItem("Eosinofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item3.getText());
-                    copyTo(file, item3.getText());
-                    imageView.setVisible(false);
-                    setEosinofiliTile(eosinofiliTile);
-
-                }
-            });
-
-            MenuItem item4 = new MenuItem("Mastcellule");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item4.getText());
-                    copyTo(file, item4.getText());
-                    imageView.setVisible(false);
-                    setMastcelluleTile(mastcelluleTile);
-                }
-            });
-
-            MenuItem item5 = new MenuItem("Linfociti");
-            item5.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item5.getText());
-                    copyTo(file, item5.getText());
-                    imageView.setVisible(false);
-                    setLinfocitiTile(linfocitiTile);
-                }
-            });
-
-            MenuItem item6 = new MenuItem("Altro");
-            item6.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item6.getText());
-                    copyTo(file, item6.getText());
-                    imageView.setVisible(false);
-                    setAltroTile(altroTile);
-                }
-            });
-
-            if (clientSocket != null) {
-                MenuItem serverTitleItem = new MenuItem("Pass to:");
-                serverTitleItem.setDisable(true);
-
-
-                MenuItem serverMove = new MenuItem("Server");
-                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item1.getText());
+                        setMucipareTile(mucipareTile);
+                        imageView.setVisible(false);
+                        copyTo(file, item1.getText());
+                    }
+                });
+                MenuItem item2 = new MenuItem("Neutrofili");
+                item2.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
                         System.out.println(item2.getText());
-                        uploadServer(file, "epiteliali", patient.getSurname(), patient.getFirstName());
-                        try {
-                            if(clientSocket != null) {
-            clientSocket.close();
-        }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        establishConnection();
+                        copyTo(file, item2.getText());
+                        imageView.setVisible(false);
+                        setNeutrofiliTile(neutrofiliTile);
+
+                    }
+
+                });
+
+                MenuItem item3 = new MenuItem("Eosinofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item3.getText());
+                        copyTo(file, item3.getText());
+                        imageView.setVisible(false);
+                        setEosinofiliTile(eosinofiliTile);
 
                     }
                 });
 
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+                MenuItem item4 = new MenuItem("Mastcellule");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-            } else {
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
-            }
-            // When user right-click on Circle
-            imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item4.getText());
+                        copyTo(file, item4.getText());
+                        imageView.setVisible(false);
+                        setMastcelluleTile(mastcelluleTile);
+                    }
+                });
 
-                @Override
-                public void handle(ContextMenuEvent event) {
+                MenuItem item5 = new MenuItem("Linfociti");
+                item5.setOnAction(new EventHandler<ActionEvent>() {
 
-                    contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item5.getText());
+                        copyTo(file, item5.getText());
+                        imageView.setVisible(false);
+                        setLinfocitiTile(linfocitiTile);
+                    }
+                });
+
+                MenuItem item6 = new MenuItem("Altro");
+                item6.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item6.getText());
+                        copyTo(file, item6.getText());
+                        imageView.setVisible(false);
+                        setAltroTile(altroTile);
+                    }
+                });
+
+                if (clientSocket != null) {
+                    MenuItem serverTitleItem = new MenuItem("Pass to:");
+                    serverTitleItem.setDisable(true);
+
+
+                    MenuItem serverMove = new MenuItem("Server");
+                    serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println(item2.getText());
+                            uploadServer(file, "epiteliali", patient.getSurname(), patient.getFirstName());
+                            try {
+                                if (clientSocket != null) {
+                                    clientSocket.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            establishConnection();
+
+                        }
+                    });
+
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+                } else {
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
                 }
-            });
-            tile.getChildren().addAll(imageView);
+                // When user right-click on Circle
+                imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+                    @Override
+                    public void handle(ContextMenuEvent event) {
+
+                        contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+                tile.getChildren().addAll(imageView);
+            }
         }
     }
 
@@ -290,131 +291,133 @@ public class RevisioneController implements Initializable {
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
-        for (final File file : listOfFiles) {
-            ImageView imageView;
-            imageView = createImageView(file);
-            ContextMenu contextMenu = new ContextMenu();
+        if(listOfFiles != null) {
+            for (final File file : listOfFiles) {
+                ImageView imageView;
+                imageView = createImageView(file);
+                ContextMenu contextMenu = new ContextMenu();
 
-            MenuItem titleItem = new MenuItem("Move to:");
-            titleItem.setDisable(true);
-
-
-            MenuItem item2 = new MenuItem("Mucipare");
-            item2.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item2.getText());
-                    copyTo(file, item2.getText());
-                    imageView.setVisible(false);
-                    setMucipareTile(mucipareTile);
-
-                }
-            });
-            MenuItem item1 = new MenuItem("Epiteliali");
-            item1.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item1.getText());
-                    copyTo(file, item1.getText());
-                    imageView.setVisible(false);
-                    setEpitelialiTile(epitelialiTile);
-
-                }
-            });
-
-            MenuItem item3 = new MenuItem("Eosinofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item3.getText());
-                    copyTo(file, item3.getText());
-                    imageView.setVisible(false);
-                    setEosinofiliTile(eosinofiliTile);
-
-                }
-            });
-
-            MenuItem item4 = new MenuItem("Mastcellule");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item4.getText());
-                    copyTo(file, item4.getText());
-                    imageView.setVisible(false);
-                    setMastcelluleTile(mastcelluleTile);
-
-                }
-            });
-
-            MenuItem item5 = new MenuItem("Linfociti");
-            item5.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item5.getText());
-                    copyTo(file, item5.getText());
-                    imageView.setVisible(false);
-                    setLinfocitiTile(linfocitiTile);
-
-                }
-            });
-
-            MenuItem item6 = new MenuItem("Altro");
-            item6.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item6.getText());
-                    copyTo(file, item6.getText());
-                    imageView.setVisible(false);
-                    setAltroTile(altroTile);
-
-                }
-            });
-
-            if (clientSocket != null) {
-                MenuItem serverTitleItem = new MenuItem("Pass to:");
-                serverTitleItem.setDisable(true);
+                MenuItem titleItem = new MenuItem("Move to:");
+                titleItem.setDisable(true);
 
 
-                MenuItem serverMove = new MenuItem("Server");
-                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+                MenuItem item2 = new MenuItem("Mucipare");
+                item2.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
                         System.out.println(item2.getText());
-                        uploadServer(file, "neutrofili", patient.getSurname(), patient.getFirstName());
-                        try {
-                            if(clientSocket != null) {
-            clientSocket.close();
-        }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        establishConnection();
+                        copyTo(file, item2.getText());
+                        imageView.setVisible(false);
+                        setMucipareTile(mucipareTile);
+
+                    }
+                });
+                MenuItem item1 = new MenuItem("Epiteliali");
+                item1.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item1.getText());
+                        copyTo(file, item1.getText());
+                        imageView.setVisible(false);
+                        setEpitelialiTile(epitelialiTile);
 
                     }
                 });
 
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+                MenuItem item3 = new MenuItem("Eosinofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-            } else {
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
-            }
-            // When user right-click on Circle
-            imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item3.getText());
+                        copyTo(file, item3.getText());
+                        imageView.setVisible(false);
+                        setEosinofiliTile(eosinofiliTile);
 
-                @Override
-                public void handle(ContextMenuEvent event) {
+                    }
+                });
 
-                    contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                MenuItem item4 = new MenuItem("Mastcellule");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item4.getText());
+                        copyTo(file, item4.getText());
+                        imageView.setVisible(false);
+                        setMastcelluleTile(mastcelluleTile);
+
+                    }
+                });
+
+                MenuItem item5 = new MenuItem("Linfociti");
+                item5.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item5.getText());
+                        copyTo(file, item5.getText());
+                        imageView.setVisible(false);
+                        setLinfocitiTile(linfocitiTile);
+
+                    }
+                });
+
+                MenuItem item6 = new MenuItem("Altro");
+                item6.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item6.getText());
+                        copyTo(file, item6.getText());
+                        imageView.setVisible(false);
+                        setAltroTile(altroTile);
+
+                    }
+                });
+
+                if (clientSocket != null) {
+                    MenuItem serverTitleItem = new MenuItem("Pass to:");
+                    serverTitleItem.setDisable(true);
+
+
+                    MenuItem serverMove = new MenuItem("Server");
+                    serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println(item2.getText());
+                            uploadServer(file, "neutrofili", patient.getSurname(), patient.getFirstName());
+                            try {
+                                if (clientSocket != null) {
+                                    clientSocket.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            establishConnection();
+
+                        }
+                    });
+
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+                } else {
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
                 }
-            });
-            tile.getChildren().addAll(imageView);
+                // When user right-click on Circle
+                imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+                    @Override
+                    public void handle(ContextMenuEvent event) {
+
+                        contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+                tile.getChildren().addAll(imageView);
+            }
         }
     }
 
@@ -427,129 +430,130 @@ public class RevisioneController implements Initializable {
 
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
+        if(listOfFiles != null) {
+            for (final File file : listOfFiles) {
+                ImageView imageView;
+                imageView = createImageView(file);
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem titleItem = new MenuItem("Move to:");
+                titleItem.setDisable(true);
 
-        for (final File file : listOfFiles) {
-            ImageView imageView;
-            imageView = createImageView(file);
-            ContextMenu contextMenu = new ContextMenu();
-            MenuItem titleItem = new MenuItem("Move to:");
-            titleItem.setDisable(true);
+                MenuItem item1 = new MenuItem("Epiteliali");
+                item1.setOnAction(new EventHandler<ActionEvent>() {
 
-            MenuItem item1 = new MenuItem("Epiteliali");
-            item1.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item1.getText());
+                        copyTo(file, item1.getText());
+                        imageView.setVisible(false);
+                        setEpitelialiTile(epitelialiTile);
 
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item1.getText());
-                    copyTo(file, item1.getText());
-                    imageView.setVisible(false);
-                    setEpitelialiTile(epitelialiTile);
-
-                }
-            });
-            MenuItem item2 = new MenuItem("Neutrofili");
-            item2.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item2.getText());
-                    copyTo(file, item2.getText());
-                    imageView.setVisible(false);
-                    setNeutrofiliTile(neutrofiliTile);
-                }
-            });
-
-            MenuItem item3 = new MenuItem("Eosinofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item3.getText());
-                    copyTo(file, item3.getText());
-                    imageView.setVisible(false);
-                    setEosinofiliTile(eosinofiliTile);
-
-                }
-            });
-
-            MenuItem item4 = new MenuItem("Mastcellule");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item4.getText());
-                    copyTo(file, item4.getText());
-                    imageView.setVisible(false);
-                    setMastcelluleTile(mastcelluleTile);
-
-                }
-            });
-
-            MenuItem item5 = new MenuItem("Linfociti");
-            item5.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item5.getText());
-                    copyTo(file, item5.getText());
-                    imageView.setVisible(false);
-                    setLinfocitiTile(linfocitiTile);
-
-                }
-            });
-
-            MenuItem item6 = new MenuItem("Altro");
-            item6.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item6.getText());
-                    copyTo(file, item6.getText());
-                    imageView.setVisible(false);
-                    setAltroTile(altroTile);
-
-                }
-            });
-
-            if (clientSocket != null) {
-                MenuItem serverTitleItem = new MenuItem("Pass to:");
-                serverTitleItem.setDisable(true);
-
-
-                MenuItem serverMove = new MenuItem("Server");
-                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+                    }
+                });
+                MenuItem item2 = new MenuItem("Neutrofili");
+                item2.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
                         System.out.println(item2.getText());
-                        uploadServer(file, "mucipare", patient.getSurname(), patient.getFirstName());
-                        try {
-                            if(clientSocket != null) {
-            clientSocket.close();
-        }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        establishConnection();
+                        copyTo(file, item2.getText());
+                        imageView.setVisible(false);
+                        setNeutrofiliTile(neutrofiliTile);
+                    }
+                });
+
+                MenuItem item3 = new MenuItem("Eosinofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item3.getText());
+                        copyTo(file, item3.getText());
+                        imageView.setVisible(false);
+                        setEosinofiliTile(eosinofiliTile);
 
                     }
                 });
 
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+                MenuItem item4 = new MenuItem("Mastcellule");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-            } else {
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
-            }
-            // When user right-click on Circle
-            imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item4.getText());
+                        copyTo(file, item4.getText());
+                        imageView.setVisible(false);
+                        setMastcelluleTile(mastcelluleTile);
 
-                @Override
-                public void handle(ContextMenuEvent event) {
+                    }
+                });
 
-                    contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                MenuItem item5 = new MenuItem("Linfociti");
+                item5.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item5.getText());
+                        copyTo(file, item5.getText());
+                        imageView.setVisible(false);
+                        setLinfocitiTile(linfocitiTile);
+
+                    }
+                });
+
+                MenuItem item6 = new MenuItem("Altro");
+                item6.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item6.getText());
+                        copyTo(file, item6.getText());
+                        imageView.setVisible(false);
+                        setAltroTile(altroTile);
+
+                    }
+                });
+
+                if (clientSocket != null) {
+                    MenuItem serverTitleItem = new MenuItem("Pass to:");
+                    serverTitleItem.setDisable(true);
+
+
+                    MenuItem serverMove = new MenuItem("Server");
+                    serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println(item2.getText());
+                            uploadServer(file, "mucipare", patient.getSurname(), patient.getFirstName());
+                            try {
+                                if (clientSocket != null) {
+                                    clientSocket.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            establishConnection();
+
+                        }
+                    });
+
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+                } else {
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
                 }
-            });
-            tile.getChildren().addAll(imageView);
+                // When user right-click on Circle
+                imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+                    @Override
+                    public void handle(ContextMenuEvent event) {
+
+                        contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+                tile.getChildren().addAll(imageView);
+            }
         }
     }
 
@@ -563,129 +567,131 @@ public class RevisioneController implements Initializable {
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
-        for (final File file : listOfFiles) {
-            ImageView imageView;
-            imageView = createImageView(file);
-            ContextMenu contextMenu = new ContextMenu();
+        if(listOfFiles != null) {
+            for (final File file : listOfFiles) {
+                ImageView imageView;
+                imageView = createImageView(file);
+                ContextMenu contextMenu = new ContextMenu();
 
-            MenuItem titleItem = new MenuItem("Move to:");
-            titleItem.setDisable(true);
+                MenuItem titleItem = new MenuItem("Move to:");
+                titleItem.setDisable(true);
 
-            MenuItem item1 = new MenuItem("Epiteliali");
-            item1.setOnAction(new EventHandler<ActionEvent>() {
+                MenuItem item1 = new MenuItem("Epiteliali");
+                item1.setOnAction(new EventHandler<ActionEvent>() {
 
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item1.getText());
-                    copyTo(file, item1.getText());
-                    imageView.setVisible(false);
-                    setEpitelialiTile(epitelialiTile);
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item1.getText());
+                        copyTo(file, item1.getText());
+                        imageView.setVisible(false);
+                        setEpitelialiTile(epitelialiTile);
 
-                }
-            });
-            MenuItem item2 = new MenuItem("Mucipare");
-            item2.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item2.getText());
-                    copyTo(file, item2.getText());
-                    imageView.setVisible(false);
-                    setMucipareTile(mucipareTile);
-
-                }
-            });
-
-            MenuItem item3 = new MenuItem("Neutrofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item3.getText());
-                    copyTo(file, item3.getText());
-                    imageView.setVisible(false);
-                    setNeutrofiliTile(neutrofiliTile);
-                }
-            });
-
-            MenuItem item4 = new MenuItem("Mastcellule");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item4.getText());
-                    copyTo(file, item4.getText());
-                    imageView.setVisible(false);
-                    setMastcelluleTile(mastcelluleTile);
-
-                }
-            });
-
-            MenuItem item5 = new MenuItem("Linfociti");
-            item5.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item5.getText());
-                    copyTo(file, item5.getText());
-                    imageView.setVisible(false);
-                    setLinfocitiTile(linfocitiTile);
-
-                }
-            });
-
-            MenuItem item6 = new MenuItem("Altro");
-            item6.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item6.getText());
-                    copyTo(file, item6.getText());
-                    imageView.setVisible(false);
-                    setAltroTile(altroTile);
-
-                }
-            });
-
-            if (clientSocket != null) {
-                MenuItem serverTitleItem = new MenuItem("Pass to:");
-                serverTitleItem.setDisable(true);
-
-
-                MenuItem serverMove = new MenuItem("Server");
-                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+                    }
+                });
+                MenuItem item2 = new MenuItem("Mucipare");
+                item2.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
                         System.out.println(item2.getText());
-                        uploadServer(file, "eosinofili", patient.getSurname(), patient.getFirstName());
-                        try {
-                            if(clientSocket != null) {
-            clientSocket.close();
-        }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        establishConnection();
+                        copyTo(file, item2.getText());
+                        imageView.setVisible(false);
+                        setMucipareTile(mucipareTile);
 
                     }
                 });
 
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+                MenuItem item3 = new MenuItem("Neutrofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-            } else {
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
-            }
-            // When user right-click on Circle
-            imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item3.getText());
+                        copyTo(file, item3.getText());
+                        imageView.setVisible(false);
+                        setNeutrofiliTile(neutrofiliTile);
+                    }
+                });
 
-                @Override
-                public void handle(ContextMenuEvent event) {
+                MenuItem item4 = new MenuItem("Mastcellule");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-                    contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item4.getText());
+                        copyTo(file, item4.getText());
+                        imageView.setVisible(false);
+                        setMastcelluleTile(mastcelluleTile);
+
+                    }
+                });
+
+                MenuItem item5 = new MenuItem("Linfociti");
+                item5.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item5.getText());
+                        copyTo(file, item5.getText());
+                        imageView.setVisible(false);
+                        setLinfocitiTile(linfocitiTile);
+
+                    }
+                });
+
+                MenuItem item6 = new MenuItem("Altro");
+                item6.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item6.getText());
+                        copyTo(file, item6.getText());
+                        imageView.setVisible(false);
+                        setAltroTile(altroTile);
+
+                    }
+                });
+
+                if (clientSocket != null) {
+                    MenuItem serverTitleItem = new MenuItem("Pass to:");
+                    serverTitleItem.setDisable(true);
+
+
+                    MenuItem serverMove = new MenuItem("Server");
+                    serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println(item2.getText());
+                            uploadServer(file, "eosinofili", patient.getSurname(), patient.getFirstName());
+                            try {
+                                if (clientSocket != null) {
+                                    clientSocket.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            establishConnection();
+
+                        }
+                    });
+
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+                } else {
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
                 }
-            });
-            tile.getChildren().addAll(imageView);
+                // When user right-click on Circle
+                imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+                    @Override
+                    public void handle(ContextMenuEvent event) {
+
+                        contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+                tile.getChildren().addAll(imageView);
+            }
         }
     }
 
@@ -699,130 +705,133 @@ public class RevisioneController implements Initializable {
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
-        for (final File file : listOfFiles) {
-            ImageView imageView;
-            imageView = createImageView(file);
-            ContextMenu contextMenu = new ContextMenu();
+        if(listOfFiles != null) {
 
-            MenuItem titleItem = new MenuItem("Move to:");
-            titleItem.setDisable(true);
+            for (final File file : listOfFiles) {
+                ImageView imageView;
+                imageView = createImageView(file);
+                ContextMenu contextMenu = new ContextMenu();
 
-            MenuItem item1 = new MenuItem("Epiteliali");
-            item1.setOnAction(new EventHandler<ActionEvent>() {
+                MenuItem titleItem = new MenuItem("Move to:");
+                titleItem.setDisable(true);
 
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item1.getText());
-                    copyTo(file, item1.getText());
-                    imageView.setVisible(false);
-                    setEpitelialiTile(epitelialiTile);
+                MenuItem item1 = new MenuItem("Epiteliali");
+                item1.setOnAction(new EventHandler<ActionEvent>() {
 
-                }
-            });
-            MenuItem item2 = new MenuItem("Mucipare");
-            item2.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item1.getText());
+                        copyTo(file, item1.getText());
+                        imageView.setVisible(false);
+                        setEpitelialiTile(epitelialiTile);
 
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item2.getText());
-                    copyTo(file, item2.getText());
-                    imageView.setVisible(false);
-                    setMucipareTile(mucipareTile);
-
-                }
-            });
-
-            MenuItem item3 = new MenuItem("Neutrofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item3.getText());
-                    copyTo(file, item3.getText());
-                    imageView.setVisible(false);
-                    setNeutrofiliTile(neutrofiliTile);
-                }
-            });
-
-            MenuItem item4 = new MenuItem("Eosinofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item4.getText());
-                    copyTo(file, item4.getText());
-                    imageView.setVisible(false);
-                    setEosinofiliTile(eosinofiliTile);
-
-                }
-            });
-
-            MenuItem item5 = new MenuItem("Linfociti");
-            item5.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item5.getText());
-                    copyTo(file, item5.getText());
-                    imageView.setVisible(false);
-                    setLinfocitiTile(linfocitiTile);
-
-                }
-            });
-
-            MenuItem item6 = new MenuItem("Altro");
-            item6.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item6.getText());
-                    copyTo(file, item6.getText());
-                    imageView.setVisible(false);
-                    setAltroTile(altroTile);
-
-                }
-            });
-
-            if (clientSocket != null) {
-                MenuItem serverTitleItem = new MenuItem("Pass to:");
-                serverTitleItem.setDisable(true);
-
-
-                MenuItem serverMove = new MenuItem("Server");
-                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+                    }
+                });
+                MenuItem item2 = new MenuItem("Mucipare");
+                item2.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
                         System.out.println(item2.getText());
-                        uploadServer(file, "mastcellule", patient.getSurname(), patient.getFirstName());
-                        try {
-                            if(clientSocket != null) {
-            clientSocket.close();
-        }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        establishConnection();
+                        copyTo(file, item2.getText());
+                        imageView.setVisible(false);
+                        setMucipareTile(mucipareTile);
 
                     }
                 });
 
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+                MenuItem item3 = new MenuItem("Neutrofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-            } else {
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
-            }
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item3.getText());
+                        copyTo(file, item3.getText());
+                        imageView.setVisible(false);
+                        setNeutrofiliTile(neutrofiliTile);
+                    }
+                });
 
-            // When user right-click on Circle
-            imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                MenuItem item4 = new MenuItem("Eosinofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-                @Override
-                public void handle(ContextMenuEvent event) {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item4.getText());
+                        copyTo(file, item4.getText());
+                        imageView.setVisible(false);
+                        setEosinofiliTile(eosinofiliTile);
 
-                    contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+
+                MenuItem item5 = new MenuItem("Linfociti");
+                item5.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item5.getText());
+                        copyTo(file, item5.getText());
+                        imageView.setVisible(false);
+                        setLinfocitiTile(linfocitiTile);
+
+                    }
+                });
+
+                MenuItem item6 = new MenuItem("Altro");
+                item6.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item6.getText());
+                        copyTo(file, item6.getText());
+                        imageView.setVisible(false);
+                        setAltroTile(altroTile);
+
+                    }
+                });
+
+                if (clientSocket != null) {
+                    MenuItem serverTitleItem = new MenuItem("Pass to:");
+                    serverTitleItem.setDisable(true);
+
+
+                    MenuItem serverMove = new MenuItem("Server");
+                    serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println(item2.getText());
+                            uploadServer(file, "mastcellule", patient.getSurname(), patient.getFirstName());
+                            try {
+                                if (clientSocket != null) {
+                                    clientSocket.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            establishConnection();
+
+                        }
+                    });
+
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+                } else {
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
                 }
-            });
-            tile.getChildren().addAll(imageView);
+
+                // When user right-click on Circle
+                imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+                    @Override
+                    public void handle(ContextMenuEvent event) {
+
+                        contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+                tile.getChildren().addAll(imageView);
+            }
         }
     }
 
@@ -836,131 +845,133 @@ public class RevisioneController implements Initializable {
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
-        for (final File file : listOfFiles) {
-            ImageView imageView;
-            imageView = createImageView(file);
-            ContextMenu contextMenu = new ContextMenu();
+        if(listOfFiles != null) {
 
-            MenuItem titleItem = new MenuItem("Move to:");
-            titleItem.setDisable(true);
+            for (final File file : listOfFiles) {
+                ImageView imageView;
+                imageView = createImageView(file);
+                ContextMenu contextMenu = new ContextMenu();
 
-            MenuItem item1 = new MenuItem("Epiteliali");
-            item1.setOnAction(new EventHandler<ActionEvent>() {
+                MenuItem titleItem = new MenuItem("Move to:");
+                titleItem.setDisable(true);
 
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item1.getText());
-                    copyTo(file, item1.getText());
-                    imageView.setVisible(false);
-                    setEpitelialiTile(epitelialiTile);
+                MenuItem item1 = new MenuItem("Epiteliali");
+                item1.setOnAction(new EventHandler<ActionEvent>() {
 
-                }
-            });
-            MenuItem item2 = new MenuItem("Mucipare");
-            item2.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item1.getText());
+                        copyTo(file, item1.getText());
+                        imageView.setVisible(false);
+                        setEpitelialiTile(epitelialiTile);
 
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item2.getText());
-                    copyTo(file, item2.getText());
-                    imageView.setVisible(false);
-                    setMucipareTile(mucipareTile);
-
-                }
-            });
-
-            MenuItem item3 = new MenuItem("Neutrofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item3.getText());
-                    copyTo(file, item3.getText());
-                    imageView.setVisible(false);
-                    setNeutrofiliTile(neutrofiliTile);
-                }
-            });
-
-            MenuItem item4 = new MenuItem("Eosinofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item4.getText());
-                    copyTo(file, item4.getText());
-                    imageView.setVisible(false);
-                    setEosinofiliTile(eosinofiliTile);
-
-                }
-            });
-
-            MenuItem item5 = new MenuItem("Mastcellule");
-            item5.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item5.getText());
-                    copyTo(file, item5.getText());
-                    imageView.setVisible(false);
-                    setMastcelluleTile(mastcelluleTile);
-
-                }
-            });
-
-            MenuItem item6 = new MenuItem("Altro");
-            item6.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item6.getText());
-                    copyTo(file, item6.getText());
-                    imageView.setVisible(false);
-                    setAltroTile(altroTile);
-
-                }
-            });
-            if (clientSocket != null) {
-                MenuItem serverTitleItem = new MenuItem("Pass to:");
-                serverTitleItem.setDisable(true);
-
-
-                MenuItem serverMove = new MenuItem("Server");
-                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+                    }
+                });
+                MenuItem item2 = new MenuItem("Mucipare");
+                item2.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
                         System.out.println(item2.getText());
-                        uploadServer(file, "linfociti", patient.getSurname(), patient.getFirstName());
-                        try {
-                            if(clientSocket != null) {
-            clientSocket.close();
-        }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        establishConnection();
+                        copyTo(file, item2.getText());
+                        imageView.setVisible(false);
+                        setMucipareTile(mucipareTile);
 
                     }
                 });
 
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+                MenuItem item3 = new MenuItem("Neutrofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-            } else {
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
-            }
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item3.getText());
+                        copyTo(file, item3.getText());
+                        imageView.setVisible(false);
+                        setNeutrofiliTile(neutrofiliTile);
+                    }
+                });
 
-            // When user right-click on Circle
-            imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                MenuItem item4 = new MenuItem("Eosinofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-                @Override
-                public void handle(ContextMenuEvent event) {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item4.getText());
+                        copyTo(file, item4.getText());
+                        imageView.setVisible(false);
+                        setEosinofiliTile(eosinofiliTile);
 
-                    contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+
+                MenuItem item5 = new MenuItem("Mastcellule");
+                item5.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item5.getText());
+                        copyTo(file, item5.getText());
+                        imageView.setVisible(false);
+                        setMastcelluleTile(mastcelluleTile);
+
+                    }
+                });
+
+                MenuItem item6 = new MenuItem("Altro");
+                item6.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item6.getText());
+                        copyTo(file, item6.getText());
+                        imageView.setVisible(false);
+                        setAltroTile(altroTile);
+
+                    }
+                });
+                if (clientSocket != null) {
+                    MenuItem serverTitleItem = new MenuItem("Pass to:");
+                    serverTitleItem.setDisable(true);
+
+
+                    MenuItem serverMove = new MenuItem("Server");
+                    serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println(item2.getText());
+                            uploadServer(file, "linfociti", patient.getSurname(), patient.getFirstName());
+                            try {
+                                if (clientSocket != null) {
+                                    clientSocket.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            establishConnection();
+
+                        }
+                    });
+
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+                } else {
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
                 }
-            });
-            tile.getChildren().addAll(imageView);
-        }
 
+                // When user right-click on Circle
+                imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+                    @Override
+                    public void handle(ContextMenuEvent event) {
+
+                        contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+                tile.getChildren().addAll(imageView);
+            }
+        }
     }
 
 
@@ -974,67 +985,70 @@ public class RevisioneController implements Initializable {
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
-        for (final File file : listOfFiles) {
-            ImageView imageView;
-            imageView = createImageView(file);
-            ContextMenu contextMenu = new ContextMenu();
-            MenuItem titleItem = new MenuItem("Remove:");
-            titleItem.setDisable(true);
+        if(listOfFiles != null) {
 
-            MenuItem item1 = new MenuItem("Yes");
-            item1.setOnAction(new EventHandler<ActionEvent>() {
+            for (final File file : listOfFiles) {
+                ImageView imageView;
+                imageView = createImageView(file);
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem titleItem = new MenuItem("Remove:");
+                titleItem.setDisable(true);
 
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item1.getText());
-                    copyTo(file, item1.getText());
-                    imageView.setVisible(false);
-                    //setEpitelialiTile(epitelialiTile);
-
-                }
-            });
-
-
-            if (clientSocket != null) {
-                MenuItem serverTitleItem = new MenuItem("Pass to:");
-                serverTitleItem.setDisable(true);
-
-
-                MenuItem serverMove = new MenuItem("Server");
-                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+                MenuItem item1 = new MenuItem("Yes");
+                item1.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
-                        //System.out.println(item2.getText());
-                        uploadServer(file, "biofilm", patient.getSurname(), patient.getFirstName());
-                        try {
-                            if(clientSocket != null) {
-                                clientSocket.close();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        establishConnection();
+                        System.out.println(item1.getText());
+                        copyTo(file, item1.getText());
+                        imageView.setVisible(false);
+                        //setEpitelialiTile(epitelialiTile);
 
                     }
                 });
 
-                contextMenu.getItems().addAll(titleItem, item1, serverTitleItem, serverMove);
 
-            } else {
-                contextMenu.getItems().addAll(titleItem, item1);
-            }
+                if (clientSocket != null) {
+                    MenuItem serverTitleItem = new MenuItem("Pass to:");
+                    serverTitleItem.setDisable(true);
 
-            // When user right-click on Circle
-            imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 
-                @Override
-                public void handle(ContextMenuEvent event) {
+                    MenuItem serverMove = new MenuItem("Server");
+                    serverMove.setOnAction(new EventHandler<ActionEvent>() {
 
-                    contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                        @Override
+                        public void handle(ActionEvent event) {
+                            //System.out.println(item2.getText());
+                            uploadServer(file, "biofilm", patient.getSurname(), patient.getFirstName());
+                            try {
+                                if (clientSocket != null) {
+                                    clientSocket.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            establishConnection();
+
+                        }
+                    });
+
+                    contextMenu.getItems().addAll(titleItem, item1, serverTitleItem, serverMove);
+
+                } else {
+                    contextMenu.getItems().addAll(titleItem, item1);
                 }
-            });
-            tile.getChildren().addAll(imageView);
+
+                // When user right-click on Circle
+                imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+                    @Override
+                    public void handle(ContextMenuEvent event) {
+
+                        contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+                tile.getChildren().addAll(imageView);
+            }
         }
     }
 
@@ -1049,130 +1063,131 @@ public class RevisioneController implements Initializable {
 
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
+        if(listOfFiles != null) {
+            for (final File file : listOfFiles) {
+                ImageView imageView;
+                imageView = createImageView(file);
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem titleItem = new MenuItem("Move to:");
+                titleItem.setDisable(true);
 
-        for (final File file : listOfFiles) {
-            ImageView imageView;
-            imageView = createImageView(file);
-            ContextMenu contextMenu = new ContextMenu();
-            MenuItem titleItem = new MenuItem("Move to:");
-            titleItem.setDisable(true);
+                MenuItem item1 = new MenuItem("Epiteliali");
+                item1.setOnAction(new EventHandler<ActionEvent>() {
 
-            MenuItem item1 = new MenuItem("Epiteliali");
-            item1.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item1.getText());
+                        copyTo(file, item1.getText());
+                        imageView.setVisible(false);
+                        setEpitelialiTile(epitelialiTile);
 
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item1.getText());
-                    copyTo(file, item1.getText());
-                    imageView.setVisible(false);
-                    setEpitelialiTile(epitelialiTile);
-
-                }
-            });
-            MenuItem item2 = new MenuItem("Mucipare");
-            item2.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item2.getText());
-                    copyTo(file, item2.getText());
-                    imageView.setVisible(false);
-                    setMucipareTile(mucipareTile);
-
-                }
-            });
-
-            MenuItem item3 = new MenuItem("Neutrofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item3.getText());
-                    copyTo(file, item3.getText());
-                    imageView.setVisible(false);
-                    setNeutrofiliTile(neutrofiliTile);
-                }
-            });
-
-            MenuItem item4 = new MenuItem("Eosinofili");
-            item3.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item4.getText());
-                    copyTo(file, item4.getText());
-                    imageView.setVisible(false);
-                    setEosinofiliTile(eosinofiliTile);
-
-                }
-            });
-
-            MenuItem item5 = new MenuItem("Mastcellule");
-            item5.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item5.getText());
-                    copyTo(file, item5.getText());
-                    imageView.setVisible(false);
-                    setMastcelluleTile(mastcelluleTile);
-
-                }
-            });
-
-            MenuItem item6 = new MenuItem("Linfociti");
-            item6.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println(item6.getText());
-                    copyTo(file, item6.getText());
-                    imageView.setVisible(false);
-                    setLinfocitiTile(linfocitiTile);
-
-                }
-            });
-
-            if (clientSocket != null) {
-                MenuItem serverTitleItem = new MenuItem("Pass to:");
-                serverTitleItem.setDisable(true);
-
-
-                MenuItem serverMove = new MenuItem("Server");
-                serverMove.setOnAction(new EventHandler<ActionEvent>() {
+                    }
+                });
+                MenuItem item2 = new MenuItem("Mucipare");
+                item2.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
                         System.out.println(item2.getText());
-                        uploadServer(file, "others", patient.getSurname(), patient.getFirstName());
-                        try {
-                            if(clientSocket != null) {
-            clientSocket.close();
-        }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        establishConnection();
+                        copyTo(file, item2.getText());
+                        imageView.setVisible(false);
+                        setMucipareTile(mucipareTile);
 
                     }
                 });
 
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+                MenuItem item3 = new MenuItem("Neutrofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-            } else {
-                contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
-            }
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item3.getText());
+                        copyTo(file, item3.getText());
+                        imageView.setVisible(false);
+                        setNeutrofiliTile(neutrofiliTile);
+                    }
+                });
 
-            // When user right-click on Circle
-            imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                MenuItem item4 = new MenuItem("Eosinofili");
+                item3.setOnAction(new EventHandler<ActionEvent>() {
 
-                @Override
-                public void handle(ContextMenuEvent event) {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item4.getText());
+                        copyTo(file, item4.getText());
+                        imageView.setVisible(false);
+                        setEosinofiliTile(eosinofiliTile);
 
-                    contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+
+                MenuItem item5 = new MenuItem("Mastcellule");
+                item5.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item5.getText());
+                        copyTo(file, item5.getText());
+                        imageView.setVisible(false);
+                        setMastcelluleTile(mastcelluleTile);
+
+                    }
+                });
+
+                MenuItem item6 = new MenuItem("Linfociti");
+                item6.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println(item6.getText());
+                        copyTo(file, item6.getText());
+                        imageView.setVisible(false);
+                        setLinfocitiTile(linfocitiTile);
+
+                    }
+                });
+
+                if (clientSocket != null) {
+                    MenuItem serverTitleItem = new MenuItem("Pass to:");
+                    serverTitleItem.setDisable(true);
+
+
+                    MenuItem serverMove = new MenuItem("Server");
+                    serverMove.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println(item2.getText());
+                            uploadServer(file, "others", patient.getSurname(), patient.getFirstName());
+                            try {
+                                if (clientSocket != null) {
+                                    clientSocket.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            establishConnection();
+
+                        }
+                    });
+
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6, serverTitleItem, serverMove);
+
+                } else {
+                    contextMenu.getItems().addAll(titleItem, item1, item2, item3, item4, item5, item6);
                 }
-            });
-            tile.getChildren().addAll(imageView);
+
+                // When user right-click on Circle
+                imageView.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+                    @Override
+                    public void handle(ContextMenuEvent event) {
+
+                        contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
+                    }
+                });
+                tile.getChildren().addAll(imageView);
+            }
         }
     }
 

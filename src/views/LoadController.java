@@ -25,11 +25,14 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import org.apache.commons.io.FileUtils;
 import rinocitologia.Anamnesi;
 import rinocitologia.Patient;
 import utility.Sequence;
 import utility.Utility;
 import utility.DialogHelper;
+
+import javax.swing.filechooser.FileSystemView;
 
 public class LoadController implements Initializable {
 
@@ -211,6 +214,25 @@ public class LoadController implements Initializable {
         stage.setScene(new Scene(p));
         stage.show();
 
+
+    }
+
+    @FXML
+    private void export(ActionEvent event) throws IOException {
+        String source = patient.getPath();
+        File srcDir = new File(source);
+
+        String destination = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath() + File.separator + "Desktop";
+        File destDir = new File(destination);
+
+        try {
+            FileUtils.copyDirectory(srcDir, destDir);
+            FileUtils.copyDirectoryToDirectory(srcDir,destDir);
+            DialogHelper.showAlert(Alert.AlertType.INFORMATION, "Export", "Export Riuscito", "La cartella del paziente è disponibile sul Desktop");
+            System.out.println("Fatto");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
