@@ -195,7 +195,7 @@
          <content>
             <Pane prefHeight="413.0" prefWidth="790.0">
                <children>
-                  <Label layoutX="16.0" layoutY="27.0" text="Carica paziente">
+                  <Label layoutX="16.0" layoutY="27.0" text="Carica / Esporta paziente">
                    <font>
                        <Font size="24.0" />
                    </font>

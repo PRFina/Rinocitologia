@@ -2,9 +2,10 @@
 
 ## Whats this?
 JavaFx + CLIPS Engine + Python software - Graduation Thesis @Uniba. 
-System to support medic specialist in _rhinitis and cytology_.
-
-<img src="http://whoami.altervista.org/Materiale/Preview.png" alt="Cells revisioned by specialist">
+System to support medic specialist in _rhinitis and cytology_.<br>
+<center>
+<img src="http://whoami.altervista.org/Tesi/Cell%20Explorer.jpg">
+</center>
 
 ## Features
 <dl>
@@ -116,4 +117,7 @@ System to support medic specialist in _rhinitis and cytology_.
   <li>PNG Icons by <a href="https://www.flaticon.com">Flaticon</a></li>
   </ul>
 </dl>
+
+
+<img src="http://whoami.altervista.org/Materiale/Preview.png" alt="Cells revisioned by specialist">
 
