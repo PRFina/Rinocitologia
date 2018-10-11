@@ -11,7 +11,7 @@ System to support medic specialist in _rhinitis and cytology_.<br>
 <dl>
   <dt>Python</dt>
   <ul>
-  <li>cells recognition</li>
+  <li>cells and biofilm recognition</li>
   <li>cells classification through neural network</li>
   <li>Extraction of informations from "Tessera Sanitaria" (card used in Italy containing basic anagraphic informations about the patient)</li>
   </ul>
@@ -95,6 +95,9 @@ System to support medic specialist in _rhinitis and cytology_.<br>
      <li>
         <a href="https://www.tensorflow.org/">Tensorflow</a>
      </li>
+     <li>
+        <a href="#">Mahotas</a>
+    </li>
      </ul>
      </dl>
      <dl>
@@ -118,6 +121,14 @@ System to support medic specialist in _rhinitis and cytology_.<br>
   </ul>
 </dl>
 
-
+## System Overview
 <img src="http://whoami.altervista.org/Materiale/Preview.png" alt="Cells revisioned by specialist">
-
+<br>
+<ul>
+<li>
+For further further explanation about system's features check my graduation thesis. - <a href="http://whoami.altervista.org/Tesi/MaterialeCD/Tesi/TesiPDF.pdf">Link</a><br>
+</li>
+<li>
+Dataset used can be found <a href="http://whoami.altervista.org/Tesi/MaterialeCD/Dataset/">here</a>
+</li>
+</ul>
