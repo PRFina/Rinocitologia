@@ -114,6 +114,7 @@ public class Diagnosis {
 
 		cm = new ClipsManager(clips);
 		dict.setDiagnosi(cm.getDiagnosis());
+		System.out.println("Pinco");
 	}
 
 
