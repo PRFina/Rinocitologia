@@ -132,3 +132,4 @@ For further further explanation about system's features check my graduation thes
 Dataset used can be found <a href="http://whoami.altervista.org/Tesi/MaterialeCD/Dataset/">here</a>
 </li>
 </ul>
+<p>Cell Recognition and Extraction uses <a href="https://en.wikipedia.org/wiki/Mean_shift#Clustering">Mean Shift</a> in order to locate the maxima of a density function. Subsequently, images are converted in grey scale model and <a href="https://en.wikipedia.org/wiki/Otsu%27s_method">Otsu's method</a> is then applied on grey scaled images to reduce them to a binary image. Last step is to use <a href="https://en.wikipedia.org/wiki/Watershed_(image_processing)">Watershed for flooding</a> to segmentate the image and extract the cells</p>
