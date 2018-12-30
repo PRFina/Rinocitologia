@@ -4,6 +4,7 @@ import javafx.application.Platform;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,48 +54,6 @@ public class HomeController implements Initializable {
         patientTxt.setText(label);
     }
 
-
-    //private Desktop desktop = Desktop.getDesktop();
-
-    //final FileChooser fileChooser = new FileChooser();
-
-
-    /*
-
-    //FILE CHOOSER -> Selezioni solo file singoli
-    //https://docs.oracle.com/javafx/2/ui_controls/file-chooser.htm
-
-
-    @FXML
-    private void search(ActionEvent event){
-        Stage stage = new Stage();
-        configureFileChooser(fileChooser);
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            openFile(file);
-        }
-    }
-
-    private void openFile(File file) {
-        try {
-            desktop.open(file);
-        } catch (IOException ex) {
-            Logger.getLogger(
-                    HomeController.class.getName()).log(
-                    Level.SEVERE, null, ex
-            );
-        }
-    }
-
-    private static void configureFileChooser(final FileChooser fileChooser) {
-        fileChooser.setTitle("View Pictures");
-        fileChooser.setInitialDirectory(
-                new File(System.getProperty("user.home"))
-        );
-    }
-
-    */
-
     public void setInfo(){
         if(patient.getPathCampi() != null)
             pathLbl.setText(patient.getPathCampi());
@@ -125,20 +84,41 @@ public class HomeController implements Initializable {
         if(patient.getPathCampi() != null){
             try{
                 //ProcessBuilder pb = new ProcessBuilder("/Users/chiccolacriola/anaconda3/bin/python.app","foto.py");
+                Properties properties = new Properties();
+                try(InputStream iostream = getClass().getClassLoader()
+                        .getResourceAsStream("config.properties")){
+                    properties.load(iostream);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
 
                 if(DialogHelper.showConfirmationDialog("ATTENZIONE", "L'operazione potrebbe impiegare vari minuti.", "Sicuro di voler continuare?")){
 
-                    if(biofilmBox.isSelected() == true) {
-                        ProcessBuilder pbBiofilm = new ProcessBuilder("python", "biofilm_detection_java.py");
+                    String pythonPath = properties.getProperty("python_interpreter_path");
+                    String pythonScripts = "."+ File.separator + properties.getProperty("python_scripts_path");
+
+                    //Start biofilm extraction
+                    if(biofilmBox.isSelected()) {
+                        ProcessBuilder pbBiofilm = new ProcessBuilder(pythonPath, properties.getProperty("python_biofilm_script"));
+                        pbBiofilm.directory(new File(pythonScripts));
+                        pbBiofilm.inheritIO();
                         Process pBiofilm = pbBiofilm.start();
                         pBiofilm.waitFor();
                         DialogHelper.showAlert(Alert.AlertType.INFORMATION,"Biofilm Detection", "Biofilm Detection Completata", "Ok per continuare");
                     }
 
-                    ProcessBuilder pb = new ProcessBuilder("python","watershed_extraction.py");
+                    // Start cell extraction
+                    ProcessBuilder pb = new ProcessBuilder(pythonPath, properties.getProperty("python_extraction_script"));
+                    pb.directory(new File(pythonScripts));
+                    pb.inheritIO();
                     Process p = pb.start();
                     p.waitFor();
-                    ProcessBuilder pbClass = new ProcessBuilder("python","classificatore.py");
+
+                    //Start cell classification
+                    ProcessBuilder pbClass = new ProcessBuilder(pythonPath,properties.getProperty("python_classification_script"));
+                    pbClass.directory(new File(pythonScripts));
+                    pbClass.inheritIO();
                     Process pClass = pbClass.start();
                     pClass.waitFor();
                     DialogHelper.showAlert(Alert.AlertType.INFORMATION,"Classificazione", "Estrazione e classificazione completate", "Ok per continuare");

@@ -9,13 +9,14 @@ import os
 import time
 import numpy as np
 import cv2
-import matplotlib.patches as mpatches
-import matplotlib.pyplot as plt
+
 
 from skimage import morphology
 from skimage import io
 from skimage.measure import regionprops
 from skimage.feature import peak_local_max
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
 from scipy import ndimage
 from datetime import timedelta
 from py4j.java_gateway import JavaGateway, GatewayParameters
