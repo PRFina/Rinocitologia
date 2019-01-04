@@ -1,4 +1,4 @@
 *.class
 *.properties
-/out
-/.idea
+out
+.idea
