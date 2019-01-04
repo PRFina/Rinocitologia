@@ -148,7 +148,7 @@ public class HomeController implements Initializable {
                 }
 
 
-            }catch(Exception e){System.out.println(e);}
+            }catch(Exception e){e.printStackTrace();}
         } else {
             DialogHelper.showAlert(Alert.AlertType.ERROR, "ERRORE", "Selezionare la cartella contenente i campi", "Occorre selezionare una cartella contenente i campi prelevati e da esaminare.");
         }
