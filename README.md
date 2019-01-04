@@ -133,3 +133,16 @@ Dataset used can be found <a href="http://whoami.altervista.org/Tesi/MaterialeCD
 </li>
 </ul>
 <p>Cell Recognition and Extraction uses <a href="https://en.wikipedia.org/wiki/Mean_shift#Clustering">Mean Shift</a> in order to locate the maxima of a density function. Subsequently, images are converted in grey scale model and <a href="https://en.wikipedia.org/wiki/Otsu%27s_method">Otsu's method</a> is then applied on grey scaled images to reduce them to a binary image. Last step is to use <a href="https://en.wikipedia.org/wiki/Watershed_(image_processing)">Watershed for flooding</a> to segmentate the image and extract the cells</p>
+
+## New Repository
+### Major Changes (from forked repository)
+* Added configuration file for better deployment
+
+### Minor Changes (from forked repository)
+* Clean repository with .gitignore
+* Added *stdin*, *stdout*, *stderror* redirection from Python scripts to Java (trough Process Builder)
+
+### Setting up the environment
+1. Follow the instructions by [Rensykes](http://whoami.altervista.org/Tesi/MaterialeCD/Tesi/TesiPDF.pdf) (pp. 51-52)
+2. Rename [config.properties.example](/resources/config.properties.example) removing ".example" suffix
+3. Modify the *config.properties* file (created at step 2) changing *python_interpreter_path* value to your python interpreter (the environment where all dependencies from step 1 are installed)
