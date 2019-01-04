@@ -1,0 +1,50 @@
+.head-background
+{
+    -fx-background-color: #f49842;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: #fff;
+}
+
+.scroll-pane {
+   -fx-background-color: #fff;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #e0a774; /* 2 */
+    -fx-text-fill: white; /* 5 */
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    /* 3:, 4: */
+    -fx-background-color: #ffc896;
+    -fx-text-fill: white; /* 5 */
+}
+
+.list-cell { -fx-text-fill: black; /* 5 */ }
+
+
+/*
+2. ListView: when mouse over an item, highlight with a orange shade;
+3. ListView: when an item is selected, paint it with a gradient;
+4. ListView: when focus is lost from ListView, selected item should be painted with gradient;
+5. ListView: all items will start with text-fill black. But on mouse over and/or selected it will change to white.
+
+.list-view {
+    -fx-selection-bar: #4d4c59 ;
+    -fx-selection-bar-non-focused: #4d4c59 ;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #f49842;
+    -fx-text-fill: white;
+}
+
+
+
+.list-cell:filled:hover {
+    -fx-background-color: #4d4c59;
+    -fx-text-fill: white;
+}
+*/
