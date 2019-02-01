@@ -97,43 +97,7 @@ public class RevisioneController implements Initializable {
      */
     public void setTiles(){
 
-//        System.out.println(patient.toString());
-
-        /*
-        //SETTO SERVER
-        hostAddr = "localhost";
-        portNumber = 3333;
-
-        try {
-            clientSocket = new Socket(hostAddr, portNumber);
-            inFromServer = clientSocket.getInputStream();
-            pw = new PrintWriter(clientSocket.getOutputStream(), true);
-            outToServer = clientSocket.getOutputStream();
-            ObjectInputStream oin = new ObjectInputStream(inFromServer);
-
-            String s = (String) oin.readObject();
-            System.out.println(s);
-            connected = true;
-            */
-            /*
-            len = Integer.parseInt((String) oin.readObject());
-            System.out.println(len);
-
-            String[] temp_names = new String[len];
-
-            for (int i = 0; i < len; i++) {
-                String filename = (String) oin.readObject();
-                System.out.println(filename);
-                names[i] = filename;
-                temp_names[i] = filename;
-            }
-            */
-            /*
-        } catch (Exception exc) {
-            System.out.println("Exception: " + exc.getMessage());
-        }
-            */
-            establishConnection();
+        establishConnection();
         setEpitelialiTile(epitelialiTile);
         setMucipareTile(mucipareTile);
         setNeutrofiliTile(neutrofiliTile);
@@ -151,7 +115,7 @@ public class RevisioneController implements Initializable {
         tile.setPadding(new Insets(15, 15, 15, 15));
         tile.setHgap(15);
         //Patient patient = new Patient();
-        String path = patient.getPath() + File.separator + "inputs" + File.separator + "Epiteliali";
+        String path = patient.getPath() + File.separator + "inputs" + File.separator + "epiteliali";
 
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
@@ -286,7 +250,7 @@ public class RevisioneController implements Initializable {
         tile.setPadding(new Insets(15, 15, 15, 15));
         tile.setHgap(15);
         //Patient patient = new Patient();
-        String path = patient.getPath() + File.separator + "inputs" + File.separator + "Neutrofili";
+        String path = patient.getPath() + File.separator + "inputs" + File.separator + "neutrofili";
 
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
@@ -426,7 +390,7 @@ public class RevisioneController implements Initializable {
         tile.setPadding(new Insets(15, 15, 15, 15));
         tile.setHgap(15);
         //Patient patient = new Patient();
-        String path = patient.getPath() + File.separator + "inputs" + File.separator + "Mucipare";
+        String path = patient.getPath() + File.separator + "inputs" + File.separator + "mucipare";
 
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
@@ -1206,19 +1170,7 @@ public class RevisioneController implements Initializable {
             String s = (String) oin.readObject();
             System.out.println(s);
             connected = true;
-            /*
-            len = Integer.parseInt((String) oin.readObject());
-            System.out.println(len);
 
-            String[] temp_names = new String[len];
-
-            for (int i = 0; i < len; i++) {
-                String filename = (String) oin.readObject();
-                System.out.println(filename);
-                names[i] = filename;
-                temp_names[i] = filename;
-            }
-            */
         } catch (Exception exc) {
             System.out.println("Exception: " + exc.getMessage());
         }
